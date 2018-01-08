@@ -1,0 +1,8 @@
+<resources>
+  <string name="app_name">Zoo</string>
+  <string name="animals_title">Animals</string>
+  <string name="create_zoo_name_placeholder">New zoo name</string>
+  <string name="create_zoo_button_label">Create</string>
+  <string name="title_activity_zoo_overview">ZooOverviewActivity</string>
+
+</resources>
