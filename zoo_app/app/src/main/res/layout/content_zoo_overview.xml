@@ -21,17 +21,17 @@
       app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
-      android:id="@+id/animalsTitle"
+      android:id="@+id/zookeepersOverviewTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
       android:textSize="16sp"
-      android:text="@string/animals_title"
+      android:text="Zookeepers"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/zooTitle"/>
   <ListView
-      android:id="@+id/animalsList"
+      android:id="@+id/zookeepersOverviewList"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
@@ -39,6 +39,51 @@
       android:layout_marginEnd="16dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/animalsTitle">
+      app:layout_constraintTop_toBottomOf="@+id/zookeepersOverviewTitle">
   </ListView>
+
+  <TextView
+      android:id="@+id/pensOverviewTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      android:textSize="16sp"
+      android:text="Pens"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/zookeepersOverviewList"/>
+  <ListView
+      android:id="@+id/pensOverviewList"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/pensOverviewTitle">
+  </ListView>
+
+  <TextView
+      android:id="@+id/animalsOverviewTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      android:textSize="16sp"
+      android:text="@string/animals_title"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/pensOverviewList"/>
+  <ListView
+      android:id="@+id/animalsOverviewList"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/animalsOverviewTitle">
+  </ListView>
+
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.example.jhalloran.zoo.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,6 +13,7 @@ public class ZooManager {
 
   private static ZooManager instance = null;
   private Map<String, Zoo> namesToZoos;
+  private Object ArrayList;
 
   private ZooManager() {
     namesToZoos = new HashMap<>();
@@ -18,19 +21,23 @@ public class ZooManager {
 
   public static ZooManager getInstance() {
     if (instance == null) {
-      instance  =new ZooManager();
+      instance  = new ZooManager();
     }
     return instance;
   }
 
-  public void addZoo(String name){
+  public void addZoo(Zoo zoo){
     // TODO: Duplicate names
-    namesToZoos.put(name, new Zoo(name));
+    namesToZoos.put(zoo.getName(), zoo);
   }
 
   public Zoo getZoo(String name) {
     // TODO: Null return values
     return namesToZoos.get(name);
+  }
+
+  public List<Zoo> getZoos() {
+    return new ArrayList<Zoo>(namesToZoos.values());
   }
 
 
