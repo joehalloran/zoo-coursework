@@ -58,4 +58,16 @@ public class ZooManagerTest {
     assertTrue(allZoos.contains(zooTwo));
   }
 
+  @Test
+  public void setActiveZoo_updatesValue() {
+    zooManager = ZooManager.getInstance();
+    zooManager.setActiveZoo(zooOne);
+
+    assertEquals(zooManager.getActiveZoo() ,zooOne);
+
+    zooManager.setActiveZoo(zooTwo);
+
+    assertEquals(zooManager.getActiveZoo(), zooTwo);
+  }
+
 }

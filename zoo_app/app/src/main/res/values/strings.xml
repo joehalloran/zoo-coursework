@@ -4,9 +4,7 @@
   <string name="create_zoo_name_placeholder">New zoo name</string>
   <string name="create_zoo_button_label">Create</string>
   <string name="title_activity_zoo_overview">Zoo overview</string>
-  <string name="title_activity_zoo_manager">ZooManager</string>
+  <string name="title_activity_zoo_manager">Zoo manager</string>
   <string name="zoos">Zoos</string>
   <string name="action_settings">Settings</string>
-  <string name="section_format">Hello World from section: %1$d</string>
-
 </resources>

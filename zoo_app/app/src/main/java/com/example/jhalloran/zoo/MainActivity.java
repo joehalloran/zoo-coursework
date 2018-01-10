@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.ZooManager;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    updateZooList();
+    displayZooList();
   }
 
   public void createZoo(View view){
@@ -40,17 +39,18 @@ public class MainActivity extends AppCompatActivity {
     String zooName = editText.getText().toString();
     Zoo newZoo = new Zoo(zooName, true);
     zooManager.addZoo(newZoo);
-    intent.putExtra(EXTRA_ZOO_NAME, zooName);
+    zooManager.setActiveZoo(newZoo);
+    // intent.putExtra(EXTRA_ZOO_NAME, zooName);
     startActivity(intent);
   }
 
   @Override
   public void onResume(){
     super.onResume();
-    updateZooList();
+    displayZooList();
   }
 
-  private void updateZooList() {
+  private void displayZooList() {
     List<Zoo> zooList = zooManager.getZoos();
     ArrayAdapter<Zoo> arrayAdapter = new ArrayAdapter<>(this, R.layout.simple_text_row, zooList);
     ListView listView = (ListView) findViewById(R.id.zoosList);

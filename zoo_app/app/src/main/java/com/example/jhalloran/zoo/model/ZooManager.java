@@ -14,6 +14,7 @@ public class ZooManager {
   private static ZooManager instance = null;
   private Map<String, Zoo> namesToZoos;
   private Object ArrayList;
+  private Zoo activeZoo = null;
 
   private ZooManager() {
     namesToZoos = new HashMap<>();
@@ -40,5 +41,13 @@ public class ZooManager {
     return new ArrayList<Zoo>(namesToZoos.values());
   }
 
+  public void setActiveZoo(Zoo zoo) {
+    activeZoo = zoo;
+  }
+
+  public Zoo getActiveZoo() {
+    // TODO: zoo should be in Zoo List.
+    return activeZoo;
+  }
 
 }

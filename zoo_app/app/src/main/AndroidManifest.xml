@@ -9,7 +9,7 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name="com.example.jhalloran.zoo.MainActivity">
+    <activity android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -19,13 +19,15 @@
     <activity
         android:label="@string/title_activity_zoo_overview"
         android:name=".ZooOverviewActivity"
-        android:parentActivityName="com.example.jhalloran.zoo.MainActivity"
+        android:parentActivityName=".MainActivity"
         android:theme="@style/AppTheme.NoActionBar">
-
-      <!-- The meta-data tag is required if you support API level 15 and lower -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.example.jhalloran.zoo.MainActivity"/>
+    </activity>
+    <activity
+        android:label="@string/title_activity_zoo_manager"
+        android:name=".ZooManagerActivity"
+        android:parentActivityName=".ZooOverviewActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      >
     </activity>
   </application>
 
