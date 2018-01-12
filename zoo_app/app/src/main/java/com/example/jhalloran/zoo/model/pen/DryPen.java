@@ -4,6 +4,7 @@ import com.example.jhalloran.zoo.model.animal.Animal;
 import com.example.jhalloran.zoo.model.animal.FlyingAnimal;
 import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
 import com.example.jhalloran.zoo.model.shared.PenType;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by jhalloran on 1/9/18.
  */
 
-public class DryPen implements Enclosable {
+public class DryPen implements Enclosable, Serializable {
   private static final PenType TYPE = PenType.DRY;
   private final int landArea;
   private final int temperature;
@@ -62,10 +63,7 @@ public class DryPen implements Enclosable {
     if (animal instanceof SwimmingAnimal) {
       return false;
     }
-    if (animal instanceof FlyingAnimal) {
-      return false;
-    }
-    return true;
+    return !(animal instanceof FlyingAnimal);
   }
 
   private int calculateRemainingSpace() {

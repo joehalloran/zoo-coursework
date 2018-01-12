@@ -1,79 +1,103 @@
 package com.example.jhalloran.zoo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.TextView;
 import com.example.jhalloran.zoo.model.Zoo;
-import com.example.jhalloran.zoo.model.ZooManager;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class MainActivity extends AppCompatActivity {
-  public static final String EXTRA_ZOO_NAME = "com.example.jhalloran.zoo.zooname";
-
-  private final ZooManager zooManager = ZooManager.getInstance();
-
-  OnClickListener btnClicked = new OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-    }
-  };
+  private static final String TAG = "ZooMainActivity";
+  private static final String FILE_NAME = "zoo.tmp";
+  private Zoo zoo;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    displayZooList();
-  }
 
-  public void createZoo(View view){
-    Intent intent = new Intent(this, ZooOverviewActivity.class);
-    EditText editText = (EditText) findViewById(R.id.createZooText);
-    String zooName = editText.getText().toString();
-    Zoo newZoo = new Zoo(zooName, true);
-    zooManager.addZoo(newZoo);
-    zooManager.setActiveZoo(newZoo);
-    // intent.putExtra(EXTRA_ZOO_NAME, zooName);
-    startActivity(intent);
+    initializeZooFromFile();
+    zoo = Zoo.getInstance();
   }
 
   @Override
-  public void onResume(){
+  public void onResume() {
     super.onResume();
-    displayZooList();
+    refreshContent();
   }
 
-  private void displayZooList() {
-    List<Zoo> zooList = zooManager.getZoos();
-    ArrayAdapter<Zoo> arrayAdapter = new ArrayAdapter<>(this, R.layout.simple_text_row, zooList);
-    ListView listView = (ListView) findViewById(R.id.zoosList);
-    listView.setAdapter(arrayAdapter);
-    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.zoosListLinearLayout);
-    linearLayout.removeAllViews();
-    Button button;
-    final Intent intent = new Intent(this, ZooOverviewActivity.class);
-    for (Zoo zoo : zooList) {
-      button = new Button(this);
-      button.setHeight(50);
-      button.setWidth(50);
-      button.setTag(zoo.getName());
-      button.setText(String.format("Manage %s", zoo.getName()));
-      button.setOnClickListener(new View.OnClickListener(){
-        public void onClick(View v){
-          intent.putExtra(EXTRA_ZOO_NAME, v.getTag().toString());
-          startActivity(intent);
-        }
-      });
-      linearLayout.addView(button);
+  private void refreshContent() {
+    TextView zooTitle = findViewById(R.id.zooTitle);
+    zooTitle.setText(zoo.getName());
+
+    TextView zooKeepersTitle = findViewById(R.id.zookeepersOverviewTitle);
+    zooKeepersTitle.setText(String.format("Total zookeepers: %d", zoo.getZookeepers().size()));
+
+    TextView pensTitle = findViewById(R.id.pensOverviewTitle);
+    pensTitle.setText(String.format("Total pens: %d", zoo.getPens().size()));
+
+    TextView animalsTitle = findViewById(R.id.animalsOverviewTitle);
+    animalsTitle.setText(String.format("Total animals: %d", zoo.getAnimals().size()));
+
+    final Button button = findViewById(R.id.manageZooButton);
+    final Intent manageZooIntent = new Intent(this, ZooManagerActivity.class);
+    button.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        startActivity(manageZooIntent);
+      }
+    });
+  }
+
+  void deleteAllSavedFiles() {
+    for (String file: fileList()) {
+      Log.e(TAG, "deleted : " + file);
+      deleteFile(file);
     }
   }
 
+  void writeZooToFile(Zoo zoo) {
+    Log.e(TAG, "Writing");
+    try {
+      FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+      ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+      objectOutputStream.writeObject(zoo);
+      objectOutputStream.close();
+      fileOutputStream.close();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void initializeZooFromFile() {
+    try {
+      FileInputStream fis = openFileInput(FILE_NAME);
+      ObjectInputStream ois = new ObjectInputStream(fis);
+      Zoo zoo = (Zoo) ois.readObject();
+      ois.close();
+      fis.close();
+      if (zoo != null) {
+        Zoo.initializeZoo(zoo);
+        Log.i(TAG, String.format("Reading %s from file", zoo.getName()));
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
 
 }

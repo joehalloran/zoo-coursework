@@ -2,6 +2,7 @@ package com.example.jhalloran.zoo.model.animal;
 
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
+import java.io.Serializable;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -9,16 +10,12 @@ import java.util.Set;
  * Created by jhalloran on 1/8/18.
  */
 
-public class SwimmingAnimal extends Animal {
+public class SwimmingAnimal extends Animal implements Serializable{
+  private String name;
+  private Set<PenType> penTypes;
   private final int waterVolumeRequire;
   private final int landAreaRequired;
   private Set<WaterType> waterTypes;
-
-  private SwimmingAnimal(String name, Set<PenType> penTypes) {
-    super(name, penTypes);
-    this.waterVolumeRequire = 0;
-    this.landAreaRequired = 0;
-  }
 
   //TODO: Builder
   public SwimmingAnimal(
@@ -27,10 +24,22 @@ public class SwimmingAnimal extends Animal {
       int waterVolumeRequired,
       Set<WaterType> waterTypes,
       Set<PenType> penTypes) {
-    super(name, penTypes);
+    super();
+    this.name = name;
+    this.penTypes = EnumSet.copyOf(penTypes);
     this.waterTypes = EnumSet.copyOf(waterTypes);
     this.waterVolumeRequire = waterVolumeRequired;
     this.landAreaRequired = landAreaRequired;
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public Set<PenType> getPenTypes() {
+    return penTypes;
   }
 
   @Override
@@ -51,5 +60,10 @@ public class SwimmingAnimal extends Animal {
   @Override
   public int getAirVolumeRequired() {
     return 0;
+  }
+
+  @Override
+  public String toString() {
+    return name;
   }
 }

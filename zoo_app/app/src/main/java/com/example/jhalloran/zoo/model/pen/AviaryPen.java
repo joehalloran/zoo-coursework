@@ -4,6 +4,7 @@ import com.example.jhalloran.zoo.model.animal.Animal;
 import com.example.jhalloran.zoo.model.animal.LandAnimal;
 import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
 import com.example.jhalloran.zoo.model.shared.PenType;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by jhalloran on 1/9/18.
  */
 
-public class AviaryPen implements Enclosable, Flyable {
+public class AviaryPen implements Enclosable, Flyable, Serializable {
   private static final PenType TYPE = PenType.AVIARY;
   private final int airVolume;
   private final int landArea;
@@ -70,10 +71,7 @@ public class AviaryPen implements Enclosable, Flyable {
     if (animal instanceof SwimmingAnimal) {
       return false;
     }
-    if (animal instanceof LandAnimal) {
-      return false;
-    }
-    return true;
+    return !(animal instanceof LandAnimal);
   }
 
   private int calculateRemainingSpace() {

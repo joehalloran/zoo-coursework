@@ -4,6 +4,7 @@ import com.example.jhalloran.zoo.model.animal.Animal;
 import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by jhalloran on 1/9/18.
  */
 
-public class AquariumPen implements Enclosable, Swimmable {
+public class AquariumPen implements Enclosable, Swimmable, Serializable {
   private static final PenType TYPE = PenType.AQUARIUM;
   private static final int LAND_AREA = 0;
   private final int temperature;
@@ -76,10 +77,7 @@ public class AquariumPen implements Enclosable, Swimmable {
     if (!(animal.getPenTypes().contains(TYPE))) {
       return false;
     }
-    if (!(animal.getWaterTypes().contains(waterType))) {
-      return false;
-    }
-    return true;
+    return animal.getWaterTypes().contains(waterType);
   }
 
   private int calculateRemainingSpace() {

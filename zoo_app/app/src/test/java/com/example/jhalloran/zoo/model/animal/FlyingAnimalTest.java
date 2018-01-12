@@ -39,6 +39,11 @@ public final class FlyingAnimalTest {
     assertTrue(animal.getWaterTypes().isEmpty());
   }
 
+  @Test
+  public void toString_returnsName(){
+    assertEquals(animal.toString(), DEFAULT_NAME);
+  }
+
   private FlyingAnimal createDefaultLandAnimal() {
     return new FlyingAnimal(
         DEFAULT_NAME,

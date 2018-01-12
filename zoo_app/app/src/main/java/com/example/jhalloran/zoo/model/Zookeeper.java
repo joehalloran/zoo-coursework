@@ -2,6 +2,7 @@ package com.example.jhalloran.zoo.model;
 
 import com.example.jhalloran.zoo.model.pen.Enclosable;
 import com.example.jhalloran.zoo.model.shared.PenType;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Set;
  * Created by jhalloran on 1/9/18.
  */
 
-public class Zookeeper {
+public class Zookeeper implements Serializable {
   private final String name;
   private Set<PenType> penTypesCanManage;
   private List<Enclosable> pens = new ArrayList<Enclosable>();

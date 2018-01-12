@@ -41,6 +41,11 @@ public final class SwimmingAnimalTest {
     assertEquals(animal.getAirVolumeRequired(), 0);
   }
 
+  @Test
+  public void toString_returnsName(){
+    assertEquals(animal.toString(), DEFAULT_NAME);
+  }
+
   private SwimmingAnimal createDefaultSwimmingAnimal() {
     return new SwimmingAnimal(
         DEFAULT_NAME,

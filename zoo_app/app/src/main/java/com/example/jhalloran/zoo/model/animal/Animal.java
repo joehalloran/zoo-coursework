@@ -9,22 +9,12 @@ import java.util.Set;
  * Created by jhalloran on 1/8/18.
  */
 
+// TODO Make this an interface
 public abstract class Animal {
-  private final String name;
-  private final Set<PenType> penTypes;
 
-  public Animal(String name, Set<PenType> penTypes) {
-    this.name = name;
-    this.penTypes = EnumSet.copyOf(penTypes);
-  }
+  public abstract String getName();
 
-  public String getName() {
-    return name;
-  }
-
-  public Set<PenType> getPenTypes() {
-    return penTypes;
-  }
+  public abstract Set<PenType> getPenTypes();
 
   public abstract int getWaterVolumeRequired();
 
@@ -33,9 +23,4 @@ public abstract class Animal {
   public abstract int getAirVolumeRequired();
 
   public abstract Set<WaterType> getWaterTypes();
-
-  @Override
-  public String toString() {
-    return name;
-  }
 }

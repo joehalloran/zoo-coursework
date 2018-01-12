@@ -39,6 +39,11 @@ public final class LandAnimalTest {
     assertEquals(animal.getAirVolumeRequired(), 0);
   }
 
+  @Test
+  public void toString_returnsName(){
+    assertEquals(animal.toString(), DEFAULT_NAME);
+  }
+
   private LandAnimal createDefaultLandAnimal() {
     return new LandAnimal(DEFAULT_NAME, DEFAULT_LAND_AREA_REQUIRED, EnumSet.of(DEFAULT_PEN_TYPE));
   }

@@ -17,17 +17,21 @@
       </intent-filter>
     </activity>
     <activity
-        android:label="@string/title_activity_zoo_overview"
-        android:name=".ZooOverviewActivity"
+        android:label="@string/title_activity_zoo_manager"
+        android:name=".ZooManagerActivity"
         android:parentActivityName=".MainActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity
-        android:label="@string/title_activity_zoo_manager"
-        android:name=".ZooManagerActivity"
-        android:parentActivityName=".ZooOverviewActivity"
+        android:label="@string/create_animal"
+        android:name=".CreateAnimalActivity"
+        android:parentActivityName=".ZooManagerActivity"
         android:theme="@style/AppTheme.NoActionBar">
-      >
+    </activity>
+    <activity
+        android:label="@string/title_activity_test"
+        android:name=".TestActivity"
+        android:theme="@style/AppTheme.NoActionBar">
     </activity>
   </application>
 

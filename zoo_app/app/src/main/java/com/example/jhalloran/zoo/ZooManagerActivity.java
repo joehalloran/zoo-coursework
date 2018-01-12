@@ -1,24 +1,17 @@
 package com.example.jhalloran.zoo;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout.OnTabSelectedListener;
-import android.support.design.widget.TabLayout.Tab;
-import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
-import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.Menu;
+import com.example.jhalloran.zoo.model.Zoo;
+
 
 public class ZooManagerActivity extends AppCompatActivity {
   private static final String TAG = "ZooManagerActivity";
@@ -26,29 +19,46 @@ public class ZooManagerActivity extends AppCompatActivity {
   private ZooContentPagerAdapter zooContentPagerAdapter;
   private ViewPager viewPager;
   private TabLayout tabLayout;
+  private Zoo zoo = Zoo.getInstance();
 
+  @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_zoo_manager);
 
     // Enable toolbar
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     // Enable up navigation
     ActionBar ab = getSupportActionBar();
     ab.setDisplayHomeAsUpEnabled(true);
+  }
 
-    tabLayout = (TabLayout) findViewById(R.id.zoo_selector_tabs);
-    //tabLayout.addOnTabSelectedListener(onTabSelectedListener);
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_zoo_manager, menu);
+    return super.onCreateOptionsMenu(menu);
+  }
 
+  @Override
+  protected void onResume(){
+    super.onResume();
+    populatePagerView();
+  }
+
+  private void  populatePagerView() {
+    // Set up swipe tabs
     zooContentPagerAdapter = new ZooContentPagerAdapter(getSupportFragmentManager());
-    viewPager = (ViewPager) findViewById(R.id.zoo_manager_pager);
+    viewPager = findViewById(R.id.zoo_manager_pager);
     viewPager.setAdapter(zooContentPagerAdapter);
+
+    // Setup tab navigation
+    tabLayout = findViewById(R.id.zoo_selector_tabs);
     tabLayout.setupWithViewPager(viewPager);
   }
 
   public class ZooContentPagerAdapter extends FragmentStatePagerAdapter {
-    public ZooContentPagerAdapter(FragmentManager fm){
+    ZooContentPagerAdapter(FragmentManager fm){
       super(fm);
     }
 
@@ -56,10 +66,9 @@ public class ZooManagerActivity extends AppCompatActivity {
     public Fragment getItem(int i) {
       Fragment fragment = new ZooContentFragment();
       Bundle args = new Bundle();
-      args.putInt(ZooContentFragment.ARG_OBJECT, i+1);
+      args.putInt(ZooContentFragment.ARG_PAGE_NUMBER, i+1);
       fragment.setArguments(args);
       return fragment;
-
     }
 
     @Override
@@ -72,29 +81,16 @@ public class ZooManagerActivity extends AppCompatActivity {
       String title = null;
       switch (position) {
         case 0:
-          title = "Zookeepers";
+          title = "Animals";
           break;
         case 1:
           title = "Pens";
           break;
         case 2:
-          title = "Animals";
+          title = "Zookeepers";
           break;
       }
       return title;
-    }
-  }
-
-  public static class ZooContentFragment extends Fragment {
-    public static final String ARG_OBJECT = "object";
-
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-        ViewGroup container, Bundle savedStateInstance) {
-      View rootView = inflater.inflate(R.layout.zoo_manager_content_fragment, container, false);
-      Bundle args = getArguments();
-      ((TextView) rootView.findViewById(R.id.zoo_manager_content_text)).setText(Integer.toString(args.getInt(ARG_OBJECT)));
-      return rootView;
     }
   }
 }
