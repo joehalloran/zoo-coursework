@@ -47,11 +47,12 @@ public final class SwimmingAnimalTest {
   }
 
   private SwimmingAnimal createDefaultSwimmingAnimal() {
-    return new SwimmingAnimal(
-        DEFAULT_NAME,
-        DEFAULT_LAND_AREA_REQUIRED,
-        DEFAULT_WATER_VOLUME_REQUIRED,
-        EnumSet.of(DEFAULT_WATER_TYPE),
-        EnumSet.of(DEFAULT_PEN_TYPE));
+    return new SwimmingAnimal.Builder()
+        .setName(DEFAULT_NAME)
+        .setLandAreaRequired(DEFAULT_LAND_AREA_REQUIRED)
+        .setWaterVolumeRequired(DEFAULT_WATER_VOLUME_REQUIRED)
+        .setWaterTypes(EnumSet.of(DEFAULT_WATER_TYPE))
+        .setPenTypes(EnumSet.of(DEFAULT_PEN_TYPE))
+        .build();
   }
 }

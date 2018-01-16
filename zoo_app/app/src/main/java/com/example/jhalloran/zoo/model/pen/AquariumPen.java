@@ -20,7 +20,6 @@ public class AquariumPen implements Enclosable, Swimmable, Serializable {
   private final int waterVolume;
   private List<Animal> animals = new ArrayList<Animal>();
 
-  //TODO Builder
   public AquariumPen(WaterType waterType, int depth, int length, int width, int temperature) {
     this.temperature = temperature;
     this.waterType = waterType;

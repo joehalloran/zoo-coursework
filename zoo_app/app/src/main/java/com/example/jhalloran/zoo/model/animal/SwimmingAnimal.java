@@ -11,13 +11,12 @@ import java.util.Set;
  */
 
 public class SwimmingAnimal extends Animal implements Serializable{
-  private String name;
-  private Set<PenType> penTypes;
+  private final String name;
+  private final Set<PenType> penTypes;
   private final int waterVolumeRequire;
   private final int landAreaRequired;
-  private Set<WaterType> waterTypes;
+  private final Set<WaterType> waterTypes;
 
-  //TODO: Builder
   public SwimmingAnimal(
       String name,
       int landAreaRequired,
@@ -65,5 +64,49 @@ public class SwimmingAnimal extends Animal implements Serializable{
   @Override
   public String toString() {
     return name;
+  }
+
+  public static class Builder {
+    private String name;
+    private Set<PenType> penTypes;
+    private int landAreaRequired;
+    private int waterVolumeRequired;
+    private Set<WaterType> waterTypes;
+
+    public Builder() {}
+
+    public SwimmingAnimal.Builder setName(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public SwimmingAnimal.Builder setPenTypes(Set<PenType> penTypes) {
+      this.penTypes = EnumSet.copyOf(penTypes);
+      return this;
+    }
+
+    public SwimmingAnimal.Builder setLandAreaRequired(int landAreaRequired) {
+      this.landAreaRequired = landAreaRequired;
+      return this;
+    }
+
+    public SwimmingAnimal.Builder setWaterVolumeRequired(int waterVolumeRequired) {
+      this.waterVolumeRequired = waterVolumeRequired;
+      return this;
+    }
+
+    public SwimmingAnimal.Builder setWaterTypes(Set<WaterType> waterTypes) {
+      this.waterTypes = EnumSet.copyOf(waterTypes);
+      return this;
+    }
+
+    public SwimmingAnimal build() {
+      return new SwimmingAnimal(
+          this.name,
+          this.landAreaRequired,
+          this.waterVolumeRequired,
+          this.waterTypes,
+          this.penTypes);
+    }
   }
 }

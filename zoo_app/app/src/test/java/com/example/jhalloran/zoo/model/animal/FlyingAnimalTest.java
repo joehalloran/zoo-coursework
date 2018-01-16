@@ -45,10 +45,11 @@ public final class FlyingAnimalTest {
   }
 
   private FlyingAnimal createDefaultLandAnimal() {
-    return new FlyingAnimal(
-        DEFAULT_NAME,
-        DEFAULT_LAND_AREA_REQUIRED,
-        DEFAULT_AIR_VOLUME_REQUIRED,
-        EnumSet.of(DEFAULT_PEN_TYPE));
+    return new FlyingAnimal.Builder()
+          .setName(DEFAULT_NAME)
+          .setLandAreaRequired(DEFAULT_LAND_AREA_REQUIRED)
+          .setAirVolumeRequired(DEFAULT_AIR_VOLUME_REQUIRED)
+          .setPenTypes(EnumSet.of(DEFAULT_PEN_TYPE))
+          .build();
   }
 }

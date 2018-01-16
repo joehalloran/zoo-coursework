@@ -16,8 +16,8 @@ import java.util.Set;
 
 /** */
 public class LandAnimal extends Animal implements Serializable {
-  private String name;
-  private Set<PenType> penTypes;
+  private final String name;
+  private final Set<PenType> penTypes;
   private final int landAreaRequired;
 
   public LandAnimal(String name, int landAreaRequired, Set<PenType> penTypes) {

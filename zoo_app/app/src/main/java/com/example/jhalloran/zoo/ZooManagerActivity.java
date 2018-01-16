@@ -1,5 +1,7 @@
 package com.example.jhalloran.zoo;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +11,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import com.example.jhalloran.zoo.model.Zoo;
 
 
@@ -32,6 +36,17 @@ public class ZooManagerActivity extends AppCompatActivity {
     // Enable up navigation
     ActionBar ab = getSupportActionBar();
     ab.setDisplayHomeAsUpEnabled(true);
+
+
+    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    final Intent createAnimalIntent = new Intent(this, CreateAnimalActivity.class);
+    fab.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Log.e(TAG, String.format("Page: %d", viewPager.getCurrentItem());
+        startActivity(createAnimalIntent);
+      }
+    });
   }
 
   @Override

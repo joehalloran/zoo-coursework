@@ -4,6 +4,7 @@ package com.example.jhalloran.zoo.model.animal;
  * Created by jhalloran on 1/8/18.
  */
 
+import android.net.Uri.Builder;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
 import java.io.Serializable;
@@ -13,12 +14,11 @@ import java.util.Set;
 
 /** */
 public class FlyingAnimal extends Animal implements Serializable {
-  private String name;
-  private Set<PenType> penTypes;
+  private final String name;
+  private final Set<PenType> penTypes;
   private final int landAreaRequired;
   private final int airVolumeRequired;
 
-  // TODO Builder
   public FlyingAnimal(
       String name, int landAreaRequired, int airVolumeRequired, Set<PenType> penTypes) {
     super();
@@ -61,6 +61,43 @@ public class FlyingAnimal extends Animal implements Serializable {
   @Override
   public String toString() {
     return name;
+  }
+
+  public static class Builder {
+    private String name;
+    private Set<PenType> penTypes;
+    private int landAreaRequired;
+    private int airVolumeRequired;
+
+    public Builder() {}
+
+    public FlyingAnimal.Builder setName(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public FlyingAnimal.Builder setPenTypes(Set<PenType> penTypes) {
+      this.penTypes = EnumSet.copyOf(penTypes);
+      return this;
+    }
+
+    public FlyingAnimal.Builder setLandAreaRequired(int landAreaRequired) {
+      this.landAreaRequired = landAreaRequired;
+      return this;
+    }
+
+    public FlyingAnimal.Builder setAirVolumeRequired(int airVolumeRequired) {
+      this.airVolumeRequired = airVolumeRequired;
+      return this;
+    }
+
+    public FlyingAnimal build() {
+      return new FlyingAnimal(
+          this.name,
+          this.landAreaRequired,
+          this.airVolumeRequired,
+          this.penTypes);
+    }
   }
 }
 

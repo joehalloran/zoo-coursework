@@ -2,6 +2,27 @@
   <string name="app_name">Zoo</string>
   <string name="title_activity_zoo_manager">Zoo manager</string>
   <string name="action_save">Save</string>
+  <string name="action_cancel">Cancel</string>
   <string name="create_animal">Create animal</string>
-  <string name="title_activity_test">TestActivity</string>
+  <string name="species_hint">Species</string>
+  <string name="animal_land_area_hint">Land area required</string>
+  <string name="animal_water_volume_hint">Water volume required</string>
+  <string name="pen_types">Pen types</string>
+  <string name="aquarium">Aquarium</string>
+  <string name="aviary">Aviary</string>
+  <string name="dry_pen">Dry pen</string>
+  <string name="animal_air_volume_hint">Air volume required</string>
+  <string name="water_types">Water type for this animal</string>
+  <string name="salt_water">Salt water</string>
+  <string name="fresh_water">Fresh water</string>
+  <string-array name="animal_types">
+    <item>Land animal</item>
+    <item>Swimming animal</item>
+    <item>Flying animal</item>
+  </string-array>
+  <string-array name="pen_types">
+    <item>Aquarium</item>
+    <item>Aviary</item>
+    <item>Dry pen</item>
+  </string-array>
 </resources>

@@ -24,16 +24,15 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-
-    initializeZooFromFile();
     zoo = Zoo.getInstance();
+    setContentView(R.layout.activity_main);
   }
 
   @Override
   public void onResume() {
     super.onResume();
     refreshContent();
+    writeZooToFile(zoo);
   }
 
   private void refreshContent() {
@@ -79,25 +78,4 @@ public class MainActivity extends AppCompatActivity {
       e.printStackTrace();
     }
   }
-
-  private void initializeZooFromFile() {
-    try {
-      FileInputStream fis = openFileInput(FILE_NAME);
-      ObjectInputStream ois = new ObjectInputStream(fis);
-      Zoo zoo = (Zoo) ois.readObject();
-      ois.close();
-      fis.close();
-      if (zoo != null) {
-        Zoo.initializeZoo(zoo);
-        Log.i(TAG, String.format("Reading %s from file", zoo.getName()));
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-    }
-  }
-
 }
