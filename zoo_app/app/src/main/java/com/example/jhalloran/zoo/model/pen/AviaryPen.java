@@ -19,7 +19,6 @@ public class AviaryPen implements Enclosable, Flyable, Serializable {
   private final int temperature;
   private List<Animal> animals = new ArrayList<Animal>();
 
-  //TODO Builder
   public AviaryPen(int length, int width, int height, int temperature) {
     this.landArea = length * width;
     this.airVolume = length * width * height;

@@ -1,6 +1,11 @@
 <resources>
   <string name="app_name">Zoo</string>
   <string name="title_activity_zoo_manager">Zoo manager</string>
+  <string name="title_activity_create_pen">Create pen</string>
+  <string name="title_activity_animal_detail">Animal details</string>
+  <string name="title_activity_create_zookeeper">Create zookeeper</string>
+  <string name="title_activity_pen_detail">Pen details</string>
+  <string name="title_activity_zookeeper_detail">Zookeeper details</string>
   <string name="action_save">Save</string>
   <string name="action_cancel">Cancel</string>
   <string name="create_animal">Create animal</string>
@@ -15,6 +20,25 @@
   <string name="water_types">Water type for this animal</string>
   <string name="salt_water">Salt water</string>
   <string name="fresh_water">Fresh water</string>
+  <string name="create_pen">Create pen</string>
+  <string name="pen_temperature_hint">Pen temperature</string>
+  <string name="pen_length_hint">Pen length (m)</string>
+  <string name="pen_width_hint">Pen width (m)</string>
+  <string name="pen_water_depth_hint">Pen water depth (m)</string>
+  <string name="pen_air_height_hint">Pen height (m)</string>
+  <string name="animal_pen_types_detail">Pen types:</string>
+  <string name="animal_land_area_detail">Land area required:</string>
+  <string name="animal_water_volume_detail">Water volume required:</string>
+  <string name="animal_air_volume_detail">Air volume required:</string>
+  <string name="animal_water_types_detail">Water types:</string>
+  <string name="pen_detail_temperature">Pen temperature:</string>
+  <string name="pen_land_area_detail">Pen land area:</string>
+  <string name="pen_water_volume_detail">Pen water volume:</string>
+  <string name="pen_air_volume_detail">Pen air volume:</string>
+  <string name="pen_water_type_detail">Pen water type:</string>
+  <string name="create_zookeeper">Create zookeeper</string>
+  <string name="zookeeper_name_hint">Zookeeper name</string>
+  <string name="zookeeper_pen_types">Pen types this zookeeper can manage:</string>
   <string-array name="animal_types">
     <item>Land animal</item>
     <item>Swimming animal</item>

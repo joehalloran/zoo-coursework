@@ -13,16 +13,24 @@ import com.example.jhalloran.zoo.model.shared.WaterType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by jhalloran on 1/8/18.
  */
 
 public class Zoo implements Serializable {
+
   public static final String ZOO_NAME = "Tottenham Hale retail park zoo";
   private static Zoo instance = null;
 
+  private HashMap<UUID, Object> allItems = new HashMap<>();
+  private HashMap<UUID, Animal> idsToAnimals = new HashMap<>();
+  private HashMap<UUID, Zookeeper> idsToZookeepers = new HashMap<>();
+  private HashMap<UUID, Enclosable> idsToPens = new HashMap<>();
   private List<Animal> animals = new ArrayList<>();
   private List<Zookeeper> zookeepers = new ArrayList<>();
   private List<Enclosable> pens = new ArrayList<>();
@@ -34,14 +42,13 @@ public class Zoo implements Serializable {
 
   public static Zoo getInstance() {
     if (instance == null) {
-      instance  = new Zoo();
+      instance = new Zoo();
     }
     return instance;
   }
 
-  public static Zoo initializeZoo(Zoo zoo) {
+  public static void initializeZoo(Zoo zoo) {
     instance = zoo;
-    return instance;
   }
 
   public String getName() {
@@ -60,16 +67,53 @@ public class Zoo implements Serializable {
     return pens;
   }
 
+  public Set<UUID> getAnimalIds() {
+    return idsToAnimals.keySet();
+  }
+
+  public Set<UUID> getZookeeperIds() {
+    return idsToZookeepers.keySet();
+  }
+
+  public Set<UUID> getPenIds() {
+    return idsToPens.keySet();
+  }
+
+  public Animal getAnimalById(UUID uuid) {
+    return idsToAnimals.get(uuid);
+  }
+
+  public Enclosable getPenById(UUID uuid) {
+    return idsToPens.get(uuid);
+  }
+
+  public Zookeeper getZookeeperById(UUID uuid) {
+    return idsToZookeepers.get(uuid);
+  }
+
+  public Object getAnyItemById(UUID uuid) {
+    return allItems.get(uuid);
+  }
+
   public void addAnimal(Animal animal) {
     animals.add(animal);
+    UUID newUuid = UUID.randomUUID();
+    idsToAnimals.put(newUuid, animal);
+    allItems.put(newUuid, animal);
   }
 
   public void addZookeeper(Zookeeper zookeeper) {
     zookeepers.add(zookeeper);
+    UUID newUuid = UUID.randomUUID();
+    idsToZookeepers.put(newUuid, zookeeper);
+    allItems.put(newUuid, zookeeper);
   }
 
   public void addPen(Enclosable pen) {
     pens.add(pen);
+    UUID newUuid = UUID.randomUUID();
+    idsToPens.put(newUuid, pen);
+    allItems.put(newUuid, pen);
   }
 
   @Override
@@ -81,20 +125,26 @@ public class Zoo implements Serializable {
     addAnimal(new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY)));
     addAnimal(new LandAnimal("Zebra", 40, EnumSet.of(PenType.DRY, PenType.PETTING)));
     addAnimal(new FlyingAnimal("Eagle", 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Cod", 50, 500, EnumSet.of(WaterType.SALT), EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Shark", 100, 1000, EnumSet.of(WaterType.SALT), EnumSet.of(PenType.AQUARIUM)));
+    addAnimal(new SwimmingAnimal("Cod", 50, 500, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.AQUARIUM)));
+    addAnimal(new SwimmingAnimal("Shark", 100, 1000, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.AQUARIUM)));
 
     addAnimal(new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY)));
     addAnimal(new LandAnimal("Zebra", 40, EnumSet.of(PenType.DRY, PenType.PETTING)));
     addAnimal(new FlyingAnimal("Eagle", 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Cod", 50, 500, EnumSet.of(WaterType.SALT), EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Shark", 100, 1000, EnumSet.of(WaterType.SALT), EnumSet.of(PenType.AQUARIUM)));
+    addAnimal(new SwimmingAnimal("Cod", 50, 500, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.AQUARIUM)));
+    addAnimal(new SwimmingAnimal("Shark", 100, 1000, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.AQUARIUM)));
 
     addAnimal(new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY)));
     addAnimal(new LandAnimal("Zebra", 40, EnumSet.of(PenType.DRY, PenType.PETTING)));
     addAnimal(new FlyingAnimal("Eagle", 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Cod", 50, 500, EnumSet.of(WaterType.SALT), EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Shark", 100, 1000, EnumSet.of(WaterType.SALT), EnumSet.of(PenType.AQUARIUM)));
+    addAnimal(new SwimmingAnimal("Cod", 50, 500, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.AQUARIUM)));
+    addAnimal(new SwimmingAnimal("Shark", 100, 1000, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.AQUARIUM)));
 
     addPen(new DryPen(10, 10, 21));
     addPen(new AviaryPen(50, 100, 30, 21));

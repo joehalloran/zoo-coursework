@@ -2,6 +2,7 @@ package com.example.jhalloran.zoo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,13 +27,20 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     zoo = Zoo.getInstance();
     setContentView(R.layout.activity_main);
+
+    final Button deleteAllButton = findViewById(R.id.deleteZooDataButton);
+    deleteAllButton.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        deleteAllSavedFiles();
+      }
+    });
   }
 
   @Override
   public void onResume() {
     super.onResume();
     refreshContent();
-    writeZooToFile(zoo);
+    writeZooToFile();
   }
 
   private void refreshContent() {
@@ -57,25 +65,31 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  void deleteAllSavedFiles() {
+  public void deleteAllSavedFiles() {
     for (String file: fileList()) {
       Log.e(TAG, "deleted : " + file);
       deleteFile(file);
     }
   }
 
-  void writeZooToFile(Zoo zoo) {
-    Log.e(TAG, "Writing");
-    try {
-      FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-      ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-      objectOutputStream.writeObject(zoo);
-      objectOutputStream.close();
-      fileOutputStream.close();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  private void writeZooToFile() {
+    AsyncTask.execute(
+        new Runnable() {
+          @Override
+          public void run() {
+            Log.e(TAG, "Writing");
+            try {
+              FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+              objectOutputStream.writeObject(zoo);
+              objectOutputStream.close();
+              fileOutputStream.close();
+            } catch (FileNotFoundException e) {
+              e.printStackTrace();
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        });
   }
 }

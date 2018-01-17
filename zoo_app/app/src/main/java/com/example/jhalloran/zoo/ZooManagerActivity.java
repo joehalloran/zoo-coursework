@@ -20,9 +20,7 @@ import com.example.jhalloran.zoo.model.Zoo;
 public class ZooManagerActivity extends AppCompatActivity {
   private static final String TAG = "ZooManagerActivity";
 
-  private ZooContentPagerAdapter zooContentPagerAdapter;
   private ViewPager viewPager;
-  private TabLayout tabLayout;
   private Zoo zoo = Zoo.getInstance();
 
   @Override
@@ -38,15 +36,32 @@ public class ZooManagerActivity extends AppCompatActivity {
     ab.setDisplayHomeAsUpEnabled(true);
 
 
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-    final Intent createAnimalIntent = new Intent(this, CreateAnimalActivity.class);
+    FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Log.e(TAG, String.format("Page: %d", viewPager.getCurrentItem());
-        startActivity(createAnimalIntent);
+        startActivity(getCreateItemIntent(viewPager.getCurrentItem()));
       }
     });
+  }
+
+  private Intent getCreateItemIntent(int position) {
+    Intent createItemIntent;
+    switch (position) {
+      case 0:
+        createItemIntent = new Intent(this, CreateAnimalActivity.class);
+        break;
+      case 1:
+        createItemIntent = new Intent(this, CreatePenActivity.class);
+        break;
+      case 2:
+        createItemIntent = new Intent(this, CreateZookeeperActivity.class);
+        break;
+      default:
+        Log.e(TAG, String.format("Invalid tab value %d when trying to create item", position));
+        createItemIntent = new Intent(this, ZooManagerActivity.class);
+    }
+    return createItemIntent;
   }
 
   @Override
@@ -63,12 +78,12 @@ public class ZooManagerActivity extends AppCompatActivity {
 
   private void  populatePagerView() {
     // Set up swipe tabs
-    zooContentPagerAdapter = new ZooContentPagerAdapter(getSupportFragmentManager());
+    ZooContentPagerAdapter zooContentPagerAdapter = new ZooContentPagerAdapter(getSupportFragmentManager());
     viewPager = findViewById(R.id.zoo_manager_pager);
     viewPager.setAdapter(zooContentPagerAdapter);
 
     // Setup tab navigation
-    tabLayout = findViewById(R.id.zoo_selector_tabs);
+    TabLayout tabLayout = findViewById(R.id.zoo_selector_tabs);
     tabLayout.setupWithViewPager(viewPager);
   }
 

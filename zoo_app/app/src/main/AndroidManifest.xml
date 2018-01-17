@@ -29,7 +29,35 @@
         android:parentActivityName=".ZooManagerActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
-    <activity android:name=".CreatePenActivity">
+    <activity
+        android:label="@string/title_activity_create_pen"
+        android:name=".CreatePenActivity"
+        android:parentActivityName=".ZooManagerActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity
+        android:label="@string/title_activity_animal_detail"
+        android:name=".AnimalDetailActivity"
+        android:parentActivityName=".ZooManagerActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity
+        android:label="@string/title_activity_pen_detail"
+        android:name=".PenDetailActivity"
+        android:parentActivityName=".ZooManagerActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity
+        android:label="@string/title_activity_create_zookeeper"
+        android:name=".CreateZookeeperActivity"
+        android:parentActivityName=".ZooManagerActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity
+        android:name=".ZookeeperDetailActivity"
+        android:label="@string/title_activity_zookeeper_detail"
+        android:parentActivityName=".ZooManagerActivity"
+        android:theme="@style/AppTheme.NoActionBar">
     </activity>
   </application>
 

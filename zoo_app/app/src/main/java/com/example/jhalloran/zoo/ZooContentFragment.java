@@ -11,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.jhalloran.zoo.model.Zoo;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by jhalloran on 1/11/18.
@@ -45,19 +48,20 @@ public class ZooContentFragment extends Fragment {
     recyclerView.setAdapter(adapter);
   }
 
-  private List<?> getDataSetForFragment(int pageNumber) {
-    List<?> dataSet = null;
+  private List<UUID> getDataSetForFragment(int pageNumber) {
+    List<UUID> dataSet = null;
     switch (pageNumber) {
       case 1:
-        dataSet = zoo.getAnimals();
+        dataSet = new ArrayList<>(zoo.getAnimalIds());
         break;
       case 2:
-        dataSet = zoo.getPens();
+        dataSet = new ArrayList<>(zoo.getPenIds());
         break;
       case 3:
-        dataSet = zoo.getZookeepers();
+        dataSet = new ArrayList<>(zoo.getZookeeperIds());
         break;
     }
     return dataSet;
+    //return zoo.getAllIds();
   }
 }

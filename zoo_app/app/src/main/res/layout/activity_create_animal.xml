@@ -88,6 +88,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:hint="@string/animal_water_volume_hint"
+      android:visibility="gone"
       android:inputType="phone"
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
@@ -98,6 +99,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:hint="@string/animal_air_volume_hint"
+      android:visibility="gone"
       android:inputType="phone"
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
@@ -107,32 +109,33 @@
       android:id="@+id/create_animal_water_type_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
       android:text="@string/water_types"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/create_animal_air_volume_required"/>
-  <RadioGroup
+  <LinearLayout
       android:id="@+id/create_animal_water_type_view_group"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
+      android:visibility="gone"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/create_animal_water_type_title"
       >
-    <RadioButton
+    <CheckBox
         android:id="@+id/salt_water_type_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/salt_water"/>
-    <RadioButton
+    <CheckBox
         android:id="@+id/fresh_water_type_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fresh_water" />
-  </RadioGroup>
+  </LinearLayout>
   <Button
       android:id="@+id/create_animal_save_button"
       android:layout_width="wrap_content"

@@ -9,6 +9,8 @@ import com.example.jhalloran.zoo.model.pen.DryPen;
 import com.example.jhalloran.zoo.model.pen.Enclosable;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import java.util.EnumSet;
+import java.util.Set;
+import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,10 +26,10 @@ public class ZooTest {
   private Enclosable defaultPen = new DryPen(10, 10, 21);
   private Zookeeper defaultZookeeper = new Zookeeper("James", EnumSet.of(PenType.DRY));
 
-  @Before
-  public void setUp() {
-    zoo = Zoo.getInstance();
-  }
+  // @Before
+  // public void setUp() {
+  //   zoo = Zoo.getInstance();
+  // }
 
   @Test
   public void zooManager_isSingleton() {
@@ -40,22 +42,35 @@ public class ZooTest {
   public void getName_isDefault() {
     assertEquals(zoo.getName(), DEFAULT_ZOO_NAME);
   }
+
   @Test
-  public void addAnimal() {
+  public void addAndGetAnimalById() {
     zoo.addAnimal(defaultAnimal);
     assertTrue(zoo.getAnimals().contains(defaultAnimal));
+    for (UUID uuid : zoo.getAnimalIds()) {
+      assertEquals(zoo.getAnimalById(uuid), defaultAnimal);
+      assertEquals(zoo.getAnyItemById(uuid), defaultAnimal);
+    }
   }
 
   @Test
-  public void addPen() {
+  public void addAndGetPenById() {
     zoo.addPen(defaultPen);
     assertTrue(zoo.getPens().contains(defaultPen));
+    for (UUID uuid : zoo.getPenIds()) {
+      assertEquals(zoo.getPenById(uuid), defaultPen);
+      assertEquals(zoo.getAnyItemById(uuid), defaultPen);
+    }
   }
 
   @Test
-  public void addZookeeper() {
+  public void addAndGetZookeeperById() {
     zoo.addZookeeper(defaultZookeeper);
     assertTrue(zoo.getZookeepers().contains(defaultZookeeper));
+    for (UUID uuid : zoo.getZookeeperIds()) {
+      assertEquals(zoo.getZookeeperById(uuid), defaultZookeeper);
+      assertEquals(zoo.getAnyItemById(uuid), defaultZookeeper);
+    }
   }
 
   @Test

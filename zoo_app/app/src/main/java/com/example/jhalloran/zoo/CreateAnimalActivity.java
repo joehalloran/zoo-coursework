@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.animal.FlyingAnimal;
@@ -18,7 +18,6 @@ import com.example.jhalloran.zoo.model.animal.LandAnimal;
 import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,12 +29,14 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
   private EditText landAreaRequired;
   private String animalTypeSelected;
   private CheckBox aquariumCheckBox;
-  private CheckBox avairyCheckbox;
+  private CheckBox aviaryCheckbox;
   private CheckBox dryPenCheckbox;
   private EditText waterVolumeInput;
   private EditText airVolumeInput;
   private View waterTypeTitle;
-  private RadioGroup waterTypeRadios;
+  private ViewGroup waterTypeViewGroup;
+  private CheckBox freshWaterCheckbox;
+  private CheckBox saltWaterCheckbox;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
       }
     });
 
-    Spinner spinner = (Spinner) findViewById(R.id.create_animal_type_spinner);
+    Spinner spinner = findViewById(R.id.create_animal_type_spinner);
     // Create an ArrayAdapter using the string array and a default spinner layout
     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
         R.array.animal_types, android.R.layout.simple_spinner_item);
@@ -68,17 +69,18 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     species = findViewById(R.id.create_animal_input_species);
     landAreaRequired = findViewById(R.id.create_animal_land_area_required);
     aquariumCheckBox = findViewById(R.id.aquarium_pen_type_checkbox);
-    avairyCheckbox = findViewById(R.id.aviary_pen_type_checkbox);
+    aviaryCheckbox = findViewById(R.id.aviary_pen_type_checkbox);
     dryPenCheckbox = findViewById(R.id.dry_pen_type_checkbox);
     waterVolumeInput = findViewById(R.id.create_animal_water_volume_required);
     airVolumeInput = findViewById(R.id.create_animal_air_volume_required);
-    waterTypeRadios = findViewById(R.id.create_animal_water_type_view_group);
     waterTypeTitle = findViewById(R.id.create_animal_water_type_title);
+    waterTypeViewGroup = findViewById(R.id.create_animal_water_type_view_group);
+    freshWaterCheckbox = findViewById(R.id.fresh_water_type_checkbox);
+    saltWaterCheckbox = findViewById(R.id.salt_water_type_checkbox);
 
   }
 
   private void saveAnimal() {
-    startActivity(new Intent(this, ZooManagerActivity.class));
     switch (animalTypeSelected) {
       case "Land animal":
         createLandAnimal();
@@ -127,17 +129,21 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     if (aquariumCheckBox.isChecked()) {
       penTypes.add(PenType.AQUARIUM);
     }
-    if (avairyCheckbox.isChecked()) {
+    if (aviaryCheckbox.isChecked()) {
       penTypes.add(PenType.AVIARY);
     }
     return penTypes;
   }
 
   private Set<WaterType> getSelectedWaterTypes() {
-    if (waterTypeRadios.getCheckedRadioButtonId() == R.id.fresh_water_type_checkbox) {
-      return EnumSet.of(WaterType.FRESH);
+    Set<WaterType> waterTypes = new HashSet<>();
+    if (freshWaterCheckbox.isChecked()) {
+      waterTypes.add(WaterType.FRESH);
     }
-    return EnumSet.of(WaterType.SALT);
+    if (saltWaterCheckbox.isChecked()) {
+      waterTypes.add(WaterType.SALT);
+    }
+    return waterTypes;
   }
 
 
@@ -166,10 +172,10 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
 
   private void configureActivityForLandAnimal() {
     hideAndUnCheckBox(aquariumCheckBox);
-    hideAndUnCheckBox(avairyCheckbox);
+    hideAndUnCheckBox(aviaryCheckbox);
     dryPenCheckbox.setVisibility(View.VISIBLE);
     waterVolumeInput.setVisibility(View.GONE);
-    waterTypeRadios.setVisibility(View.GONE);
+    waterTypeViewGroup.setVisibility(View.GONE);
     waterTypeTitle.setVisibility(View.GONE);
     airVolumeInput.setVisibility(View.GONE);
   }
@@ -177,19 +183,19 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
   private void configureActivityForFlyingAnimal() {
     hideAndUnCheckBox(aquariumCheckBox);
     hideAndUnCheckBox(dryPenCheckbox);
-    avairyCheckbox.setVisibility(View.VISIBLE);
+    aviaryCheckbox.setVisibility(View.VISIBLE);
     waterVolumeInput.setVisibility(View.GONE);
-    waterTypeRadios.setVisibility(View.GONE);
+    waterTypeViewGroup.setVisibility(View.GONE);
     waterTypeTitle.setVisibility(View.GONE);
     airVolumeInput.setVisibility(View.VISIBLE);
   }
 
   private void configureActivityForSwimmingAnimal() {
-    hideAndUnCheckBox(avairyCheckbox);
+    hideAndUnCheckBox(aviaryCheckbox);
     hideAndUnCheckBox(dryPenCheckbox);
     aquariumCheckBox.setVisibility(View.VISIBLE);
     waterVolumeInput.setVisibility(View.VISIBLE);
-    waterTypeRadios.setVisibility(View.VISIBLE);
+    waterTypeViewGroup.setVisibility(View.VISIBLE);
     waterTypeTitle.setVisibility(View.VISIBLE);
     airVolumeInput.setVisibility(View.GONE);
   }
