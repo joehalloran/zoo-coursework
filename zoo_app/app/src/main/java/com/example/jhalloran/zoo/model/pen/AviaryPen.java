@@ -12,7 +12,7 @@ import java.util.List;
  * Created by jhalloran on 1/9/18.
  */
 
-public class AviaryPen implements Enclosable, Flyable, Serializable {
+public class AviaryPen extends Enclosure implements Flyable, Serializable {
   private static final PenType TYPE = PenType.AVIARY;
   private final int airVolume;
   private final int landArea;

@@ -1,6 +1,6 @@
 package com.example.jhalloran.zoo.model;
 
-import com.example.jhalloran.zoo.model.pen.Enclosable;
+import com.example.jhalloran.zoo.model.pen.Enclosure;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.Set;
 public class Zookeeper implements Serializable {
   private final String name;
   private Set<PenType> penTypesCanManage;
-  private List<Enclosable> pens = new ArrayList<Enclosable>();
+  private List<Enclosure> pens = new ArrayList<Enclosure>();
 
   public Zookeeper(String name, Set<PenType> penTypesCanManage) {
     this.name = name;
@@ -38,15 +38,15 @@ public class Zookeeper implements Serializable {
     return penTypesCanManage.remove(type);
   }
 
-  public List<Enclosable> getPens() {
+  public List<Enclosure> getPens() {
     return pens;
   }
 
-  public Boolean addPen(Enclosable pen) {
+  public Boolean addPen(Enclosure pen) {
     return pens.add(pen);
   }
 
-  public Boolean removePen(Enclosable pen) {
+  public Boolean removePen(Enclosure pen) {
     return pens.remove(pen);
   }
 

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by jhalloran on 1/9/18.
  */
 
-public class AquariumPen implements Enclosable, Swimmable, Serializable {
+public class AquariumPen extends Enclosure implements Swimmable, Serializable {
   private static final PenType TYPE = PenType.AQUARIUM;
   private static final int LAND_AREA = 0;
   private final int temperature;

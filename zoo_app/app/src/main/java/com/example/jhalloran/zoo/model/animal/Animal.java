@@ -1,6 +1,6 @@
 package com.example.jhalloran.zoo.model.animal;
 
-import com.example.jhalloran.zoo.model.pen.Enclosable;
+import com.example.jhalloran.zoo.model.pen.Enclosure;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
 import java.util.Set;
@@ -12,7 +12,7 @@ import java.util.Set;
 // TODO Make this an interface
 public abstract class Animal {
 
-  private boolean assignedToPen = false;
+  private Enclosure penAssignedTo = null;
 
   public abstract String getName();
 
@@ -26,14 +26,18 @@ public abstract class Animal {
 
   public abstract Set<WaterType> getWaterTypes();
 
-  public boolean isAssignedToPen() {
-    return assignedToPen;
+  public boolean isAssigned() {
+    return (penAssignedTo != null);
   }
 
-  public void assignToPen(Enclosable pen) throws Exception{
+  public Enclosure getAssignedToPen() {
+    return penAssignedTo;
+  }
+
+  public void assignToPen(Enclosure pen) throws Exception{
     try {
       pen.addAnimal(this);
-      assignedToPen = true;
+      penAssignedTo = pen;
     } catch (Exception e) {
       throw e;
     }

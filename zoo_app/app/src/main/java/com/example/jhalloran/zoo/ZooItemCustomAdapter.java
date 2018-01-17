@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.animal.Animal;
-import com.example.jhalloran.zoo.model.pen.Enclosable;
+import com.example.jhalloran.zoo.model.pen.Enclosure;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,12 +39,23 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
 
   @Override
   public void onBindViewHolder(ZooItemViewHolder viewHolder, final int position) {
-    Log.d(TAG, "Element " + position + " set.");
-
-    // Get element from your dataset at this position and replace the contents of the view
-    // with that element
-    viewHolder.getTextView().setText(zoo.getAnyItemById(dataSet.get(position)).toString());
+    Object item = zoo.getAnyItemById(dataSet.get(position));
+    viewHolder.getTextView().setText(item.toString());
+    if (item instanceof Animal) {
+      Animal animal = (Animal) item;
+      Log.e(TAG ,String.format("%s is unassigned %s", animal.getName(), animal.isAssigned()));
+      if (!animal.isAssigned()) {
+        // ERROR HERE;
+        viewHolder.getHintView().setText(R.string.unassigned);
+      };
+    } if (item instanceof Enclosure) {
+      Enclosure pen = (Enclosure) item;
+      if (!pen.isAssigned()) {
+        viewHolder.getHintView().setText(R.string.unassigned);
+      };
+    }
   }
+
   @Override
   public int getItemCount() {
     return dataSet.size();
@@ -52,6 +63,7 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
 
   static class ZooItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView textView;
+    private final TextView hintView;
     private final Zoo zoo = Zoo.getInstance();
 
     ZooItemViewHolder(View v, final List<UUID> dataSet) {
@@ -67,7 +79,7 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
             Intent animalDetailIntent = new Intent(context, AnimalDetailActivity.class);
             animalDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
             context.startActivity(animalDetailIntent);
-          } else if (item instanceof Enclosable) {
+          } else if (item instanceof Enclosure) {
             Intent penDetailIntent = new Intent(context, PenDetailActivity.class);
             penDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
             context.startActivity(penDetailIntent);
@@ -78,11 +90,16 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
         }
         }
       });
+      hintView = v.findViewById(R.id.zooRowItemHint);
       textView = v.findViewById(R.id.zooRowItemText); //TODO
     }
 
     TextView getTextView() {
       return textView;
+    }
+
+    TextView getHintView() {
+      return hintView;
     }
   }
 }

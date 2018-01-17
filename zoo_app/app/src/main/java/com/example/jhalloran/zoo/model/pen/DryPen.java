@@ -12,7 +12,7 @@ import java.util.List;
  * Created by jhalloran on 1/9/18.
  */
 
-public class DryPen implements Enclosable, Serializable {
+public class DryPen extends Enclosure implements Serializable {
   private static final PenType TYPE = PenType.DRY;
   private final int landArea;
   private final int temperature;

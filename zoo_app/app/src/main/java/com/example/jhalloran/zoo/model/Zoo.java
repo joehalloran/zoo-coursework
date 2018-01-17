@@ -7,7 +7,7 @@ import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
 import com.example.jhalloran.zoo.model.pen.AquariumPen;
 import com.example.jhalloran.zoo.model.pen.AviaryPen;
 import com.example.jhalloran.zoo.model.pen.DryPen;
-import com.example.jhalloran.zoo.model.pen.Enclosable;
+import com.example.jhalloran.zoo.model.pen.Enclosure;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
 import java.io.Serializable;
@@ -30,14 +30,11 @@ public class Zoo implements Serializable {
   private HashMap<UUID, Object> allItems = new HashMap<>();
   private HashMap<UUID, Animal> idsToAnimals = new HashMap<>();
   private HashMap<UUID, Zookeeper> idsToZookeepers = new HashMap<>();
-  private HashMap<UUID, Enclosable> idsToPens = new HashMap<>();
-  private List<Animal> animals = new ArrayList<>();
-  private List<Zookeeper> zookeepers = new ArrayList<>();
-  private List<Enclosable> pens = new ArrayList<>();
+  private HashMap<UUID, Enclosure> idsToPens = new HashMap<>();
 
 
   private Zoo() {
-    // setUpZoo();
+    setUpZoo();
   }
 
   public static Zoo getInstance() {
@@ -56,15 +53,15 @@ public class Zoo implements Serializable {
   }
 
   public List<Animal> getAnimals() {
-    return animals;
+    return new ArrayList<>(idsToAnimals.values());
   }
 
   public List<Zookeeper> getZookeepers() {
-    return zookeepers;
+    return new ArrayList<>(idsToZookeepers.values());
   }
 
-  public List<Enclosable> getPens() {
-    return pens;
+  public List<Enclosure> getPens() {
+    return new ArrayList<>(idsToPens.values());
   }
 
   public Set<UUID> getAnimalIds() {
@@ -83,7 +80,7 @@ public class Zoo implements Serializable {
     return idsToAnimals.get(uuid);
   }
 
-  public Enclosable getPenById(UUID uuid) {
+  public Enclosure getPenById(UUID uuid) {
     return idsToPens.get(uuid);
   }
 
@@ -96,21 +93,18 @@ public class Zoo implements Serializable {
   }
 
   public void addAnimal(Animal animal) {
-    animals.add(animal);
     UUID newUuid = UUID.randomUUID();
     idsToAnimals.put(newUuid, animal);
     allItems.put(newUuid, animal);
   }
 
   public void addZookeeper(Zookeeper zookeeper) {
-    zookeepers.add(zookeeper);
     UUID newUuid = UUID.randomUUID();
     idsToZookeepers.put(newUuid, zookeeper);
     allItems.put(newUuid, zookeeper);
   }
 
-  public void addPen(Enclosable pen) {
-    pens.add(pen);
+  public void addPen(Enclosure pen) {
     UUID newUuid = UUID.randomUUID();
     idsToPens.put(newUuid, pen);
     allItems.put(newUuid, pen);

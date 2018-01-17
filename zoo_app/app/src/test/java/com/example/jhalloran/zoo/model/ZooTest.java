@@ -6,12 +6,10 @@ import static junit.framework.Assert.assertTrue;
 import com.example.jhalloran.zoo.model.animal.Animal;
 import com.example.jhalloran.zoo.model.animal.LandAnimal;
 import com.example.jhalloran.zoo.model.pen.DryPen;
-import com.example.jhalloran.zoo.model.pen.Enclosable;
+import com.example.jhalloran.zoo.model.pen.Enclosure;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import java.util.EnumSet;
-import java.util.Set;
 import java.util.UUID;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -23,7 +21,7 @@ public class ZooTest {
 
   private Zoo zoo = Zoo.getInstance();
   private Animal defaultAnimal = new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY));
-  private Enclosable defaultPen = new DryPen(10, 10, 21);
+  private Enclosure defaultPen = new DryPen(10, 10, 21);
   private Zookeeper defaultZookeeper = new Zookeeper("James", EnumSet.of(PenType.DRY));
 
   // @Before

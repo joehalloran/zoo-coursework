@@ -150,6 +150,39 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp" />
   </LinearLayout>
+  <LinearLayout
+      android:id="@+id/animal_detail_assigned"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginTop="16dp"
+      android:layout_marginBottom="16dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/animal_detail_water_types"
+      >
+    <TextView
+        android:id="@+id/animal_detail_assigned_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/animal_assigned_detail"/>
+    <TextView
+        android:id="@+id/animal_detail_assigned_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+  </LinearLayout>
+  <Button
+      android:id="@+id/animal_detail_assign_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/assign_to_pen"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/animal_detail_assigned"/>
 
 
 </android.support.constraint.ConstraintLayout>

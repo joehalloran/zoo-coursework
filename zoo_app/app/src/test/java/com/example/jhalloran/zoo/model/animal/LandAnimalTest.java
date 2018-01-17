@@ -6,7 +6,7 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 import com.example.jhalloran.zoo.model.pen.DryPen;
-import com.example.jhalloran.zoo.model.pen.Enclosable;
+import com.example.jhalloran.zoo.model.pen.Enclosure;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import java.util.EnumSet;
 import org.junit.Before;
@@ -32,7 +32,7 @@ public final class LandAnimalTest {
     assertEquals(animal.getName(), DEFAULT_NAME);
     assertEquals(animal.getLandAreaRequired(), DEFAULT_LAND_AREA_REQUIRED);
     assertTrue(animal.getPenTypes().contains(DEFAULT_PEN_TYPE));
-    assertFalse(animal.isAssignedToPen());
+    assertFalse(animal.isAssigned());
   }
 
   @Test
@@ -44,31 +44,33 @@ public final class LandAnimalTest {
 
   @Test
   public void assignAnimalToPen() {
-    Enclosable pen = new DryPen(10, 10, 20);
+    Enclosure pen = new DryPen(10, 10, 20);
     try {
       animal.assignToPen(pen);
     } catch (Exception e) {
       // Do nothing... test
     }
-    assertTrue(animal.isAssignedToPen());
+    assertTrue(animal.isAssigned());
+    assertEquals(animal.getAssignedToPen(), pen);
   }
 
   @Test
-  public void assignAssignedAnimalToSmallPen_throws_isAssignedRemainsTrue() {
-    Enclosable largePen = new DryPen(50, 50, 20);
+  public void assignAssignedAnimalToSmallPen_throws_remainsAssigned() {
+    Enclosure largePen = new DryPen(50, 50, 20);
     try {
       animal.assignToPen(largePen);
     } catch (Exception e) {
       // Do nothing... test
     }
-    Enclosable smallPen = new DryPen(1, 1, 20);
+    Enclosure smallPen = new DryPen(1, 1, 20);
     try {
       animal.assignToPen(smallPen);
       fail("Expected exception: Animal too large");
     } catch (Exception e) {
       // Do nothing... test
     }
-    assertTrue(animal.isAssignedToPen());
+    assertTrue(animal.isAssigned());
+    assertEquals(animal.getAssignedToPen(), largePen);
   }
 
   @Test

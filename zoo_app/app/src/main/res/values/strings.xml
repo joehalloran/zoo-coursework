@@ -31,14 +31,21 @@
   <string name="animal_water_volume_detail">Water volume required:</string>
   <string name="animal_air_volume_detail">Air volume required:</string>
   <string name="animal_water_types_detail">Water types:</string>
+  <string name="animal_assigned_detail">Assigned to pen:</string>
+  <string name="assign_to_pen">Assign to pen</string>
   <string name="pen_detail_temperature">Pen temperature:</string>
   <string name="pen_land_area_detail">Pen land area:</string>
   <string name="pen_water_volume_detail">Pen water volume:</string>
   <string name="pen_air_volume_detail">Pen air volume:</string>
   <string name="pen_water_type_detail">Pen water type:</string>
+  <string name="pen_assigned_detail">Assigned to zookeeper:</string>
+  <string name="assign_to_zookeeper">Assign to zookeeper</string>
   <string name="create_zookeeper">Create zookeeper</string>
   <string name="zookeeper_name_hint">Zookeeper name</string>
   <string name="zookeeper_pen_types">Pen types this zookeeper can manage:</string>
+  <string name="unassigned">Unassigned</string>
+
+
   <string-array name="animal_types">
     <item>Land animal</item>
     <item>Swimming animal</item>
