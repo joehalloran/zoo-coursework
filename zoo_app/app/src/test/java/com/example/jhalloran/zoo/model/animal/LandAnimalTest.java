@@ -19,6 +19,7 @@ public final class LandAnimalTest {
   private static final PenType DEFAULT_PEN_TYPE = PenType.DRY;
   private static final String DEFAULT_NAME = "cat";
   private static final int DEFAULT_LAND_AREA_REQUIRED = 10;
+  private static final String DEFAULT_PEN_NAME = "pen";
 
   Animal animal = createDefaultLandAnimal();
 
@@ -44,7 +45,7 @@ public final class LandAnimalTest {
 
   @Test
   public void assignAnimalToPen() {
-    Enclosure pen = new DryPen(10, 10, 20);
+    Enclosure pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
     try {
       animal.assignToPen(pen);
     } catch (Exception e) {
@@ -56,13 +57,13 @@ public final class LandAnimalTest {
 
   @Test
   public void assignAssignedAnimalToSmallPen_throws_remainsAssigned() {
-    Enclosure largePen = new DryPen(50, 50, 20);
+    Enclosure largePen = new DryPen(DEFAULT_PEN_NAME, 50, 50, 20);
     try {
       animal.assignToPen(largePen);
     } catch (Exception e) {
       // Do nothing... test
     }
-    Enclosure smallPen = new DryPen(1, 1, 20);
+    Enclosure smallPen = new DryPen(DEFAULT_PEN_NAME, 1, 1, 20);
     try {
       animal.assignToPen(smallPen);
       fail("Expected exception: Animal too large");
@@ -81,5 +82,4 @@ public final class LandAnimalTest {
   private LandAnimal createDefaultLandAnimal() {
     return new LandAnimal(DEFAULT_NAME, DEFAULT_LAND_AREA_REQUIRED, EnumSet.of(DEFAULT_PEN_TYPE));
   }
-
 }

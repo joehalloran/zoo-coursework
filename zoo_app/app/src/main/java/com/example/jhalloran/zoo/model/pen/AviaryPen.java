@@ -16,13 +16,12 @@ public class AviaryPen extends Enclosure implements Flyable, Serializable {
   private static final PenType TYPE = PenType.AVIARY;
   private final int airVolume;
   private final int landArea;
-  private final int temperature;
   private List<Animal> animals = new ArrayList<Animal>();
 
-  public AviaryPen(int length, int width, int height, int temperature) {
+  public AviaryPen(String name, int length, int width, int height, int temperature) {
+    super(name, temperature);
     this.landArea = length * width;
     this.airVolume = length * width * height;
-    this.temperature = temperature;
   }
 
   @Override
@@ -33,11 +32,6 @@ public class AviaryPen extends Enclosure implements Flyable, Serializable {
   @Override
   public int getLandArea() {
     return landArea;
-  }
-
-  @Override
-  public int getTemperature() {
-    return temperature;
   }
 
   @Override
@@ -79,11 +73,6 @@ public class AviaryPen extends Enclosure implements Flyable, Serializable {
       airVolumeCache = airVolumeCache - animal.getAirVolumeRequired();
     }
     return airVolumeCache;
-  }
-
-  @Override
-  public String toString(){
-    return TYPE.toString();
   }
 }
 

@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.pen.AquariumPen;
 import com.example.jhalloran.zoo.model.pen.AviaryPen;
@@ -24,6 +25,7 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
 
   private final Zoo zoo = Zoo.getInstance();
   private Intent manageZooIntent;
+  private TextView penName;
   private String penTypeSelected;
   private EditText penTemperature;
   private EditText penLength;
@@ -62,6 +64,7 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
     spinner.setAdapter(adapter);
     spinner.setOnItemSelectedListener(this);
 
+    penName = findViewById(R.id.create_pen_name);
     penTemperature = findViewById(R.id.create_pen_temperature);
     penLength = findViewById(R.id.create_pen_length);
     penWidth = findViewById(R.id.create_pen_width);
@@ -87,7 +90,9 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
   }
 
   private void createAquarium() {
-    zoo.addPen(new AquariumPen(getSelectedWaterTypes(),
+    zoo.addPen(new AquariumPen(
+        penName.getText().toString(),
+        getSelectedWaterTypes(),
         Integer.parseInt(penWaterDepth.getText().toString()),
         Integer.parseInt(penLength.getText().toString()),
         Integer.parseInt(penWidth.getText().toString()),
@@ -103,6 +108,7 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
 
   private void createAviary() {
     zoo.addPen(new AviaryPen(
+        penName.getText().toString(),
         Integer.parseInt(penLength.getText().toString()),
         Integer.parseInt(penWidth.getText().toString()),
         Integer.parseInt(penHeight.getText().toString()),
@@ -111,6 +117,7 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
 
   private void createDryPen() {
     zoo.addPen(new DryPen(
+        penName.getText().toString(),
         Integer.parseInt(penLength.getText().toString()),
         Integer.parseInt(penWidth.getText().toString()),
         Integer.parseInt(penTemperature.getText().toString())));

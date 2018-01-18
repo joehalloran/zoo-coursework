@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
+import org.w3c.dom.Text;
 
 public class PenDetailActivity extends AppCompatActivity {
   private static final String TAG = "PenDetail";
@@ -65,7 +66,8 @@ public class PenDetailActivity extends AppCompatActivity {
     airVolumeGroup = findViewById(R.id.pen_detail_air_volume);
     waterTypeGroup = findViewById(R.id.pen_detail_water_type);
 
-    TextView penType = findViewById(R.id.pen_detail_type);
+    TextView penName = findViewById(R.id.pen_detail_name);
+    TextView penType = findViewById(R.id.pen_detail_type_value);
     TextView penTemperature = findViewById(R.id.pen_detail_temperature_value);
     TextView landArea = findViewById(R.id.pen_detail_land_area_value);
     TextView waterVolume = findViewById(R.id.pen_detail_water_volume_value);
@@ -74,9 +76,11 @@ public class PenDetailActivity extends AppCompatActivity {
 
     configureViewForAnimalType();
 
-    penType.setText(pen.toString());
+    penName.setText(pen.toString());
+    penType.setText(pen.getType().toString());
     penTemperature.setText(String.valueOf(pen.getTemperature()));
     landArea.setText(String.valueOf(pen.getLandArea()));
+    setAssignedToTextField();
     if (pen instanceof Swimmable) {
       Swimmable waterPen = (Swimmable) pen;
       waterVolume.setText(String.valueOf(waterPen.getWaterVolume()));
@@ -104,7 +108,6 @@ public class PenDetailActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                   Zookeeper zookeeperSelected = zoo.getZookeeperById(zookeeperIds.get(which));
                   try {
-                    Log.e(TAG, "Attemping assign" + pen + " " + zookeeperSelected.toString());
                     pen.assignToZookeeper(zookeeperSelected);
                   } catch (Exception e) {
                     Log.e(TAG, "Error");

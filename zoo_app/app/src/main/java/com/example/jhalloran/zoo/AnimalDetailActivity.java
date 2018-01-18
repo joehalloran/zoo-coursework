@@ -103,7 +103,6 @@ public class AnimalDetailActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                   Enclosure penSelected = zoo.getPenById(penIds.get(which));
                   try {
-                    Log.e(TAG, "Attemping assign" + animal + " " + penSelected.toString());
                     animal.assignToPen(penSelected);
                   } catch (Exception e) {
                     Log.e(TAG, "Error");

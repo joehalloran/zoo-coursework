@@ -140,9 +140,9 @@ public class Zoo implements Serializable {
     addAnimal(new SwimmingAnimal("Shark", 100, 1000, EnumSet.of(WaterType.SALT),
         EnumSet.of(PenType.AQUARIUM)));
 
-    addPen(new DryPen(10, 10, 21));
-    addPen(new AviaryPen(50, 100, 30, 21));
-    addPen(new AquariumPen(WaterType.SALT, 20, 150, 100, 17));
+    addPen(new DryPen("Dry Pen", 10, 10, 21));
+    addPen(new AviaryPen("Aviary", 50, 100, 30, 21));
+    addPen(new AquariumPen("Aquarium", WaterType.SALT, 20, 150, 100, 17));
 
     addZookeeper(new Zookeeper("Joe", EnumSet.of(PenType.DRY, PenType.AVIARY, PenType.AQUARIUM)));
     addZookeeper(new Zookeeper("James", EnumSet.of(PenType.DRY)));

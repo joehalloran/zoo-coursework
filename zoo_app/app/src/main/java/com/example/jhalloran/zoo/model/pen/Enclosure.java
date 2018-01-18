@@ -3,28 +3,40 @@ package com.example.jhalloran.zoo.model.pen;
 import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.animal.Animal;
 import com.example.jhalloran.zoo.model.shared.PenType;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by jhalloran on 1/9/18.
  */
 
-public abstract class Enclosure {
-
+public abstract class Enclosure implements Serializable {
+  private final String name;
+  private final int temperature;
   private Zookeeper zookeeperAssignedTo = null;
+
+  public Enclosure(String name, int temperature) {
+    this.name = name;
+    this.temperature = temperature;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public int getTemperature() {
+    return temperature;
+  }
 
   public abstract PenType getType();
 
   public abstract int getLandArea();
-
-  public abstract int getTemperature();
 
   public abstract List<Animal> getAnimals();
 
   public abstract void addAnimal(Animal animal)
       throws Exception; // TODO: Create custom exception AND/OR return boolean
 
-  // TODO: boolean removeAnimal(Animal animal);
 
   public abstract boolean canLiveHere(Animal animal);
 
@@ -43,5 +55,10 @@ public abstract class Enclosure {
     } catch (Exception e) {
       throw e;
     }
+  }
+
+  @Override
+  public String toString(){
+    return name;
   }
 }

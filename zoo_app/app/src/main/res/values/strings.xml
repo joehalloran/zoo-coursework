@@ -6,6 +6,7 @@
   <string name="title_activity_create_zookeeper">Create zookeeper</string>
   <string name="title_activity_pen_detail">Pen details</string>
   <string name="title_activity_zookeeper_detail">Zookeeper details</string>
+  <string name="weather_title">Weather</string>
   <string name="action_save">Save</string>
   <string name="action_cancel">Cancel</string>
   <string name="create_animal">Create animal</string>
@@ -21,6 +22,7 @@
   <string name="salt_water">Salt water</string>
   <string name="fresh_water">Fresh water</string>
   <string name="create_pen">Create pen</string>
+  <string name="create_pen_name">Pen name</string>
   <string name="pen_temperature_hint">Pen temperature</string>
   <string name="pen_length_hint">Pen length (m)</string>
   <string name="pen_width_hint">Pen width (m)</string>
@@ -33,6 +35,7 @@
   <string name="animal_water_types_detail">Water types:</string>
   <string name="animal_assigned_detail">Assigned to pen:</string>
   <string name="assign_to_pen">Assign to pen</string>
+  <string name="pen_detail_type_title">Pen type:</string>
   <string name="pen_detail_temperature">Pen temperature:</string>
   <string name="pen_land_area_detail">Pen land area:</string>
   <string name="pen_water_volume_detail">Pen water volume:</string>

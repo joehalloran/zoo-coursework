@@ -10,17 +10,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.example.jhalloran.zoo.model.Zoo;
-import java.io.FileInputStream;
+import com.example.jhalloran.zoo.weather.WeatherUpdate;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class MainActivity extends AppCompatActivity {
   private static final String TAG = "ZooMainActivity";
   private static final String FILE_NAME = "zoo.tmp";
   private Zoo zoo;
+  private String location = "City:";
+  private double temperature = 0;
+  private WeatherUpdate weatherUpdate = new WeatherUpdate();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +38,31 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
+  private void deleteAllSavedFiles() {
+    for (String file: fileList()) {
+      Log.e(TAG, "deleted : " + file);
+      deleteFile(file);
+    }
+  }
+
   @Override
   public void onResume() {
     super.onResume();
     refreshContent();
+    AsyncTask.execute(
+        new Runnable() {
+          @Override
+          public void run() {
+            updateWeather();
+          }
+        });
     writeZooToFile();
+  }
+
+  private void updateWeather() {
+    weatherUpdate.updateWeather();
+    location = weatherUpdate.getLocation();
+    temperature = weatherUpdate.getTemperature();
   }
 
   private void refreshContent() {
@@ -56,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
     TextView animalsTitle = findViewById(R.id.animalsOverviewTitle);
     animalsTitle.setText(String.format("Total animals: %d", zoo.getAnimals().size()));
 
+    TextView weatherLocation = findViewById(R.id.weatherLocation);
+    weatherLocation.setText(location);
+
+    TextView weatherTemperature = findViewById(R.id.weatherTemperature);
+    weatherTemperature.setText(String.valueOf(temperature));
+
     final Button button = findViewById(R.id.manageZooButton);
     final Intent manageZooIntent = new Intent(this, ZooManagerActivity.class);
     button.setOnClickListener(new View.OnClickListener() {
@@ -65,12 +93,7 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  public void deleteAllSavedFiles() {
-    for (String file: fileList()) {
-      Log.e(TAG, "deleted : " + file);
-      deleteFile(file);
-    }
-  }
+
 
   private void writeZooToFile() {
     AsyncTask.execute(

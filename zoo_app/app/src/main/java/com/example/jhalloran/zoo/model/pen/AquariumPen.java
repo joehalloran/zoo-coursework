@@ -11,17 +11,15 @@ import java.util.List;
 /**
  * Created by jhalloran on 1/9/18.
  */
-
 public class AquariumPen extends Enclosure implements Swimmable, Serializable {
   private static final PenType TYPE = PenType.AQUARIUM;
   private static final int LAND_AREA = 0;
-  private final int temperature;
   private final WaterType waterType;
   private final int waterVolume;
   private List<Animal> animals = new ArrayList<Animal>();
 
-  public AquariumPen(WaterType waterType, int depth, int length, int width, int temperature) {
-    this.temperature = temperature;
+  public AquariumPen(String name, WaterType waterType, int depth, int length, int width, int temperature) {
+    super(name, temperature);
     this.waterType = waterType;
     waterVolume = depth * length * width;
   }
@@ -34,11 +32,6 @@ public class AquariumPen extends Enclosure implements Swimmable, Serializable {
   @Override
   public int getLandArea() {
     return LAND_AREA;
-  }
-
-  @Override
-  public int getTemperature() {
-    return temperature;
   }
 
   @Override
@@ -85,10 +78,5 @@ public class AquariumPen extends Enclosure implements Swimmable, Serializable {
       volumeCache = volumeCache - animal.getWaterVolumeRequired();
     }
     return volumeCache;
-  }
-
-  @Override
-  public String toString(){
-    return TYPE.toString();
   }
 }

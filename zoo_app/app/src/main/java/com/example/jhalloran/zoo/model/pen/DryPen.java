@@ -18,7 +18,8 @@ public class DryPen extends Enclosure implements Serializable {
   private final int temperature;
   private List<Animal> animals = new ArrayList<Animal>();
 
-  public DryPen(int length, int width, int temperature) {
+  public DryPen(String name, int length, int width, int temperature) {
+    super(name, temperature);
     this.landArea = length * width;
     this.temperature = temperature;
   }
@@ -72,10 +73,5 @@ public class DryPen extends Enclosure implements Serializable {
       areaCache = areaCache - animal.getLandAreaRequired();
     }
     return areaCache;
-  }
-
-  @Override
-  public String toString(){
-    return TYPE.toString();
   }
 }

@@ -26,4 +26,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    // Custom dependencies
+    annotationProcessor 'org.projectlombok:lombok:1.16.20'
+    compile 'org.openweathermap.java-api:api-core:1.2'
+    compile 'org.openweathermap.java-api:api-query:1.2'
+    compile 'org.openweathermap.java-api:api-model:1.2'
 }

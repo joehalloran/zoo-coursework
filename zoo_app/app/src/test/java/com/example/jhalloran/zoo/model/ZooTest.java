@@ -21,20 +21,14 @@ public class ZooTest {
 
   private Zoo zoo = Zoo.getInstance();
   private Animal defaultAnimal = new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY));
-  private Enclosure defaultPen = new DryPen(10, 10, 21);
+  private Enclosure defaultPen = new DryPen("Dry pen", 10, 10, 21);
   private Zookeeper defaultZookeeper = new Zookeeper("James", EnumSet.of(PenType.DRY));
-
-  // @Before
-  // public void setUp() {
-  //   zoo = Zoo.getInstance();
-  // }
 
   @Test
   public void zooManager_isSingleton() {
     Zoo zooTwo = Zoo.getInstance();
     assertEquals(zoo, zooTwo);
   }
-
 
   @Test
   public void getName_isDefault() {

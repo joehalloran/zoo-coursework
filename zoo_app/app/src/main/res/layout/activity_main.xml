@@ -45,6 +45,37 @@
       android:textSize="16sp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/pensOverviewTitle"/>
+  <LinearLayout
+      android:id="@+id/weather"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      app:layout_constraintStart_toStartOf="parent"
+      android:orientation="vertical"
+      app:layout_constraintTop_toBottomOf="@+id/animalsOverviewTitle">
+    <TextView
+        android:id="@+id/weatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/weather_title"/>
+    <TextView
+        android:id="@+id/weatherTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        />
+    <TextView
+        android:id="@+id/weatherLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        />
+  </LinearLayout>
   <Button
       android:id="@+id/manageZooButton"
       android:layout_width="wrap_content"
@@ -54,7 +85,7 @@
       android:layout_marginEnd="16dp"
       android:text="Manage this zoo"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/animalsOverviewTitle"/>
+      app:layout_constraintTop_toBottomOf="@+id/weather"/>
   <Button
       android:id="@+id/deleteZooDataButton"
       android:layout_width="wrap_content"
@@ -64,4 +95,5 @@
       android:text="DELETE ZOO FILE"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>

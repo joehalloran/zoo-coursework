@@ -11,8 +11,6 @@ import java.util.Set;
  */
 
 public class SwimmingAnimal extends Animal implements Serializable{
-  private final String name;
-  private final Set<PenType> penTypes;
   private final int waterVolumeRequire;
   private final int landAreaRequired;
   private final Set<WaterType> waterTypes;
@@ -23,22 +21,10 @@ public class SwimmingAnimal extends Animal implements Serializable{
       int waterVolumeRequired,
       Set<WaterType> waterTypes,
       Set<PenType> penTypes) {
-    super();
-    this.name = name;
-    this.penTypes = EnumSet.copyOf(penTypes);
+    super(name, penTypes);
     this.waterTypes = EnumSet.copyOf(waterTypes);
     this.waterVolumeRequire = waterVolumeRequired;
     this.landAreaRequired = landAreaRequired;
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public Set<PenType> getPenTypes() {
-    return penTypes;
   }
 
   @Override
@@ -59,11 +45,6 @@ public class SwimmingAnimal extends Animal implements Serializable{
   @Override
   public int getAirVolumeRequired() {
     return 0;
-  }
-
-  @Override
-  public String toString() {
-    return name;
   }
 
   public static class Builder {

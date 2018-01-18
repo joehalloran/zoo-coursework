@@ -41,18 +41,23 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
   public void onBindViewHolder(ZooItemViewHolder viewHolder, final int position) {
     Object item = zoo.getAnyItemById(dataSet.get(position));
     viewHolder.getTextView().setText(item.toString());
+    TextView hintView = viewHolder.getHintView();
     if (item instanceof Animal) {
       Animal animal = (Animal) item;
-      Log.e(TAG ,String.format("%s is unassigned %s", animal.getName(), animal.isAssigned()));
       if (!animal.isAssigned()) {
-        // ERROR HERE;
-        viewHolder.getHintView().setText(R.string.unassigned);
-      };
-    } if (item instanceof Enclosure) {
+        hintView.setText(R.string.unassigned);
+      } else {
+        hintView.setText("");
+      }
+      return;
+    }
+    if (item instanceof Enclosure) {
       Enclosure pen = (Enclosure) item;
       if (!pen.isAssigned()) {
-        viewHolder.getHintView().setText(R.string.unassigned);
-      };
+        hintView.setText(R.string.unassigned);
+      } else {
+        hintView.setText("");
+      }
     }
   }
 
@@ -84,14 +89,14 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
             penDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
             context.startActivity(penDetailIntent);
           } else if (item instanceof Zookeeper) {
-          Intent zookeeperDetailIntent = new Intent(context, ZookeeperDetailActivity.class);
-          zookeeperDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
-          context.startActivity(zookeeperDetailIntent);
-        }
-        }
-      });
+            Intent zookeeperDetailIntent = new Intent(context, ZookeeperDetailActivity.class);
+            zookeeperDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
+            context.startActivity(zookeeperDetailIntent);
+          }
+          }
+        });
       hintView = v.findViewById(R.id.zooRowItemHint);
-      textView = v.findViewById(R.id.zooRowItemText); //TODO
+      textView = v.findViewById(R.id.zooRowItemText);
     }
 
     TextView getTextView() {

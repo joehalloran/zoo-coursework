@@ -16,27 +16,12 @@ import java.util.Set;
 
 /** */
 public class LandAnimal extends Animal implements Serializable {
-  private final String name;
-  private final Set<PenType> penTypes;
   private final int landAreaRequired;
 
   public LandAnimal(String name, int landAreaRequired, Set<PenType> penTypes) {
-    super();
-    this.name = name;
-    this.penTypes = EnumSet.copyOf(penTypes);
+    super(name, penTypes);
     this.landAreaRequired = landAreaRequired;
   }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public Set<PenType> getPenTypes() {
-    return penTypes;
-  }
-
 
   @Override
   public int getLandAreaRequired() {
@@ -57,10 +42,4 @@ public class LandAnimal extends Animal implements Serializable {
   public Set<WaterType> getWaterTypes() {
     return Collections.emptySet();
   }
-
-  @Override
-  public String toString() {
-    return name;
-  }
-
 }

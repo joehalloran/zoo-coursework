@@ -83,6 +83,6 @@ public final class ZookeeperTest {
   }
 
   private DryPen createDefaultDryPen() {
-    return new DryPen(10, 10, 21);
+    return new DryPen("Dry pen", 10, 10, 21);
   }
 }

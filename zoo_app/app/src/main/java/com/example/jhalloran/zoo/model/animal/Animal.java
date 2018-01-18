@@ -3,20 +3,30 @@ package com.example.jhalloran.zoo.model.animal;
 import com.example.jhalloran.zoo.model.pen.Enclosure;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
+import java.io.Serializable;
+import java.util.EnumSet;
 import java.util.Set;
 
 /**
  * Created by jhalloran on 1/8/18.
  */
-
-// TODO Make this an interface
-public abstract class Animal {
-
+public abstract class Animal implements Serializable {
+  private final String name;
+  private final Set<PenType> penTypes;
   private Enclosure penAssignedTo = null;
 
-  public abstract String getName();
+  public Animal(String name, Set<PenType> penTypes) {
+    this.name = name;
+    this.penTypes = EnumSet.copyOf(penTypes);
+  }
 
-  public abstract Set<PenType> getPenTypes();
+  public String getName() {
+    return name;
+  }
+
+  public Set<PenType> getPenTypes() {
+    return penTypes;
+  }
 
   public abstract int getWaterVolumeRequired();
 
@@ -41,5 +51,10 @@ public abstract class Animal {
     } catch (Exception e) {
       throw e;
     }
+  }
+
+  @Override
+  public String toString() {
+    return name;
   }
 }
