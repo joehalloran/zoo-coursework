@@ -62,6 +62,5 @@ public class ZooContentFragment extends Fragment {
         break;
     }
     return dataSet;
-    //return zoo.getAllIds();
   }
 }

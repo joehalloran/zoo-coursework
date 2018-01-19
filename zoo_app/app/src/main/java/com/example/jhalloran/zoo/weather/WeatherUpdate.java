@@ -14,11 +14,9 @@ import org.openweathermap.api.query.currentweather.CurrentWeatherOneLocationQuer
 public class WeatherUpdate {
   private static final String API_KEY = "18c2ddc15226e8acc7ad7cc14b990871";
 
-  CurrentWeather currentWeather;
-
   public WeatherUpdate() {}
 
-  public void updateWeather() {
+  public CurrentWeather getCurrentWeather() {
     DataWeatherClient client = new UrlConnectionDataWeatherClient(API_KEY);
     CurrentWeatherOneLocationQuery currentWeatherOneLocationQuery = QueryBuilderPicker.pick()
         .currentWeather()                   // get current weather
@@ -30,22 +28,6 @@ public class WeatherUpdate {
         .responseFormat(ResponseFormat.JSON)// with JSON response format
         .unitFormat(UnitFormat.METRIC)      // in metric units
         .build();
-    currentWeather = client.getCurrentWeather(currentWeatherOneLocationQuery);
-  }
-
-  public double getTemperature() {
-    return currentWeather.getMainParameters().getTemperature();
-  }
-
-  public double getHumidity() {
-    return currentWeather.getMainParameters().getHumidity();
-  }
-
-  public double getPressure() {
-    return currentWeather.getMainParameters().getPressure();
-  }
-
-  public String getLocation() {
-    return currentWeather.getCityName() + ", " + currentWeather.getSystemParameters().getCountry();
+    return client.getCurrentWeather(currentWeatherOneLocationQuery);
   }
 }
