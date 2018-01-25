@@ -1,4 +1,4 @@
-package com.example.jhalloran.zoo;
+package com.example.jhalloran.zoo.ui.detail;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.example.jhalloran.zoo.R;
+import com.example.jhalloran.zoo.ZooConstants;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.pen.Enclosure;

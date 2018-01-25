@@ -1,8 +1,7 @@
-package com.example.jhalloran.zoo;
+package com.example.jhalloran.zoo.ui.manager;
+import static com.example.jhalloran.zoo.ZooConstants.ARG_PAGE_NUMBER;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,18 +9,17 @@ import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.jhalloran.zoo.R;
 import com.example.jhalloran.zoo.model.Zoo;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 /**
  * Created by jhalloran on 1/11/18.
  */
 public class ZooContentFragment extends Fragment {
-  public static final String ARG_PAGE_NUMBER =
-      "com.example.jhalloran.zoo.zoocontentfragment.pagenum";
+
 
   private RecyclerView recyclerView;
   private Zoo zoo = Zoo.getInstance();

@@ -42,11 +42,15 @@ public class Zookeeper implements Serializable {
     return pens;
   }
 
-  public Boolean addPen(Enclosure pen) {
-    return pens.add(pen);
+  public boolean addPen(Enclosure pen) {
+    return  canManagerPen(pen) && pens.add(pen);
   }
 
-  public Boolean removePen(Enclosure pen) {
+  public boolean canManagerPen(Enclosure pen) {
+    return penTypesCanManage.contains(pen.getType());
+  }
+
+  public boolean removePen(Enclosure pen) {
     return pens.remove(pen);
   }
 

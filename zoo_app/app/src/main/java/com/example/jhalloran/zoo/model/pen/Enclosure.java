@@ -37,6 +37,8 @@ public abstract class Enclosure implements Serializable {
   public abstract void addAnimal(Animal animal)
       throws Exception; // TODO: Create custom exception AND/OR return boolean
 
+  public abstract void removeAnimal(Animal animal); // TODO: Create custom exception AND/OR return boolean
+
 
   public abstract boolean canLiveHere(Animal animal);
 
@@ -49,11 +51,12 @@ public abstract class Enclosure implements Serializable {
   }
 
   public void assignToZookeeper(Zookeeper zookeeper) throws Exception{
-    try {
+    if (zookeeper.canManagerPen(this)) {
       zookeeper.addPen(this);
+      if (isAssigned()) {
+        zookeeperAssignedTo.removePen(this);
+      }
       zookeeperAssignedTo = zookeeper;
-    } catch (Exception e) {
-      throw e;
     }
   }
 

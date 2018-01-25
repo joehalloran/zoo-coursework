@@ -54,6 +54,11 @@ public class AviaryPen extends Enclosure implements Flyable, Serializable {
   }
 
   @Override
+  public void removeAnimal(Animal animal) {
+    animals.remove(animal);
+  }
+
+  @Override
   public boolean canLiveHere(Animal animal) {
     if (!(animal.getPenTypes().contains(TYPE))) {
       return false;

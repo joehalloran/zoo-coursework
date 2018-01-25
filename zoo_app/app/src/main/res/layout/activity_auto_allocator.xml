@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jhalloran.zoo.ui.detail.ZookeeperDetailActivity">
+    tools:context="com.example.jhalloran.zoo.ui.allocator.AutoAllocatorActivity">
+
   <android.support.design.widget.AppBarLayout
       android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
@@ -20,38 +21,46 @@
         app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
   </android.support.design.widget.AppBarLayout>
-  <TextView
-      android:id="@+id/zookeeper_detail_name"
+
+  <Button
+      android:id="@+id/allocateAnimalsButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
-      android:textSize="24dp"
-      android:text=""
+      android:text="@string/allocate_animals"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/appBarLayout"/>
-  <LinearLayout
-      android:id="@+id/zookeeper_detail_pen_types"
+      app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+    />
+
+  <TextView
+      android:id="@+id/allocatorAnimalReport"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
       android:layout_marginTop="16dp"
-      android:layout_marginBottom="16dp"
+      android:layout_marginStart="16dp"
+      android:visibility="gone"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/zookeeper_detail_name"
-      >
-    <TextView
-        android:id="@+id/zookeeper_detail_pen_types_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/zookeeper_pen_types"/>
-    <TextView
-        android:id="@+id/zookeeper_detail_pen_types_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp" />
-  </LinearLayout>
+      app:layout_constraintTop_toBottomOf="@id/allocateAnimalsButton"/>
+
+  <Button
+      android:id="@+id/allocatePensButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      android:text="@string/allocate_pens"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/allocatorAnimalReport"
+      />
+
+  <TextView
+      android:id="@+id/allocatorPenReport"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/allocatePensButton"/>
+
 </android.support.constraint.ConstraintLayout>

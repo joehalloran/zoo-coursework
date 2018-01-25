@@ -1,4 +1,6 @@
-package com.example.jhalloran.zoo;
+package com.example.jhalloran.zoo.ui.manager;
+
+import static com.example.jhalloran.zoo.ZooConstants.ARG_PAGE_NUMBER;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -13,13 +15,22 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import com.example.jhalloran.zoo.R;
+import com.example.jhalloran.zoo.concurrent.ZooThreadPoolManager;
+import com.example.jhalloran.zoo.io.ZooFileManager;
 import com.example.jhalloran.zoo.model.Zoo;
+import com.example.jhalloran.zoo.ui.allocator.AutoAllocatorActivity;
+import com.example.jhalloran.zoo.ui.create.CreateAnimalActivity;
+import com.example.jhalloran.zoo.ui.create.CreatePenActivity;
+import com.example.jhalloran.zoo.ui.create.CreateZookeeperActivity;
+import java.util.concurrent.Executor;
 
 
 public class ZooManagerActivity extends AppCompatActivity {
   private static final String TAG = "ZooManagerActivity";
-
+  private final ZooFileManager zooFileManager = new ZooFileManager(this);
   private ViewPager viewPager;
   private Zoo zoo = Zoo.getInstance();
 
@@ -74,6 +85,24 @@ public class ZooManagerActivity extends AppCompatActivity {
   protected void onResume(){
     super.onResume();
     populatePagerView();
+    Executor executor = ZooThreadPoolManager.getBackgroundThreadExecutor();
+    executor.execute(new Runnable() {
+      @Override
+      public void run() {
+        zooFileManager.writeZooToFile();
+      }
+    });
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.allocate_menu_item:
+        startActivity(new Intent(this, AutoAllocatorActivity.class));
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
   }
 
   private void  populatePagerView() {
@@ -96,7 +125,7 @@ public class ZooManagerActivity extends AppCompatActivity {
     public Fragment getItem(int i) {
       Fragment fragment = new ZooContentFragment();
       Bundle args = new Bundle();
-      args.putInt(ZooContentFragment.ARG_PAGE_NUMBER, i+1);
+      args.putInt(ARG_PAGE_NUMBER, i+1);
       fragment.setArguments(args);
       return fragment;
     }

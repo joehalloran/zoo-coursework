@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jhalloran.zoo.MainActivity">
+    tools:context="com.example.jhalloran.zoo.ui.main.MainActivity">
   <TextView
       android:id="@+id/zooTitle"
       android:layout_width="wrap_content"
@@ -45,15 +45,33 @@
       android:textSize="16sp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/pensOverviewTitle"/>
+  <Button
+      android:id="@+id/manageZooButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:text="Manage this zoo"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/animalsOverviewTitle"/>
   <LinearLayout
       android:id="@+id/weather"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
-      app:layout_constraintStart_toStartOf="parent"
       android:orientation="vertical"
-      app:layout_constraintTop_toBottomOf="@+id/animalsOverviewTitle">
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/manageZooButton">
+    <Button
+        android:id="@+id/refreshWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/refresh"
+        android:drawableLeft="@android:drawable/ic_menu_revert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/weatherTitle"
         android:layout_width="wrap_content"
@@ -69,23 +87,13 @@
         android:layout_marginStart="16dp"
         />
     <TextView
-        android:id="@+id/weatherLocation"
+        android:id="@+id/weatherPrecipitation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         />
   </LinearLayout>
-  <Button
-      android:id="@+id/manageZooButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="16dp"
-      android:text="Manage this zoo"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/weather"/>
   <Button
       android:id="@+id/deleteZooDataButton"
       android:layout_width="wrap_content"

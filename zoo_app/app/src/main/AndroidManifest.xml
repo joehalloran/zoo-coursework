@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jhalloran.zoo">
-  <uses-permission android:name="android.permission.INTERNET" />
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+
   <application
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,7 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity">
+    <activity android:name=".ui.main.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -19,44 +21,50 @@
     </activity>
     <activity
         android:label="@string/title_activity_zoo_manager"
-        android:name=".ZooManagerActivity"
-        android:parentActivityName=".MainActivity"
+        android:name=".ui.manager.ZooManagerActivity"
+        android:parentActivityName=".ui.main.MainActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity
         android:label="@string/create_animal"
-        android:name=".CreateAnimalActivity"
-        android:parentActivityName=".ZooManagerActivity"
+        android:name=".ui.create.CreateAnimalActivity"
+        android:parentActivityName=".ui.manager.ZooManagerActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity
         android:label="@string/title_activity_create_pen"
-        android:name=".CreatePenActivity"
-        android:parentActivityName=".ZooManagerActivity"
+        android:name=".ui.create.CreatePenActivity"
+        android:parentActivityName=".ui.manager.ZooManagerActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity
         android:label="@string/title_activity_animal_detail"
-        android:name=".AnimalDetailActivity"
-        android:parentActivityName=".ZooManagerActivity"
+        android:name=".ui.detail.AnimalDetailActivity"
+        android:parentActivityName=".ui.manager.ZooManagerActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity
         android:label="@string/title_activity_pen_detail"
-        android:name=".PenDetailActivity"
-        android:parentActivityName=".ZooManagerActivity"
+        android:name=".ui.detail.PenDetailActivity"
+        android:parentActivityName=".ui.manager.ZooManagerActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity
         android:label="@string/title_activity_create_zookeeper"
-        android:name=".CreateZookeeperActivity"
-        android:parentActivityName=".ZooManagerActivity"
+        android:name=".ui.create.CreateZookeeperActivity"
+        android:parentActivityName=".ui.manager.ZooManagerActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity
-        android:name=".ZookeeperDetailActivity"
         android:label="@string/title_activity_zookeeper_detail"
-        android:parentActivityName=".ZooManagerActivity"
+        android:name=".ui.detail.ZookeeperDetailActivity"
+        android:parentActivityName=".ui.manager.ZooManagerActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity
+        android:label="@string/title_activity_auto_allocator"
+        android:name=".ui.allocator.AutoAllocatorActivity"
+        android:parentActivityName=".ui.manager.ZooManagerActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
   </application>

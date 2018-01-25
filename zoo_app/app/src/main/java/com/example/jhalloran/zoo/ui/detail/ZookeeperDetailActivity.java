@@ -1,4 +1,4 @@
-package com.example.jhalloran.zoo;
+package com.example.jhalloran.zoo.ui.detail;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import com.example.jhalloran.zoo.R;
+import com.example.jhalloran.zoo.ZooConstants;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.shared.PenType;

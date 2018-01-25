@@ -5,6 +5,8 @@ package com.example.jhalloran.zoo;
  */
 
 public class ZooConstants {
-  public static final String ITEM_ID = "com.example.jhalloran.zoo.ITEM_ID";
+  public static final String ITEM_ID = "com.example.jhalloran.zoo.item.id";
+  public static final String ARG_PAGE_NUMBER =
+      "com.example.jhalloran.zoo.zoocontentfragment.pagenum";
 
 }

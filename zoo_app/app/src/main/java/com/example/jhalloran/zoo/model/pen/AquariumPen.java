@@ -59,8 +59,16 @@ public class AquariumPen extends Enclosure implements Swimmable, Serializable {
   }
 
   @Override
+  public void removeAnimal(Animal animal) {
+    animals.remove(animal);
+  }
+
+  @Override
   public boolean canLiveHere(Animal animal) {
     if (!(animal instanceof SwimmingAnimal)) {
+      return false;
+    }
+    if (animal.getLandAreaRequired() > LAND_AREA) {
       return false;
     }
     if (animal.getWaterVolumeRequired() > calculateRemainingSpace()) {

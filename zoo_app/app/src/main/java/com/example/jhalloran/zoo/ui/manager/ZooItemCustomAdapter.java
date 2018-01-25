@@ -1,17 +1,21 @@
-package com.example.jhalloran.zoo;
+package com.example.jhalloran.zoo.ui.manager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.example.jhalloran.zoo.R;
+import com.example.jhalloran.zoo.ZooConstants;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.animal.Animal;
 import com.example.jhalloran.zoo.model.pen.Enclosure;
+import com.example.jhalloran.zoo.ui.detail.AnimalDetailActivity;
+import com.example.jhalloran.zoo.ui.detail.PenDetailActivity;
+import com.example.jhalloran.zoo.ui.detail.ZookeeperDetailActivity;
 import java.util.List;
 import java.util.UUID;
 

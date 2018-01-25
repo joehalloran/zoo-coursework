@@ -56,6 +56,21 @@ public final class LandAnimalTest {
   }
 
   @Test
+  public void assignAnimalToSecondPen_updates() {
+    Enclosure pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
+    Enclosure secondPen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
+    try {
+      animal.assignToPen(pen);
+      animal.assignToPen(secondPen);
+    } catch (Exception e) {
+      // Do nothing... test
+    }
+    assertEquals(animal.getAssignedToPen(), secondPen);
+    assertTrue(secondPen.getAnimals().contains(animal));
+    assertFalse(pen.getAnimals().contains(animal));
+  }
+
+  @Test
   public void assignAssignedAnimalToSmallPen_throws_remainsAssigned() {
     Enclosure largePen = new DryPen(DEFAULT_PEN_NAME, 50, 50, 20);
     try {

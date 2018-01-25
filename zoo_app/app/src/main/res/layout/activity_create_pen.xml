@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jhalloran.zoo.CreatePenActivity">
+    tools:context="com.example.jhalloran.zoo.ui.create.CreatePenActivity">
   <TextView
       android:id="@+id/create_pen_title"
       android:layout_width="wrap_content"
@@ -16,16 +16,15 @@
       android:textSize="24dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"/>
-  <TextView
+  <EditText
       android:id="@+id/create_pen_name"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
-      android:text="@string/create_pen_name"
-      android:textSize="24dp"
+      android:hint="@string/create_pen_name"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"/>
+      app:layout_constraintTop_toBottomOf="@id/create_pen_title"/>
   <Spinner
       android:id="@+id/create_pen_type_spinner"
       android:layout_width="fill_parent"
@@ -33,7 +32,7 @@
       android:layout_marginTop="16dp"
       android:layout_marginStart="16dp"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/create_pen_title"/>
+      app:layout_constraintTop_toBottomOf="@id/create_pen_name"/>
   <EditText
       android:id="@+id/create_pen_temperature"
       android:layout_width="wrap_content"

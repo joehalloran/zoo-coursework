@@ -1,6 +1,5 @@
 package com.example.jhalloran.zoo.weather;
 
-
 import org.openweathermap.api.DataWeatherClient;
 import org.openweathermap.api.UrlConnectionDataWeatherClient;
 import org.openweathermap.api.model.currentweather.CurrentWeather;
@@ -10,7 +9,6 @@ import org.openweathermap.api.query.currentweather.CurrentWeatherOneLocationQuer
 /**
  * Created by jhalloran on 1/18/18.
  */
-
 public class WeatherUpdate {
   private static final String API_KEY = "18c2ddc15226e8acc7ad7cc14b990871";
 

@@ -1,4 +1,4 @@
-package com.example.jhalloran.zoo;
+package com.example.jhalloran.zoo.ui.create;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import com.example.jhalloran.zoo.R;
+import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.shared.PenType;

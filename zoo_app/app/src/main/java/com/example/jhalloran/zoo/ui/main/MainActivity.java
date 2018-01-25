@@ -1,26 +1,23 @@
-package com.example.jhalloran.zoo;
+package com.example.jhalloran.zoo.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Looper;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import com.example.jhalloran.zoo.R;
+import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
+import com.example.jhalloran.zoo.io.ZooFileManager;
 import com.example.jhalloran.zoo.concurrent.ZooThreadPoolManager;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.weather.WeatherUpdate;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import org.openweathermap.api.model.currentweather.CurrentWeather;
@@ -29,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = "ZooMainActivity";
   private static final String FILE_NAME = "zoo.tmp";
+  private final WeatherUpdate weatherUpdate = new WeatherUpdate();
+  private final ZooFileManager zooFileManager = new ZooFileManager(this);
   private Zoo zoo;
-  private WeatherUpdate weatherUpdate = new WeatherUpdate();
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,13 @@ public class MainActivity extends AppCompatActivity {
     refreshContent();
 
     updateWeather();
-    writeZooToFile();
+    Executor executor = ZooThreadPoolManager.getBackgroundThreadExecutor();
+    executor.execute(new Runnable() {
+      @Override
+      public void run() {
+        zooFileManager.writeZooToFile();
+      }
+    });
   }
 
   private void refreshContent() {
@@ -77,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onSuccess(Integer result) {
         TextView zooKeepersTitle = findViewById(R.id.zookeepersOverviewTitle);
-        zooKeepersTitle.setText(String.format("Total zookeepers: %d", result));
+        zooKeepersTitle.setText(getResources().getString(R.string.total_zookeepers, result));
       }
 
       @Override
       public void onFailure(Throwable t) {
-
+        Log.e(TAG, String.format("Unable to load zookeepers from model: %s", t));
       }
     },
     ZooThreadPoolManager.getMainThreadExecutor());
@@ -91,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         .submit(new Callable<Integer>() {
           @Override
           public Integer call() throws Exception {
-            Thread.sleep(2000);
             return zoo.getPens().size();
           }
         });
@@ -99,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onSuccess(Integer result) {
             TextView pensTitle = findViewById(R.id.pensOverviewTitle);
-            pensTitle.setText(String.format("Total pens: %d", result));
+            pensTitle.setText(getResources().getString(R.string.total_pens, result));
           }
 
           @Override
           public void onFailure(Throwable t) {
-
+            Log.e(TAG, String.format("Unable to load pens from model: %s", t));
           }
         },
         ZooThreadPoolManager.getMainThreadExecutor());
@@ -120,26 +124,36 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onSuccess(Integer result) {
             TextView animalsTitle = findViewById(R.id.animalsOverviewTitle);
-            animalsTitle.setText(String.format("Total animals: %d", result));
+            animalsTitle.setText(getResources().getString(R.string.total_animals, result));
           }
 
           @Override
           public void onFailure(Throwable t) {
-
+            Log.e(TAG, String.format("Unable to load animals from model: %s", t));
           }
         },
         ZooThreadPoolManager.getMainThreadExecutor());
 
-    final Button button = findViewById(R.id.manageZooButton);
+    final Button manageZooButton = findViewById(R.id.manageZooButton);
     final Intent manageZooIntent = new Intent(this, ZooManagerActivity.class);
-    button.setOnClickListener(new View.OnClickListener() {
+    manageZooButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         startActivity(manageZooIntent);
+      }
+    });
+
+    final Button refreshWeatherButton = findViewById(R.id.refreshWeather);
+    refreshWeatherButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        updateWeather();
       }
     });
   }
 
   private void updateWeather() {
+    final ViewGroup weatherBox = findViewById(R.id.weather);
+    weatherBox.setVisibility(View.INVISIBLE);
     ListenableFuture<CurrentWeather> currentWeatherFuture = ZooThreadPoolManager.getBackgroundThreadExecutor()
         .submit(new Callable<CurrentWeather>() {
           @Override
@@ -150,42 +164,24 @@ public class MainActivity extends AppCompatActivity {
     Futures.addCallback(currentWeatherFuture, new FutureCallback<CurrentWeather>() {
           @Override
           public void onSuccess(CurrentWeather weather) {
-            TextView weatherLocation = findViewById(R.id.weatherLocation);
-            weatherLocation.setText(weather.getCityName());
+            Log.i(TAG, "Weather updated");
+            TextView weatherTitle = findViewById(R.id.weatherTitle);
+            weatherTitle.setText(getResources().getString(R.string.weather_title, weather.getCityName()));
 
             TextView weatherTemperature = findViewById(R.id.weatherTemperature);
             weatherTemperature
-                .setText(String.valueOf(weather.getMainParameters().getTemperature()) + " \u2103");
+                .setText(String.format("%s \u2103", weather.getMainParameters().getTemperature()));
 
+            TextView weatherRain = findViewById(R.id.weatherPrecipitation);
+            weatherRain.setText(getResources().getString(R.string.wind_speed, weather.getWind().getSpeed()));
+            weatherBox.setVisibility(View.VISIBLE);
           }
 
           @Override
           public void onFailure(Throwable t) {
-
+            Log.e(TAG, String.format("Unable to load weather: %s", t));
           }
         },
         ZooThreadPoolManager.getMainThreadExecutor());
-  }
-
-
-  private void writeZooToFile() {
-    AsyncTask.execute(
-        new Runnable() {
-          @Override
-          public void run() {
-            Log.e(TAG, "Writing");
-            try {
-              FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-              objectOutputStream.writeObject(zoo);
-              objectOutputStream.close();
-              fileOutputStream.close();
-            } catch (FileNotFoundException e) {
-              e.printStackTrace();
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-          }
-        });
   }
 }
