@@ -10,6 +10,7 @@ import com.example.jhalloran.zoo.model.pen.DryPen;
 import com.example.jhalloran.zoo.model.pen.Enclosure;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
+import com.google.common.annotations.VisibleForTesting;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -32,14 +33,12 @@ public class Zoo implements Serializable {
   private HashMap<UUID, Zookeeper> idsToZookeepers = new HashMap<>();
   private HashMap<UUID, Enclosure> idsToPens = new HashMap<>();
 
-
-  private Zoo() {
-    setUpZoo();
-  }
+  Zoo() {}
 
   public static Zoo getInstance() {
     if (instance == null) {
       instance = new Zoo();
+      instance.setUpZoo();
     }
     return instance;
   }
@@ -93,21 +92,27 @@ public class Zoo implements Serializable {
   }
 
   public void addAnimal(Animal animal) {
-    UUID newUuid = UUID.randomUUID();
-    idsToAnimals.put(newUuid, animal);
-    allItems.put(newUuid, animal);
+    if (!getAnimals().contains(animal)) {
+      UUID newUuid = UUID.randomUUID();
+      idsToAnimals.put(newUuid, animal);
+      allItems.put(newUuid, animal);
+    }
   }
 
   public void addZookeeper(Zookeeper zookeeper) {
-    UUID newUuid = UUID.randomUUID();
-    idsToZookeepers.put(newUuid, zookeeper);
-    allItems.put(newUuid, zookeeper);
+    if (!getZookeepers().contains(zookeeper)) {
+      UUID newUuid = UUID.randomUUID();
+      idsToZookeepers.put(newUuid, zookeeper);
+      allItems.put(newUuid, zookeeper);
+    }
   }
 
   public void addPen(Enclosure pen) {
-    UUID newUuid = UUID.randomUUID();
-    idsToPens.put(newUuid, pen);
-    allItems.put(newUuid, pen);
+    if (!getPens().contains(pen)) {
+      UUID newUuid = UUID.randomUUID();
+      idsToPens.put(newUuid, pen);
+      allItems.put(newUuid, pen);
+    }
   }
 
   @Override
@@ -145,7 +150,7 @@ public class Zoo implements Serializable {
     addPen(new AquariumPen("Aquarium", WaterType.SALT, 10, 10, 10, 17));
     addPen(new AquariumPen("Big Aquarium", WaterType.SALT, 30, 10, 10, 17));
 
-    addZookeeper(new Zookeeper("Joe", EnumSet.of(PenType.DRY, PenType.AVIARY, PenType.AQUARIUM)));
+    addZookeeper(new Zookeeper("Joe", EnumSet.of(PenType.DRY, PenType.AQUARIUM)));
     addZookeeper(new Zookeeper("James", EnumSet.of(PenType.DRY)));
   }
 }

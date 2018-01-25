@@ -3,7 +3,6 @@ package com.example.jhalloran.zoo.model.animal;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
 
 import com.example.jhalloran.zoo.model.pen.DryPen;
 import com.example.jhalloran.zoo.model.pen.Enclosure;
@@ -46,11 +45,18 @@ public final class LandAnimalTest {
   @Test
   public void assignAnimalToPen() {
     Enclosure pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
-    try {
-      animal.assignToPen(pen);
-    } catch (Exception e) {
-      // Do nothing... test
-    }
+
+    assertTrue(animal.assignToPen(pen));
+    assertTrue(animal.isAssigned());
+    assertEquals(animal.getAssignedToPen(), pen);
+  }
+
+  @Test
+  public void assignAnimalSamePenTwice_fails() {
+    Enclosure pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
+
+    assertTrue(animal.assignToPen(pen));
+    assertFalse(animal.assignToPen(pen));
     assertTrue(animal.isAssigned());
     assertEquals(animal.getAssignedToPen(), pen);
   }
@@ -59,32 +65,24 @@ public final class LandAnimalTest {
   public void assignAnimalToSecondPen_updates() {
     Enclosure pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
     Enclosure secondPen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
-    try {
-      animal.assignToPen(pen);
-      animal.assignToPen(secondPen);
-    } catch (Exception e) {
-      // Do nothing... test
-    }
+
+    assertTrue(animal.assignToPen(pen));
+    assertTrue(animal.assignToPen(secondPen));
+
     assertEquals(animal.getAssignedToPen(), secondPen);
     assertTrue(secondPen.getAnimals().contains(animal));
     assertFalse(pen.getAnimals().contains(animal));
   }
 
   @Test
-  public void assignAssignedAnimalToSmallPen_throws_remainsAssigned() {
+  public void assignAssignedAnimalToSmallPen_fails_remainsAssigned() {
     Enclosure largePen = new DryPen(DEFAULT_PEN_NAME, 50, 50, 20);
-    try {
-      animal.assignToPen(largePen);
-    } catch (Exception e) {
-      // Do nothing... test
-    }
     Enclosure smallPen = new DryPen(DEFAULT_PEN_NAME, 1, 1, 20);
-    try {
-      animal.assignToPen(smallPen);
-      fail("Expected exception: Animal too large");
-    } catch (Exception e) {
-      // Do nothing... test
-    }
+
+    assertTrue(animal.assignToPen(largePen));
+
+    assertFalse(animal.assignToPen(smallPen));
+
     assertTrue(animal.isAssigned());
     assertEquals(animal.getAssignedToPen(), largePen);
   }

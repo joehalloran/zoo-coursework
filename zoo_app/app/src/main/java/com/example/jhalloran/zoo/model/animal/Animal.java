@@ -44,16 +44,15 @@ public abstract class Animal implements Serializable {
     return penAssignedTo;
   }
 
-  public void assignToPen(Enclosure pen) throws Exception{
-    try {
-      pen.addAnimal(this);
+  public boolean assignToPen(Enclosure pen) {
+    if (pen.addAnimal(this)) {
       if (isAssigned()) {
         penAssignedTo.removeAnimal(this);
       }
       penAssignedTo = pen;
-    } catch (Exception e) {
-      throw e;
+      return true;
     }
+    return false;
   }
 
   @Override

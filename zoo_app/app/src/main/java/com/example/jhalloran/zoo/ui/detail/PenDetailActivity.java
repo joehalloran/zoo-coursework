@@ -109,16 +109,14 @@ public class PenDetailActivity extends AppCompatActivity {
               .setItems(zookeeperNames, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                   Zookeeper zookeeperSelected = zoo.getZookeeperById(zookeeperIds.get(which));
-                  try {
-                    pen.assignToZookeeper(zookeeperSelected);
-                  } catch (Exception e) {
-                    Log.e(TAG, "Error");
-                  }
+                  pen.assignToZookeeper(zookeeperSelected);
                   setAssignedToTextField();
                 }
               });
+        } else if (pen.isAssigned()) {
+          builder.setTitle("No alternative zookeepers available \n");
         } else {
-          builder.setTitle("No suitable pens available");
+          builder.setTitle("No suitable pens available \n");
         }
         builder.create().show();
       }
@@ -156,7 +154,8 @@ public class PenDetailActivity extends AppCompatActivity {
     Predicate<UUID> uuidPredicate = new Predicate<UUID>() {
       @Override
       public boolean test(UUID uuid) {
-        return !(zoo.getZookeeperById(uuid).getPenTypesCanManage().contains(pen.getType()));
+        Zookeeper zookeeper = zoo.getZookeeperById(uuid);
+        return !((zookeeper != pen.getAssignedToZookeeper()) && zookeeper.canManagerPen(pen));
       }
     };
     zookeeperIds.removeIf(uuidPredicate);

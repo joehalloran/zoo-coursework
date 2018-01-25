@@ -34,29 +34,18 @@ public final class ZookeeperTest {
   }
 
   @Test
-  public void zookeeper_addResponsibility() {
-    zookeeper.addResponsibilty(PenType.AVIARY);
-    assertEquals(zookeeper.getPenTypesCanManage(), EnumSet.of(DEFAULT_TYPE, PenType.AVIARY));
-  }
-
-  @Test
-  public void zookeeper_removeResponsibility() {
-    zookeeper.addResponsibilty(PenType.AVIARY);
-    zookeeper.removeResponsibilty(DEFAULT_TYPE);
-    assertEquals(zookeeper.getPenTypesCanManage(), EnumSet.of(PenType.AVIARY));
-  }
-
-  @Test
-  public void zookeeper_removeResponsibilityNotPresent_returnsFalse() {
-    boolean successful = zookeeper.removeResponsibilty(PenType.AVIARY);
-    assertEquals(successful, false);
-  }
-
-  @Test
   public void zookeeper_addPen() {
     DryPen pen = createDefaultDryPen();
-    zookeeper.addPen(pen);
-    assertEquals(zookeeper.getPens(), Collections.singletonList(pen));
+    assertTrue(zookeeper.addPen(pen));
+    assertEquals(zookeeper.getPens(), Collections.singleton(pen));
+  }
+
+  @Test
+  public void zookeeper_cannotAddSamePenTwice() {
+    DryPen pen = createDefaultDryPen();
+    assertTrue(zookeeper.addPen(pen));
+    assertFalse(zookeeper.addPen(pen));
+    assertEquals(zookeeper.getPens(), Collections.singleton(pen));
   }
 
   @Test

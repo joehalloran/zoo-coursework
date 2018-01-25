@@ -5,6 +5,7 @@ import com.example.jhalloran.zoo.model.shared.PenType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 public class Zookeeper implements Serializable {
   private final String name;
   private Set<PenType> penTypesCanManage;
-  private List<Enclosure> pens = new ArrayList<Enclosure>();
+  private Set<Enclosure> pens = new HashSet<>();
 
   public Zookeeper(String name, Set<PenType> penTypesCanManage) {
     this.name = name;
@@ -30,15 +31,7 @@ public class Zookeeper implements Serializable {
     return penTypesCanManage;
   }
 
-  public boolean addResponsibilty(PenType type) {
-    return penTypesCanManage.add(type);
-  }
-
-  public boolean removeResponsibilty(PenType type) {
-    return penTypesCanManage.remove(type);
-  }
-
-  public List<Enclosure> getPens() {
+  public Set<Enclosure> getPens() {
     return pens;
   }
 

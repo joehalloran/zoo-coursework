@@ -4,7 +4,7 @@ import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.animal.Animal;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by jhalloran on 1/9/18.
@@ -32,13 +32,11 @@ public abstract class Enclosure implements Serializable {
 
   public abstract int getLandArea();
 
-  public abstract List<Animal> getAnimals();
+  public abstract Set<Animal> getAnimals();
 
-  public abstract void addAnimal(Animal animal)
-      throws Exception; // TODO: Create custom exception AND/OR return boolean
+  public abstract boolean addAnimal(Animal animal);
 
-  public abstract void removeAnimal(Animal animal); // TODO: Create custom exception AND/OR return boolean
-
+  public abstract boolean removeAnimal(Animal animal);
 
   public abstract boolean canLiveHere(Animal animal);
 
@@ -50,14 +48,15 @@ public abstract class Enclosure implements Serializable {
     return zookeeperAssignedTo;
   }
 
-  public void assignToZookeeper(Zookeeper zookeeper) throws Exception{
-    if (zookeeper.canManagerPen(this)) {
-      zookeeper.addPen(this);
+  public boolean assignToZookeeper(Zookeeper zookeeper) {
+    if (zookeeper.addPen(this)) {
       if (isAssigned()) {
         zookeeperAssignedTo.removePen(this);
       }
       zookeeperAssignedTo = zookeeper;
+      return true;
     }
+    return false;
   }
 
   @Override

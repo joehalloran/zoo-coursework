@@ -104,16 +104,14 @@ public class AnimalDetailActivity extends AppCompatActivity {
               .setItems(penNames, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                   Enclosure penSelected = zoo.getPenById(penIds.get(which));
-                  try {
-                    animal.assignToPen(penSelected);
-                  } catch (Exception e) {
-                    Log.e(TAG, "Error");
-                  }
+                  animal.assignToPen(penSelected);
                   setAssignedToTextField();
                 }
               });
+        } else if (animal.isAssigned()) {
+          builder.setTitle("No alternative pens available \n");
         } else {
-          builder.setTitle("No suitable pens available");
+          builder.setTitle("No suitable pens available \n");
         }
         builder.create().show();
       }
@@ -176,7 +174,8 @@ public class AnimalDetailActivity extends AppCompatActivity {
     Predicate<UUID> uuidPredicate = new Predicate<UUID>() {
       @Override
       public boolean test(UUID uuid) {
-        return !(zoo.getPenById(uuid).canLiveHere(animal));
+        Enclosure pen = zoo.getPenById(uuid);
+        return !((pen != animal.getAssignedToPen()) && pen.canLiveHere(animal));
       }
     };
     penIds.removeIf(uuidPredicate);
