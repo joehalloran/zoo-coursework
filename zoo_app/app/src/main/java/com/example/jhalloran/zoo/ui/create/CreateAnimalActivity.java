@@ -34,6 +34,8 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
   private CheckBox aquariumCheckBox;
   private CheckBox aviaryCheckbox;
   private CheckBox dryPenCheckbox;
+  private CheckBox pettingPenCheckbox;
+  private CheckBox partWetPartDryCheckbox;
   private EditText waterVolumeInput;
   private EditText airVolumeInput;
   private View waterTypeTitle;
@@ -75,6 +77,8 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     aquariumCheckBox = findViewById(R.id.aquarium_pen_type_checkbox);
     aviaryCheckbox = findViewById(R.id.aviary_pen_type_checkbox);
     dryPenCheckbox = findViewById(R.id.dry_pen_type_checkbox);
+    pettingPenCheckbox = findViewById(R.id.petting_pen_type_checkbox);
+    partWetPartDryCheckbox = findViewById(R.id.pwpd_pen_type_checkbox);
     waterVolumeInput = findViewById(R.id.create_animal_water_volume_required);
     airVolumeInput = findViewById(R.id.create_animal_air_volume_required);
     waterTypeTitle = findViewById(R.id.create_animal_water_type_title);
@@ -138,6 +142,12 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     if (aviaryCheckbox.isChecked()) {
       penTypes.add(PenType.AVIARY);
     }
+    if (pettingPenCheckbox.isChecked()) {
+      penTypes.add(PenType.PETTING);
+    }
+    if(partWetPartDryCheckbox.isChecked()) {
+      penTypes.add(PenType.PART_WATER_PART_DRY);
+    }
     return penTypes;
   }
 
@@ -179,16 +189,21 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
   private void configureActivityForLandAnimal() {
     hideAndUnCheckBox(aquariumCheckBox);
     hideAndUnCheckBox(aviaryCheckbox);
+    hideAndUnCheckBox(partWetPartDryCheckbox);
     dryPenCheckbox.setVisibility(View.VISIBLE);
+    pettingPenCheckbox.setVisibility(View.VISIBLE);
     waterVolumeInput.setVisibility(View.GONE);
     waterTypeViewGroup.setVisibility(View.GONE);
     waterTypeTitle.setVisibility(View.GONE);
     airVolumeInput.setVisibility(View.GONE);
+
   }
 
   private void configureActivityForFlyingAnimal() {
     hideAndUnCheckBox(aquariumCheckBox);
     hideAndUnCheckBox(dryPenCheckbox);
+    hideAndUnCheckBox(pettingPenCheckbox);
+    hideAndUnCheckBox(partWetPartDryCheckbox);
     aviaryCheckbox.setVisibility(View.VISIBLE);
     waterVolumeInput.setVisibility(View.GONE);
     waterTypeViewGroup.setVisibility(View.GONE);
@@ -199,7 +214,9 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
   private void configureActivityForSwimmingAnimal() {
     hideAndUnCheckBox(aviaryCheckbox);
     hideAndUnCheckBox(dryPenCheckbox);
+    hideAndUnCheckBox(pettingPenCheckbox);
     aquariumCheckBox.setVisibility(View.VISIBLE);
+    partWetPartDryCheckbox.setVisibility(View.VISIBLE);
     waterVolumeInput.setVisibility(View.VISIBLE);
     waterTypeViewGroup.setVisibility(View.VISIBLE);
     waterTypeTitle.setVisibility(View.VISIBLE);

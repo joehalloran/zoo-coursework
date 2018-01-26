@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.jhalloran.zoo.R;
+import com.example.jhalloran.zoo.model.pen.PartWaterPartDryPen;
+import com.example.jhalloran.zoo.model.pen.PettingPen;
 import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.pen.AquariumPen;
@@ -75,27 +77,45 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
 
   private void savePen() {
     switch (penTypeSelected) {
-      case "Aquarium":
-        createAquarium();
-        break;
-      case "Aviary":
-        createAviary();
+      case "Part water part dry pen":
+        zoo.addPen(createPartWaterPartDryPen());
         break;
       case "Dry pen":
-        createDryPen();
+        zoo.addPen(createDryPen());
+        break;
+      case "Aquarium":
+        zoo.addPen(createAquarium());
+        break;
+      case "Aviary":
+        zoo.addPen(createAviary());
+        break;
+      case "Petting pen":
+        zoo.addPen(createPettingPen());
         break;
     }
     startActivity(manageZooIntent);
   }
 
-  private void createAquarium() {
-    zoo.addPen(new AquariumPen(
+  private PartWaterPartDryPen createPartWaterPartDryPen() {
+    return (new PartWaterPartDryPen(createDryPen(), createAquarium())); // TODO, View does not seperate land dims for water dims
+  }
+
+  private DryPen createDryPen() {
+    return new DryPen(
+        penName.getText().toString(),
+        Integer.parseInt(penLength.getText().toString()),
+        Integer.parseInt(penWidth.getText().toString()),
+        Integer.parseInt(penTemperature.getText().toString()));
+  }
+
+  private AquariumPen createAquarium() {
+    return new AquariumPen(
         penName.getText().toString(),
         getSelectedWaterTypes(),
         Integer.parseInt(penWaterDepth.getText().toString()),
         Integer.parseInt(penLength.getText().toString()),
         Integer.parseInt(penWidth.getText().toString()),
-        Integer.parseInt(penTemperature.getText().toString())));
+        Integer.parseInt(penTemperature.getText().toString()));
   }
 
   private WaterType getSelectedWaterTypes() {
@@ -105,21 +125,21 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
     return WaterType.SALT;
   }
 
-  private void createAviary() {
-    zoo.addPen(new AviaryPen(
+  private AviaryPen createAviary() {
+    return new AviaryPen(
         penName.getText().toString(),
         Integer.parseInt(penLength.getText().toString()),
         Integer.parseInt(penWidth.getText().toString()),
         Integer.parseInt(penHeight.getText().toString()),
-        Integer.parseInt(penTemperature.getText().toString())));
+        Integer.parseInt(penTemperature.getText().toString()));
   }
 
-  private void createDryPen() {
-    zoo.addPen(new DryPen(
+  private PettingPen createPettingPen() {
+    return new PettingPen(
         penName.getText().toString(),
         Integer.parseInt(penLength.getText().toString()),
         Integer.parseInt(penWidth.getText().toString()),
-        Integer.parseInt(penTemperature.getText().toString())));
+        Integer.parseInt(penTemperature.getText().toString()));
   }
 
   @Override
@@ -136,6 +156,12 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
         break;
       case "Dry pen":
         configureActivityForDryPen();
+        break;
+      case "Petting pen":
+        configureActivityForDryPen();
+        break;
+      case "Part water part dry pen":
+        configureActivityForAquarium();
         break;
     }
   }

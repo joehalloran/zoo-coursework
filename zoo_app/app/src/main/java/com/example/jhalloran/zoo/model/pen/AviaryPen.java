@@ -1,8 +1,7 @@
 package com.example.jhalloran.zoo.model.pen;
 
 import com.example.jhalloran.zoo.model.animal.Animal;
-import com.example.jhalloran.zoo.model.animal.LandAnimal;
-import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
+import com.example.jhalloran.zoo.model.animal.Flyer;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -12,26 +11,19 @@ import java.util.Set;
  * Created by jhalloran on 1/9/18.
  */
 
-public class AviaryPen extends Enclosure implements Flyable, Serializable {
+public class AviaryPen extends AbstractPen implements Flyable, Serializable {
   private static final PenType TYPE = PenType.AVIARY;
   private final int airVolume;
-  private final int landArea;
   private Set<Animal> animals = new HashSet<>();
 
   public AviaryPen(String name, int length, int width, int height, int temperature) {
-    super(name, temperature);
-    this.landArea = length * width;
+    super(name, temperature, (length * width));
     this.airVolume = length * width * height;
   }
 
   @Override
   public PenType getType() {
     return TYPE;
-  }
-
-  @Override
-  public int getLandArea() {
-    return landArea;
   }
 
   @Override
@@ -56,6 +48,9 @@ public class AviaryPen extends Enclosure implements Flyable, Serializable {
 
   @Override
   public boolean canLiveHere(Animal animal) {
+    if (!(animal instanceof Flyer)) {
+      return false;
+    }
     if (!(animal.getPenTypes().contains(TYPE))) {
       return false;
     }
@@ -69,19 +64,18 @@ public class AviaryPen extends Enclosure implements Flyable, Serializable {
         return false;
       }
     }
-    if (animal.getAirVolumeRequired() > calculateRemainingSpace()) {
+    Flyer flyer = (Flyer) animal;
+    if (flyer.getAirVolumeRequired() > calculateRemainingSpace()) {
       return false;
     }
-    if (animal instanceof SwimmingAnimal) {
-      return false;
-    }
-    return !(animal instanceof LandAnimal);
+    return true;
   }
 
   private int calculateRemainingSpace() {
     int airVolumeCache = airVolume;
     for (Animal animal : animals) {
-      airVolumeCache = airVolumeCache - animal.getAirVolumeRequired();
+      Flyer flyer = (Flyer) animal;
+      airVolumeCache = airVolumeCache - flyer.getAirVolumeRequired();
     }
     return airVolumeCache;
   }

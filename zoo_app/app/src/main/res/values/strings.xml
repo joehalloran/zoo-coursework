@@ -26,6 +26,8 @@
   <string name="aquarium">Aquarium</string>
   <string name="aviary">Aviary</string>
   <string name="dry_pen">Dry pen</string>
+  <string name="part_wet_part_dry">Part wet part dry pen</string>
+  <string name="petting">Petting pen</string>
   <string name="animal_air_volume_hint">Air volume required</string>
   <string name="water_types">Water type for this animal</string>
   <string name="salt_water">Salt water</string>
@@ -66,5 +68,7 @@
     <item>Aquarium</item>
     <item>Aviary</item>
     <item>Dry pen</item>
+    <item>Petting pen</item>
+    <item>Part water part dry pen</item>
   </string-array>
 </resources>

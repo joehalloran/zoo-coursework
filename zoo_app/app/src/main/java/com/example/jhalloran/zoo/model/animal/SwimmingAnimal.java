@@ -10,9 +10,8 @@ import java.util.Set;
  * Created by jhalloran on 1/8/18.
  */
 
-public class SwimmingAnimal extends Animal implements Serializable{
+public class SwimmingAnimal extends AbstractAnimal implements Swimmer, Serializable {
   private final int waterVolumeRequire;
-  private final int landAreaRequired;
   private final Set<WaterType> waterTypes;
 
   public SwimmingAnimal(
@@ -22,10 +21,9 @@ public class SwimmingAnimal extends Animal implements Serializable{
       int waterVolumeRequired,
       Set<WaterType> waterTypes,
       Set<PenType> penTypes) {
-    super(name, penTypes ,dangerous);
+    super(name, penTypes ,dangerous, landAreaRequired);
     this.waterTypes = EnumSet.copyOf(waterTypes);
     this.waterVolumeRequire = waterVolumeRequired;
-    this.landAreaRequired = landAreaRequired;
   }
 
   @Override
@@ -36,16 +34,6 @@ public class SwimmingAnimal extends Animal implements Serializable{
   @Override
   public int getWaterVolumeRequired() {
     return waterVolumeRequire;
-  }
-
-  @Override
-  public int getLandAreaRequired() {
-    return landAreaRequired;
-  }
-
-  @Override
-  public int getAirVolumeRequired() {
-    return 0;
   }
 
   public static class Builder {

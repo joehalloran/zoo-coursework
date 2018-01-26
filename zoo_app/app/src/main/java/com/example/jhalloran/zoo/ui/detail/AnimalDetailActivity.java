@@ -17,10 +17,12 @@ import com.example.jhalloran.zoo.R;
 import com.example.jhalloran.zoo.ZooConstants;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.animal.Animal;
+import com.example.jhalloran.zoo.model.animal.Flyer;
 import com.example.jhalloran.zoo.model.animal.FlyingAnimal;
 import com.example.jhalloran.zoo.model.animal.LandAnimal;
+import com.example.jhalloran.zoo.model.animal.Swimmer;
 import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
-import com.example.jhalloran.zoo.model.pen.Enclosure;
+import com.example.jhalloran.zoo.model.pen.Enclosable;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
 import java.util.ArrayList;
@@ -86,9 +88,17 @@ public class AnimalDetailActivity extends AppCompatActivity {
     penTypes.setText(getPenTypesText());
     dangerous.setChecked(animal.isDangerous());
     landAreaRequired.setText(String.valueOf(animal.getLandAreaRequired()));
-    waterVolumeRequired.setText(String.valueOf(animal.getWaterVolumeRequired()));
-    airVolumeRequired.setText(String.valueOf(animal.getAirVolumeRequired()));
-    waterTypes.setText(getWaterTypesText());
+    if (animal instanceof Swimmer) {
+      Swimmer swimmingAnimal = (Swimmer) animal;
+      waterVolumeRequired.setText(String.valueOf(swimmingAnimal.getWaterVolumeRequired()));
+      waterTypes.setText(getWaterTypesText(swimmingAnimal));
+    }
+    if (animal instanceof Flyer) {
+      Flyer flyingAnimal = (Flyer) animal;
+      airVolumeRequired.setText(String.valueOf(flyingAnimal.getAirVolumeRequired()));
+    }
+
+
     setAssignedToTextField();
 
     final Button assignButton = findViewById(R.id.animal_detail_assign_button);
@@ -106,7 +116,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
               .setTitle("Pick a pen")
               .setItems(penNames, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                  Enclosure penSelected = zoo.getPenById(penIds.get(which));
+                  Enclosable penSelected = zoo.getPenById(penIds.get(which));
                   animal.assignToPen(penSelected);
                   setAssignedToTextField();
                 }
@@ -151,9 +161,9 @@ public class AnimalDetailActivity extends AppCompatActivity {
     return stringBuilder.toString();
   }
 
-  private String getWaterTypesText() {
+  private String getWaterTypesText(Swimmer swimmer) {
     StringBuilder stringBuilder = new StringBuilder();
-    for (Iterator<WaterType> it = animal.getWaterTypes().iterator(); it.hasNext();) {
+    for (Iterator<WaterType> it = swimmer.getWaterTypes().iterator(); it.hasNext();) {
       stringBuilder.append(it.next());
       if (it.hasNext()) {
         stringBuilder.append(", ");
@@ -163,7 +173,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
   }
 
   private void setAssignedToTextField() {
-    Enclosure pen = animal.getAssignedToPen();
+    Enclosable pen = animal.getAssignedToPen();
     TextView assigned = findViewById(R.id.animal_detail_assigned_value);
     if (pen != null) {
       assigned.setText(pen.toString());
@@ -177,7 +187,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
     Predicate<UUID> uuidPredicate = new Predicate<UUID>() {
       @Override
       public boolean test(UUID uuid) {
-        Enclosure pen = zoo.getPenById(uuid);
+        Enclosable pen = zoo.getPenById(uuid);
         return !((pen != animal.getAssignedToPen()) && pen.canLiveHere(animal));
       }
     };

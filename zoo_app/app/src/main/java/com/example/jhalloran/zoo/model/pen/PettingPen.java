@@ -9,14 +9,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/9/18.
+ * Created by jhalloran on 1/26/18.
  */
-public class DryPen extends AbstractPen implements Serializable {
-  private static final PenType TYPE = PenType.DRY;
-  private Set<Animal> animals = new HashSet<>();
 
-  public DryPen(String name, int length, int width, int temperature) {
-    super(name, temperature, (length * width));
+public class PettingPen extends DryPen implements Serializable {
+  private static final PenType TYPE = PenType.PETTING;
+
+  public PettingPen(String name, int length, int width, int temperature) {
+    super(name, length, width, temperature);
   }
 
   @Override
@@ -25,25 +25,11 @@ public class DryPen extends AbstractPen implements Serializable {
   }
 
   @Override
-  public Set<Animal> getAnimals() {
-    return animals;
-  }
-
-  @Override
-  public boolean addAnimal(Animal animal) {
-    return canLiveHere(animal) && animals.add(animal);
-  }
-
-  @Override
-  public boolean removeAnimal(Animal animal) {
-    return animals.remove(animal);
-  }
-
-  @Override
   public boolean canLiveHere(Animal animal) {
     if (animal.getLandAreaRequired() > calculateRemainingSpace()) {
       return false;
     }
+    Set<Animal> animals = super.getAnimals();
     if (animals.size() > 0) {
       if (animal.isDangerous()) {
         // Dangerous animals can only go into an empty pen
@@ -65,7 +51,7 @@ public class DryPen extends AbstractPen implements Serializable {
 
   private int calculateRemainingSpace() {
     int areaCache = super.getLandArea();
-    for (Animal animal : animals) {
+    for (Animal animal : super.getAnimals()) {
       areaCache = areaCache - animal.getLandAreaRequired();
     }
     return areaCache;

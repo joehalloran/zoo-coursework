@@ -68,6 +68,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/create_animal_pen_type_view_group"/>
     <CheckBox
+        android:id="@+id/pwpd_pen_type_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/part_wet_part_dry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/create_animal_pen_type_view_group"/>
+    <CheckBox
         android:id="@+id/aviary_pen_type_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,6 +87,13 @@
         android:layout_height="wrap_content"
         android:text="@string/dry_pen"
         app:layout_constraintStart_toStartOf="@id/aviary_pen_type_checkbox"
+        app:layout_constraintTop_toTopOf="@id/create_animal_pen_type_view_group"/>
+    <CheckBox
+        android:id="@+id/petting_pen_type_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/petting"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/create_animal_pen_type_view_group"/>
   </LinearLayout>
   <EditText

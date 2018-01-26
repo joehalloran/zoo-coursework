@@ -15,31 +15,8 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /** */
-public class LandAnimal extends Animal implements Serializable {
-  private final int landAreaRequired;
-
+public class LandAnimal extends AbstractAnimal implements Serializable {
   public LandAnimal(String name, int landAreaRequired, Set<PenType> penTypes, boolean dangerous) {
-    super(name, penTypes, dangerous);
-    this.landAreaRequired = landAreaRequired;
-  }
-
-  @Override
-  public int getLandAreaRequired() {
-    return landAreaRequired;
-  }
-
-  @Override
-  public int getWaterVolumeRequired() {
-    return 0;
-  }
-
-  @Override
-  public int getAirVolumeRequired() {
-    return 0;
-  }
-
-  @Override
-  public Set<WaterType> getWaterTypes() {
-    return Collections.emptySet();
+    super(name, penTypes, dangerous, landAreaRequired);
   }
 }

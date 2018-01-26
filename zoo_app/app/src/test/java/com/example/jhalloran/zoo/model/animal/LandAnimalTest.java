@@ -5,7 +5,7 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 import com.example.jhalloran.zoo.model.pen.DryPen;
-import com.example.jhalloran.zoo.model.pen.Enclosure;
+import com.example.jhalloran.zoo.model.pen.Enclosable;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import java.util.EnumSet;
 import org.junit.Before;
@@ -21,7 +21,7 @@ public final class LandAnimalTest {
   private static final int DEFAULT_LAND_AREA_REQUIRED = 10;
   private static final String DEFAULT_PEN_NAME = "pen";
 
-  Animal animal = createDefaultLandAnimal();
+  private Animal animal = createDefaultLandAnimal();
 
   @Before
   public void setUp() {
@@ -38,15 +38,8 @@ public final class LandAnimalTest {
   }
 
   @Test
-  public void createAnimal_returnsMagicValueForWaterAndAirMethods() {
-    assertEquals(animal.getWaterVolumeRequired(), 0);
-    assertTrue(animal.getWaterTypes().isEmpty());
-    assertEquals(animal.getAirVolumeRequired(), 0);
-  }
-
-  @Test
   public void assignAnimalToPen() {
-    Enclosure pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
+    Enclosable pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
 
     assertTrue(animal.assignToPen(pen));
     assertTrue(animal.isAssigned());
@@ -55,7 +48,7 @@ public final class LandAnimalTest {
 
   @Test
   public void assignAnimalSamePenTwice_fails() {
-    Enclosure pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
+    Enclosable pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
 
     assertTrue(animal.assignToPen(pen));
     assertFalse(animal.assignToPen(pen));
@@ -65,8 +58,8 @@ public final class LandAnimalTest {
 
   @Test
   public void assignAnimalToSecondPen_updates() {
-    Enclosure pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
-    Enclosure secondPen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
+    Enclosable pen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
+    Enclosable secondPen = new DryPen(DEFAULT_PEN_NAME, 10, 10, 20);
 
     assertTrue(animal.assignToPen(pen));
     assertTrue(animal.assignToPen(secondPen));
@@ -78,8 +71,8 @@ public final class LandAnimalTest {
 
   @Test
   public void assignAssignedAnimalToSmallPen_fails_remainsAssigned() {
-    Enclosure largePen = new DryPen(DEFAULT_PEN_NAME, 50, 50, 20);
-    Enclosure smallPen = new DryPen(DEFAULT_PEN_NAME, 1, 1, 20);
+    Enclosable largePen = new DryPen(DEFAULT_PEN_NAME, 50, 50, 20);
+    Enclosable smallPen = new DryPen(DEFAULT_PEN_NAME, 1, 1, 20);
 
     assertTrue(animal.assignToPen(largePen));
 

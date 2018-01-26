@@ -12,7 +12,7 @@ import com.example.jhalloran.zoo.ZooConstants;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.animal.Animal;
-import com.example.jhalloran.zoo.model.pen.Enclosure;
+import com.example.jhalloran.zoo.model.pen.Enclosable;
 import com.example.jhalloran.zoo.ui.detail.AnimalDetailActivity;
 import com.example.jhalloran.zoo.ui.detail.PenDetailActivity;
 import com.example.jhalloran.zoo.ui.detail.ZookeeperDetailActivity;
@@ -55,8 +55,8 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
       }
       return;
     }
-    if (item instanceof Enclosure) {
-      Enclosure pen = (Enclosure) item;
+    if (item instanceof Enclosable) {
+      Enclosable pen = (Enclosable) item;
       if (!pen.isAssigned()) {
         hintView.setText(R.string.unassigned);
       } else {
@@ -88,7 +88,7 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
             Intent animalDetailIntent = new Intent(context, AnimalDetailActivity.class);
             animalDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
             context.startActivity(animalDetailIntent);
-          } else if (item instanceof Enclosure) {
+          } else if (item instanceof Enclosable) {
             Intent penDetailIntent = new Intent(context, PenDetailActivity.class);
             penDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
             context.startActivity(penDetailIntent);

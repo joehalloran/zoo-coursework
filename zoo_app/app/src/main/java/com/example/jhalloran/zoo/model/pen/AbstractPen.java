@@ -7,17 +7,19 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/9/18.
+ * Created by jhalloran on 1/26/18.
  */
 
-public abstract class Enclosure implements Serializable {
+public abstract class AbstractPen implements Enclosable, Serializable {
   private final String name;
   private final int temperature;
+  private final int landArea;
   private Zookeeper zookeeperAssignedTo = null;
 
-  public Enclosure(String name, int temperature) {
+  public AbstractPen(String name, int temperature, int landArea) {
     this.name = name;
     this.temperature = temperature;
+    this.landArea = landArea;
   }
 
   public String getName() {
@@ -28,9 +30,11 @@ public abstract class Enclosure implements Serializable {
     return temperature;
   }
 
-  public abstract PenType getType();
+  public int getLandArea() {
+    return landArea;
+  }
 
-  public abstract int getLandArea();
+  public abstract PenType getType();
 
   public abstract Set<Animal> getAnimals();
 

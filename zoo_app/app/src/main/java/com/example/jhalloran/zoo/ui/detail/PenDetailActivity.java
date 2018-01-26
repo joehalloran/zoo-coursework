@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,19 +15,18 @@ import com.example.jhalloran.zoo.R;
 import com.example.jhalloran.zoo.ZooConstants;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.Zookeeper;
-import com.example.jhalloran.zoo.model.pen.Enclosure;
+import com.example.jhalloran.zoo.model.pen.Enclosable;
 import com.example.jhalloran.zoo.model.pen.Flyable;
 import com.example.jhalloran.zoo.model.pen.Swimmable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
-import org.w3c.dom.Text;
 
 public class PenDetailActivity extends AppCompatActivity {
   private static final String TAG = "PenDetail";
   private final Zoo zoo = Zoo.getInstance();
-  private Enclosure pen;
+  private Enclosable pen;
   private UUID uuid;
 
   LinearLayout waterVolumeGroup;

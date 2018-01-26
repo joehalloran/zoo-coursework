@@ -1,68 +1,24 @@
 package com.example.jhalloran.zoo.model.animal;
 
-import com.example.jhalloran.zoo.model.pen.Enclosure;
+import com.example.jhalloran.zoo.model.pen.Enclosable;
 import com.example.jhalloran.zoo.model.shared.PenType;
-import com.example.jhalloran.zoo.model.shared.WaterType;
-import java.io.Serializable;
-import java.util.EnumSet;
 import java.util.Set;
 
 /**
  * Created by jhalloran on 1/8/18.
  */
-public abstract class Animal implements Serializable {
-  private final String name;
-  private final Set<PenType> penTypes;
-  private final boolean dangerous;
-  private Enclosure penAssignedTo = null;
+public interface Animal {
+  String getName();
 
-  public Animal(String name, Set<PenType> penTypes, boolean dangerous) {
-    this.name = name;
-    this.penTypes = EnumSet.copyOf(penTypes);
-    this.dangerous = dangerous;
-  }
+  Set<PenType> getPenTypes();
 
-  public String getName() {
-    return name;
-  }
+  boolean isDangerous();
 
-  public Set<PenType> getPenTypes() {
-    return penTypes;
-  }
+  int getLandAreaRequired();
 
-  public boolean isDangerous() {
-    return dangerous;
-  }
+  boolean isAssigned();
 
-  public abstract int getWaterVolumeRequired();
+  Enclosable getAssignedToPen();
 
-  public abstract int getLandAreaRequired();
-
-  public abstract int getAirVolumeRequired();
-
-  public abstract Set<WaterType> getWaterTypes();
-
-  public boolean isAssigned() {
-    return (penAssignedTo != null);
-  }
-
-  public Enclosure getAssignedToPen() {
-    return penAssignedTo;
-  }
-
-  public boolean assignToPen(Enclosure pen) {
-    if (pen.addAnimal(this)) {
-      if (isAssigned()) {
-        penAssignedTo.removeAnimal(this);
-      }
-      penAssignedTo = pen;
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public String toString() {
-    return name;
-  }
+  boolean assignToPen(Enclosable pen);
 }

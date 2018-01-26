@@ -1,7 +1,7 @@
 package com.example.jhalloran.zoo.model.pen;
 
 import com.example.jhalloran.zoo.model.animal.Animal;
-import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
+import com.example.jhalloran.zoo.model.animal.Swimmer;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by jhalloran on 1/9/18.
  */
-public class AquariumPen extends Enclosure implements Swimmable, Serializable {
+public class AquariumPen extends AbstractPen implements Swimmable, Serializable {
   private static final PenType TYPE = PenType.AQUARIUM;
   private static final int LAND_AREA = 0;
   private final WaterType waterType;
@@ -19,7 +19,7 @@ public class AquariumPen extends Enclosure implements Swimmable, Serializable {
   private Set<Animal> animals = new HashSet<>();
 
   public AquariumPen(String name, WaterType waterType, int depth, int length, int width, int temperature) {
-    super(name, temperature);
+    super(name, temperature, LAND_AREA);
     this.waterType = waterType;
     waterVolume = depth * length * width;
   }
@@ -27,11 +27,6 @@ public class AquariumPen extends Enclosure implements Swimmable, Serializable {
   @Override
   public PenType getType() {
     return TYPE;
-  }
-
-  @Override
-  public int getLandArea() {
-    return LAND_AREA;
   }
 
   @Override
@@ -61,7 +56,7 @@ public class AquariumPen extends Enclosure implements Swimmable, Serializable {
 
   @Override
   public boolean canLiveHere(Animal animal) {
-    if (!(animal instanceof SwimmingAnimal)) {
+    if (!(animal instanceof Swimmer)) {
       return false;
     }
     if (animals.size() > 0) {
@@ -77,19 +72,21 @@ public class AquariumPen extends Enclosure implements Swimmable, Serializable {
     if (animal.getLandAreaRequired() > LAND_AREA) {
       return false;
     }
-    if (animal.getWaterVolumeRequired() > calculateRemainingSpace()) {
-      return false;
-    }
     if (!(animal.getPenTypes().contains(TYPE))) {
       return false;
     }
-    return animal.getWaterTypes().contains(waterType);
+    Swimmer swimmer = (Swimmer) animal;
+    if (swimmer.getWaterVolumeRequired() > calculateRemainingSpace()) {
+      return false;
+    }
+    return swimmer.getWaterTypes().contains(waterType);
   }
 
   private int calculateRemainingSpace() {
     int volumeCache = waterVolume;
     for (Animal animal : animals) {
-      volumeCache = volumeCache - animal.getWaterVolumeRequired();
+      Swimmer swimmer = (Swimmer) animal;
+      volumeCache = volumeCache - swimmer.getWaterVolumeRequired();
     }
     return volumeCache;
   }

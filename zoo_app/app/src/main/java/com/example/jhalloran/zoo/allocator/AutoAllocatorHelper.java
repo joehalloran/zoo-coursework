@@ -4,7 +4,7 @@ import android.util.Log;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.Zookeeper;
 import com.example.jhalloran.zoo.model.animal.Animal;
-import com.example.jhalloran.zoo.model.pen.Enclosure;
+import com.example.jhalloran.zoo.model.pen.Enclosable;
 import java.util.List;
 
 /**
@@ -21,10 +21,10 @@ public class AutoAllocatorHelper {
   public String autoAllocateAnimalsAndGetReport() {
     StringBuilder stringBuilder = new StringBuilder();
     List<Animal> animals = zoo.getAnimals();
-    List<Enclosure> pens = zoo.getPens();
+    List<Enclosable> pens = zoo.getPens();
     for (Animal animal : animals) {
       if (!animal.isAssigned()) {
-        for (Enclosure pen : pens) {
+        for (Enclosable pen : pens) {
           if (pen.canLiveHere(animal)) {
             animal.assignToPen(pen);
             stringBuilder.append(String.format("%s assigned to %s \n", animal.getName(), pen.getName()));
@@ -44,9 +44,9 @@ public class AutoAllocatorHelper {
 
   public String autoAllocatePensAndGetReport() {
     StringBuilder stringBuilder = new StringBuilder();
-    List<Enclosure> pens = zoo.getPens();
+    List<Enclosable> pens = zoo.getPens();
     List<Zookeeper> zookeepers = zoo.getZookeepers();
-    for (Enclosure pen : pens) {
+    for (Enclosable pen : pens) {
       if (!pen.isAssigned()) {
         for (Zookeeper zookeeper : zookeepers) {
           if (zookeeper.canManagerPen(pen)) {

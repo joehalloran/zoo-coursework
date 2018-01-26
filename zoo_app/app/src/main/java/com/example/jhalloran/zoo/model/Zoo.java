@@ -7,10 +7,9 @@ import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
 import com.example.jhalloran.zoo.model.pen.AquariumPen;
 import com.example.jhalloran.zoo.model.pen.AviaryPen;
 import com.example.jhalloran.zoo.model.pen.DryPen;
-import com.example.jhalloran.zoo.model.pen.Enclosure;
+import com.example.jhalloran.zoo.model.pen.Enclosable;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
-import com.google.common.annotations.VisibleForTesting;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -31,7 +30,7 @@ public class Zoo implements Serializable {
   private HashMap<UUID, Object> allItems = new HashMap<>();
   private HashMap<UUID, Animal> idsToAnimals = new HashMap<>();
   private HashMap<UUID, Zookeeper> idsToZookeepers = new HashMap<>();
-  private HashMap<UUID, Enclosure> idsToPens = new HashMap<>();
+  private HashMap<UUID, Enclosable> idsToPens = new HashMap<>();
 
   Zoo() {}
 
@@ -59,7 +58,7 @@ public class Zoo implements Serializable {
     return new ArrayList<>(idsToZookeepers.values());
   }
 
-  public List<Enclosure> getPens() {
+  public List<Enclosable> getPens() {
     return new ArrayList<>(idsToPens.values());
   }
 
@@ -79,7 +78,7 @@ public class Zoo implements Serializable {
     return idsToAnimals.get(uuid);
   }
 
-  public Enclosure getPenById(UUID uuid) {
+  public Enclosable getPenById(UUID uuid) {
     return idsToPens.get(uuid);
   }
 
@@ -107,7 +106,7 @@ public class Zoo implements Serializable {
     }
   }
 
-  public void addPen(Enclosure pen) {
+  public void addPen(Enclosable pen) {
     if (!getPens().contains(pen)) {
       UUID newUuid = UUID.randomUUID();
       idsToPens.put(newUuid, pen);

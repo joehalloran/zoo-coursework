@@ -18,7 +18,7 @@ public final class FlyingAnimalTest {
   private static final int DEFAULT_LAND_AREA_REQUIRED = 10;
   private static final int DEFAULT_AIR_VOLUME_REQUIRED = 10;
 
-  Animal animal = createDefaultLandAnimal();
+  private FlyingAnimal animal = createDefaultLandAnimal();
 
   @Before
   public void setUp() {
@@ -31,12 +31,6 @@ public final class FlyingAnimalTest {
     assertEquals(animal.getLandAreaRequired(), DEFAULT_LAND_AREA_REQUIRED);
     assertEquals(animal.getAirVolumeRequired(), DEFAULT_AIR_VOLUME_REQUIRED);
     assertTrue(animal.getPenTypes().contains(DEFAULT_PEN_TYPE));
-  }
-
-  @Test
-  public void createAnimal_returnsMagicValueForWaterMethods() {
-    assertEquals(animal.getWaterVolumeRequired(), 0);
-    assertTrue(animal.getWaterTypes().isEmpty());
   }
 
   @Test

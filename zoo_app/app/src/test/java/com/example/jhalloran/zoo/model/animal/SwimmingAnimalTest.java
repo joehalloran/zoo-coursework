@@ -20,7 +20,7 @@ public final class SwimmingAnimalTest {
   private static final int DEFAULT_WATER_VOLUME_REQUIRED = 100;
   private static final WaterType DEFAULT_WATER_TYPE = WaterType.SALT;
 
-  Animal animal = createDefaultSwimmingAnimal();
+  private SwimmingAnimal animal = createDefaultSwimmingAnimal();
 
   @Before
   public void setUp() {
@@ -34,11 +34,6 @@ public final class SwimmingAnimalTest {
     assertEquals(animal.getWaterVolumeRequired(), DEFAULT_WATER_VOLUME_REQUIRED);
     assertTrue(animal.getPenTypes().contains(DEFAULT_PEN_TYPE));
     assertTrue(animal.getWaterTypes().contains(DEFAULT_WATER_TYPE));
-  }
-
-  @Test
-  public void createAnimal_returnsMagicValueForAirMethods() {
-    assertEquals(animal.getAirVolumeRequired(), 0);
   }
 
   @Test
