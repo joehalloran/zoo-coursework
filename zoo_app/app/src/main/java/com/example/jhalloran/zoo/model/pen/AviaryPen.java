@@ -10,20 +10,13 @@ import java.util.Set;
 /**
  * Created by jhalloran on 1/9/18.
  */
-
 public class AviaryPen extends AbstractPen implements Flyable, Serializable {
-  private static final PenType TYPE = PenType.AVIARY;
   private final int airVolume;
   private Set<Animal> animals = new HashSet<>();
 
   public AviaryPen(String name, int length, int width, int height, int temperature) {
-    super(name, temperature, (length * width));
+    super(name, PenType.AVIARY, temperature, (length * width));
     this.airVolume = length * width * height;
-  }
-
-  @Override
-  public PenType getType() {
-    return TYPE;
   }
 
   @Override
@@ -51,7 +44,7 @@ public class AviaryPen extends AbstractPen implements Flyable, Serializable {
     if (!(animal instanceof Flyer)) {
       return false;
     }
-    if (!(animal.getPenTypes().contains(TYPE))) {
+    if (!(animal.getPenTypes().contains(super.getType()))) {
       return false;
     }
     if (animals.size() > 0) {

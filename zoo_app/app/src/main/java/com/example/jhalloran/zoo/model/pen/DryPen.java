@@ -12,16 +12,15 @@ import java.util.Set;
  * Created by jhalloran on 1/9/18.
  */
 public class DryPen extends AbstractPen implements Serializable {
-  private static final PenType TYPE = PenType.DRY;
   private Set<Animal> animals = new HashSet<>();
 
   public DryPen(String name, int length, int width, int temperature) {
-    super(name, temperature, (length * width));
+    this(name, PenType.DRY, length, width, temperature);
   }
 
-  @Override
-  public PenType getType() {
-    return TYPE;
+  // Allows subclasses to override type
+  DryPen(String name, PenType type, int length, int width, int temperature) {
+    super(name, type, temperature, (length * width));
   }
 
   @Override
@@ -54,7 +53,7 @@ public class DryPen extends AbstractPen implements Serializable {
         return false;
       }
     }
-    if (!(animal.getPenTypes().contains(TYPE))) {
+    if (!(animal.getPenTypes().contains(super.getType()))) {
       return false;
     }
     if (animal instanceof Swimmer) {

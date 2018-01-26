@@ -1,8 +1,8 @@
 package com.example.jhalloran.zoo.ui.create;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -13,14 +13,14 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.jhalloran.zoo.R;
-import com.example.jhalloran.zoo.model.pen.PartWaterPartDryPen;
-import com.example.jhalloran.zoo.model.pen.PettingPen;
-import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.pen.AquariumPen;
 import com.example.jhalloran.zoo.model.pen.AviaryPen;
 import com.example.jhalloran.zoo.model.pen.DryPen;
+import com.example.jhalloran.zoo.model.pen.PartWaterPartDryPen;
+import com.example.jhalloran.zoo.model.pen.PettingPen;
 import com.example.jhalloran.zoo.model.shared.WaterType;
+import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
 
 public class CreatePenActivity extends AppCompatActivity implements OnItemSelectedListener {
 
@@ -97,7 +97,8 @@ public class CreatePenActivity extends AppCompatActivity implements OnItemSelect
   }
 
   private PartWaterPartDryPen createPartWaterPartDryPen() {
-    return (new PartWaterPartDryPen(createDryPen(), createAquarium())); // TODO, View does not seperate land dims for water dims
+    return (new PartWaterPartDryPen(createDryPen(),
+        createAquarium())); // TODO, View does not seperate land dims for water dims
   }
 
   private DryPen createDryPen() {

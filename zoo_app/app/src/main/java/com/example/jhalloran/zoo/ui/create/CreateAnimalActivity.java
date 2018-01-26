@@ -1,8 +1,8 @@
 package com.example.jhalloran.zoo.ui.create;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,13 +13,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.example.jhalloran.zoo.R;
-import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
 import com.example.jhalloran.zoo.model.Zoo;
 import com.example.jhalloran.zoo.model.animal.FlyingAnimal;
 import com.example.jhalloran.zoo.model.animal.LandAnimal;
 import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
 import com.example.jhalloran.zoo.model.shared.PenType;
 import com.example.jhalloran.zoo.model.shared.WaterType;
+import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -104,7 +104,8 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
 
   private void createLandAnimal() {
     zoo.addAnimal(new LandAnimal(species.getText().toString(),
-        Integer.parseInt(landAreaRequired.getText().toString()), getSelectedPenTypes(), dangerous.isChecked()));
+        Integer.parseInt(landAreaRequired.getText().toString()), getSelectedPenTypes(),
+        dangerous.isChecked()));
   }
 
   private void createFlyingAnimal() {
@@ -130,7 +131,6 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
             .build());
   }
 
-
   private Set<PenType> getSelectedPenTypes() {
     Set<PenType> penTypes = new HashSet<>();
     if (dryPenCheckbox.isChecked()) {
@@ -145,7 +145,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     if (pettingPenCheckbox.isChecked()) {
       penTypes.add(PenType.PETTING);
     }
-    if(partWetPartDryCheckbox.isChecked()) {
+    if (partWetPartDryCheckbox.isChecked()) {
       penTypes.add(PenType.PART_WATER_PART_DRY);
     }
     return penTypes;
@@ -161,7 +161,6 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     }
     return waterTypes;
   }
-
 
   @Override
   public void onItemSelected(AdapterView<?> parent, View view,

@@ -12,21 +12,15 @@ import java.util.Set;
  * Created by jhalloran on 1/9/18.
  */
 public class AquariumPen extends AbstractPen implements Swimmable, Serializable {
-  private static final PenType TYPE = PenType.AQUARIUM;
   private static final int LAND_AREA = 0;
   private final WaterType waterType;
   private final int waterVolume;
   private Set<Animal> animals = new HashSet<>();
 
   public AquariumPen(String name, WaterType waterType, int depth, int length, int width, int temperature) {
-    super(name, temperature, LAND_AREA);
+    super(name, PenType.AQUARIUM, temperature, LAND_AREA);
     this.waterType = waterType;
     waterVolume = depth * length * width;
-  }
-
-  @Override
-  public PenType getType() {
-    return TYPE;
   }
 
   @Override
@@ -72,7 +66,7 @@ public class AquariumPen extends AbstractPen implements Swimmable, Serializable 
     if (animal.getLandAreaRequired() > LAND_AREA) {
       return false;
     }
-    if (!(animal.getPenTypes().contains(TYPE))) {
+    if (!(animal.getPenTypes().contains(super.getType()))) {
       return false;
     }
     Swimmer swimmer = (Swimmer) animal;

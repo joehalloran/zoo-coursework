@@ -9,15 +9,16 @@ import java.util.Set;
 /**
  * Created by jhalloran on 1/26/18.
  */
-
 public abstract class AbstractPen implements Enclosable, Serializable {
+  private final PenType type;
   private final String name;
   private final int temperature;
   private final int landArea;
   private Zookeeper zookeeperAssignedTo = null;
 
-  public AbstractPen(String name, int temperature, int landArea) {
+  AbstractPen(String name, PenType type, int temperature, int landArea) {
     this.name = name;
+    this.type = type;
     this.temperature = temperature;
     this.landArea = landArea;
   }
@@ -34,7 +35,9 @@ public abstract class AbstractPen implements Enclosable, Serializable {
     return landArea;
   }
 
-  public abstract PenType getType();
+  public PenType getType() {
+    return type;
+  }
 
   public abstract Set<Animal> getAnimals();
 
