@@ -121,28 +121,28 @@ public class Zoo implements Serializable {
   }
 
   private void setUpZoo() {
-    addAnimal(new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY)));
-    addAnimal(new LandAnimal("Zebra", 40, EnumSet.of(PenType.DRY, PenType.PETTING)));
-    addAnimal(new FlyingAnimal("Eagle", 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Cod", 0, 500, EnumSet.of(WaterType.SALT),
+    addAnimal(new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY), false));
+    addAnimal(new LandAnimal("Zebra", 40, EnumSet.of(PenType.DRY, PenType.PETTING), false));
+    addAnimal(new FlyingAnimal("Eagle", false, 40, 400, EnumSet.of(PenType.AVIARY)));
+    addAnimal(new SwimmingAnimal("Cod", false, 0, 500, EnumSet.of(WaterType.SALT),
         EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Shark", 0, 1000, EnumSet.of(WaterType.SALT),
-        EnumSet.of(PenType.AQUARIUM)));
-
-    addAnimal(new LandAnimal("Cheetah", 20, EnumSet.of(PenType.DRY)));
-    addAnimal(new LandAnimal("Springbok", 40, EnumSet.of(PenType.DRY, PenType.PETTING)));
-    addAnimal(new FlyingAnimal("Hawk", 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Haddock", 0, 500, EnumSet.of(WaterType.SALT),
-        EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Tuna", 0, 1000, EnumSet.of(WaterType.SALT),
+    addAnimal(new SwimmingAnimal("Shark", true, 0, 1000, EnumSet.of(WaterType.SALT),
         EnumSet.of(PenType.AQUARIUM)));
 
-    addAnimal(new LandAnimal("Lion", 20, EnumSet.of(PenType.DRY)));
-    addAnimal(new LandAnimal("Moose", 40, EnumSet.of(PenType.DRY, PenType.PETTING)));
-    addAnimal(new FlyingAnimal("Sparrow", 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Hake", 0, 500, EnumSet.of(WaterType.SALT),
+    addAnimal(new LandAnimal("Cheetah", 20, EnumSet.of(PenType.DRY), true));
+    addAnimal(new LandAnimal("Springbok", 40, EnumSet.of(PenType.DRY, PenType.PETTING), false));
+    addAnimal(new FlyingAnimal("Hawk", false, 40, 400, EnumSet.of(PenType.AVIARY)));
+    addAnimal(new SwimmingAnimal("Haddock", false, 0, 500, EnumSet.of(WaterType.SALT),
         EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Dolphin", 0, 1000, EnumSet.of(WaterType.SALT),
+    addAnimal(new SwimmingAnimal("Tuna", false, 0, 1000, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.AQUARIUM)));
+
+    addAnimal(new LandAnimal("Lion", 20, EnumSet.of(PenType.DRY), true));
+    addAnimal(new LandAnimal("Moose", 40, EnumSet.of(PenType.DRY, PenType.PETTING), false));
+    addAnimal(new FlyingAnimal("Sparrow", false, 40, 400, EnumSet.of(PenType.AVIARY)));
+    addAnimal(new SwimmingAnimal("Hake", false, 0, 500, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.AQUARIUM)));
+    addAnimal(new SwimmingAnimal("Dolphin", false, 0, 1000, EnumSet.of(WaterType.SALT),
         EnumSet.of(PenType.AQUARIUM)));
 
     addPen(new DryPen("Dry Pen", 10, 10, 21));

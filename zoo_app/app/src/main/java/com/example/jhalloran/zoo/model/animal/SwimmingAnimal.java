@@ -17,11 +17,12 @@ public class SwimmingAnimal extends Animal implements Serializable{
 
   public SwimmingAnimal(
       String name,
+      boolean dangerous,
       int landAreaRequired,
       int waterVolumeRequired,
       Set<WaterType> waterTypes,
       Set<PenType> penTypes) {
-    super(name, penTypes);
+    super(name, penTypes ,dangerous);
     this.waterTypes = EnumSet.copyOf(waterTypes);
     this.waterVolumeRequire = waterVolumeRequired;
     this.landAreaRequired = landAreaRequired;
@@ -49,6 +50,7 @@ public class SwimmingAnimal extends Animal implements Serializable{
 
   public static class Builder {
     private String name;
+    private boolean dangerous;
     private Set<PenType> penTypes;
     private int landAreaRequired;
     private int waterVolumeRequired;
@@ -58,6 +60,11 @@ public class SwimmingAnimal extends Animal implements Serializable{
 
     public SwimmingAnimal.Builder setName(String name) {
       this.name = name;
+      return this;
+    }
+
+    public SwimmingAnimal.Builder setDangerous(boolean dangerous) {
+      this.dangerous = dangerous;
       return this;
     }
 
@@ -84,6 +91,7 @@ public class SwimmingAnimal extends Animal implements Serializable{
     public SwimmingAnimal build() {
       return new SwimmingAnimal(
           this.name,
+          this.dangerous,
           this.landAreaRequired,
           this.waterVolumeRequired,
           this.waterTypes,

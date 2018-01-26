@@ -9,13 +9,14 @@
   <string name="title_activity_auto_allocator">Auto allocate</string>
   <string name="allocate_animals">Auto allocate animals</string>
   <string name="allocate_pens">Auto allocate pens</string>
-  <string name="refresh">Refresh</string>
   <string name="weather_title">Weather in %s</string>
+  <string name="temperature">Temp: %.1f℃</string>
   <string name="wind_speed">Wind speed: %.1f m/s</string>
   <string name="action_save">Save</string>
   <string name="action_cancel">Cancel</string>
   <string name="create_animal">Create animal</string>
   <string name="species_hint">Species</string>
+  <string name="dangerous_question">Dangerous animal?</string>
   <string name="total_animals">Total animals: %d</string>
   <string name="total_pens">Total pens: %d</string>
   <string name="total_zookeepers">Total zookeepers: %d</string>
@@ -37,6 +38,7 @@
   <string name="pen_water_depth_hint">Pen water depth (m)</string>
   <string name="pen_air_height_hint">Pen height (m)</string>
   <string name="animal_pen_types_detail">Pen types:</string>
+  <string name="animal_dangerous_detail">Dangerous:</string>
   <string name="animal_land_area_detail">Land area required:</string>
   <string name="animal_water_volume_detail">Water volume required:</string>
   <string name="animal_air_volume_detail">Air volume required:</string>
@@ -55,8 +57,6 @@
   <string name="zookeeper_name_hint">Zookeeper name</string>
   <string name="zookeeper_pen_types">Pen types this zookeeper can manage:</string>
   <string name="unassigned">Unassigned</string>
-
-
   <string-array name="animal_types">
     <item>Land animal</item>
     <item>Swimming animal</item>

@@ -58,6 +58,16 @@ public class DryPen extends Enclosure implements Serializable {
     if (animal.getLandAreaRequired() > calculateRemainingSpace()) {
       return false;
     }
+    if (animals.size() > 0) {
+      if (animal.isDangerous()) {
+        // Dangerous animals can only go into an empty pen
+        return false;
+      }
+      if (animals.iterator().next().isDangerous()) {
+        // If first animal is dangerous, no more animals can be added.
+        return false;
+      }
+    }
     if (!(animal.getPenTypes().contains(TYPE))) {
       return false;
     }

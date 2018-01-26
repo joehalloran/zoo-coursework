@@ -22,7 +22,7 @@ public class ZooTest {
   private static final String DEFAULT_ZOO_NAME = "Tottenham Hale retail park zoo";
 
   private Zoo zoo = Zoo.getInstance();
-  private Animal defaultAnimal = new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY));
+  private Animal defaultAnimal = new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY), false);
   private Enclosure defaultPen = new DryPen("Dry pen", 10, 10, 21);
   private Zookeeper defaultZookeeper = new Zookeeper("James", EnumSet.of(PenType.DRY));
 

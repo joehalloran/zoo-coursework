@@ -17,8 +17,8 @@ public class FlyingAnimal extends Animal implements Serializable {
   private final int airVolumeRequired;
 
   public FlyingAnimal(
-      String name, int landAreaRequired, int airVolumeRequired, Set<PenType> penTypes) {
-    super(name, penTypes);
+      String name, boolean dangerous, int landAreaRequired, int airVolumeRequired, Set<PenType> penTypes) {
+    super(name, penTypes, dangerous);
     this.landAreaRequired = landAreaRequired;
     this.airVolumeRequired = airVolumeRequired;
   }
@@ -45,6 +45,7 @@ public class FlyingAnimal extends Animal implements Serializable {
 
   public static class Builder {
     private String name;
+    private boolean dangerous;
     private Set<PenType> penTypes;
     private int landAreaRequired;
     private int airVolumeRequired;
@@ -53,6 +54,11 @@ public class FlyingAnimal extends Animal implements Serializable {
 
     public FlyingAnimal.Builder setName(String name) {
       this.name = name;
+      return this;
+    }
+
+    public FlyingAnimal.Builder setDangerous(boolean dangerous) {
+      this.dangerous = dangerous;
       return this;
     }
 
@@ -74,6 +80,7 @@ public class FlyingAnimal extends Animal implements Serializable {
     public FlyingAnimal build() {
       return new FlyingAnimal(
           this.name,
+          this.dangerous,
           this.landAreaRequired,
           this.airVolumeRequired,
           this.penTypes);

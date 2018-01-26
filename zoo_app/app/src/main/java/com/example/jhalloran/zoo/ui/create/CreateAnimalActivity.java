@@ -28,6 +28,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
   private final Zoo zoo = Zoo.getInstance();
   private Intent manageZooIntent;
   private EditText species;
+  private CheckBox dangerous;
   private EditText landAreaRequired;
   private String animalTypeSelected;
   private CheckBox aquariumCheckBox;
@@ -69,6 +70,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     spinner.setOnItemSelectedListener(this);
 
     species = findViewById(R.id.create_animal_input_species);
+    dangerous = findViewById(R.id.create_animal_dangerous_checkbox);
     landAreaRequired = findViewById(R.id.create_animal_land_area_required);
     aquariumCheckBox = findViewById(R.id.aquarium_pen_type_checkbox);
     aviaryCheckbox = findViewById(R.id.aviary_pen_type_checkbox);
@@ -79,7 +81,6 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     waterTypeViewGroup = findViewById(R.id.create_animal_water_type_view_group);
     freshWaterCheckbox = findViewById(R.id.fresh_water_type_checkbox);
     saltWaterCheckbox = findViewById(R.id.salt_water_type_checkbox);
-
   }
 
   private void saveAnimal() {
@@ -99,13 +100,14 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
 
   private void createLandAnimal() {
     zoo.addAnimal(new LandAnimal(species.getText().toString(),
-        Integer.parseInt(landAreaRequired.getText().toString()), getSelectedPenTypes()));
+        Integer.parseInt(landAreaRequired.getText().toString()), getSelectedPenTypes(), dangerous.isChecked()));
   }
 
   private void createFlyingAnimal() {
     zoo.addAnimal(
         new FlyingAnimal.Builder()
             .setName(species.getText().toString())
+            .setDangerous(dangerous.isChecked())
             .setLandAreaRequired(Integer.parseInt(landAreaRequired.getText().toString()))
             .setAirVolumeRequired(Integer.parseInt(airVolumeInput.getText().toString()))
             .setPenTypes(getSelectedPenTypes())
@@ -116,12 +118,14 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     zoo.addAnimal(
         new SwimmingAnimal.Builder()
             .setName(species.getText().toString())
+            .setDangerous(dangerous.isChecked())
             .setLandAreaRequired(Integer.parseInt(landAreaRequired.getText().toString()))
             .setWaterVolumeRequired(Integer.parseInt(waterVolumeInput.getText().toString()))
             .setPenTypes(getSelectedPenTypes())
             .setWaterTypes(getSelectedWaterTypes())
             .build());
   }
+
 
   private Set<PenType> getSelectedPenTypes() {
     Set<PenType> penTypes = new HashSet<>();
@@ -206,6 +210,4 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     checkbox.setVisibility(View.GONE);
     checkbox.setChecked(false);
   }
-
-
 }

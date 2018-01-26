@@ -18,8 +18,8 @@ import java.util.Set;
 public class LandAnimal extends Animal implements Serializable {
   private final int landAreaRequired;
 
-  public LandAnimal(String name, int landAreaRequired, Set<PenType> penTypes) {
-    super(name, penTypes);
+  public LandAnimal(String name, int landAreaRequired, Set<PenType> penTypes, boolean dangerous) {
+    super(name, penTypes, dangerous);
     this.landAreaRequired = landAreaRequired;
   }
 

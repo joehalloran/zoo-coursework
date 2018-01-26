@@ -17,6 +17,7 @@ import org.junit.Test;
 public final class LandAnimalTest {
   private static final PenType DEFAULT_PEN_TYPE = PenType.DRY;
   private static final String DEFAULT_NAME = "cat";
+  private static final boolean DEFAULT_DANGEROUS = false;
   private static final int DEFAULT_LAND_AREA_REQUIRED = 10;
   private static final String DEFAULT_PEN_NAME = "pen";
 
@@ -31,6 +32,7 @@ public final class LandAnimalTest {
   public void createAnimal_withDefaultValues() {
     assertEquals(animal.getName(), DEFAULT_NAME);
     assertEquals(animal.getLandAreaRequired(), DEFAULT_LAND_AREA_REQUIRED);
+    assertFalse(animal.isDangerous());
     assertTrue(animal.getPenTypes().contains(DEFAULT_PEN_TYPE));
     assertFalse(animal.isAssigned());
   }
@@ -93,6 +95,6 @@ public final class LandAnimalTest {
   }
 
   private LandAnimal createDefaultLandAnimal() {
-    return new LandAnimal(DEFAULT_NAME, DEFAULT_LAND_AREA_REQUIRED, EnumSet.of(DEFAULT_PEN_TYPE));
+    return new LandAnimal(DEFAULT_NAME, DEFAULT_LAND_AREA_REQUIRED, EnumSet.of(DEFAULT_PEN_TYPE), DEFAULT_DANGEROUS);
   }
 }

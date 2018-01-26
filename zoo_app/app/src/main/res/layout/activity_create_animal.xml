@@ -33,6 +33,15 @@
       android:hint="@string/species_hint"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/create_animal_type_spinner"/>
+  <CheckBox
+      android:id="@+id/create_animal_dangerous_checkbox"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/dangerous_question"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/create_animal_input_species"/>
   <TextView
       android:id="@+id/create_animal_pen_type_title"
       android:layout_width="wrap_content"
@@ -41,7 +50,7 @@
       android:layout_marginStart="16dp"
       android:text="@string/pen_types"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/create_animal_input_species"/>
+      app:layout_constraintTop_toBottomOf="@id/create_animal_dangerous_checkbox"/>
   <LinearLayout
       android:id="@+id/create_animal_pen_type_view_group"
       android:layout_width="wrap_content"

@@ -13,11 +13,13 @@ import java.util.Set;
 public abstract class Animal implements Serializable {
   private final String name;
   private final Set<PenType> penTypes;
+  private final boolean dangerous;
   private Enclosure penAssignedTo = null;
 
-  public Animal(String name, Set<PenType> penTypes) {
+  public Animal(String name, Set<PenType> penTypes, boolean dangerous) {
     this.name = name;
     this.penTypes = EnumSet.copyOf(penTypes);
+    this.dangerous = dangerous;
   }
 
   public String getName() {
@@ -26,6 +28,10 @@ public abstract class Animal implements Serializable {
 
   public Set<PenType> getPenTypes() {
     return penTypes;
+  }
+
+  public boolean isDangerous() {
+    return dangerous;
   }
 
   public abstract int getWaterVolumeRequired();

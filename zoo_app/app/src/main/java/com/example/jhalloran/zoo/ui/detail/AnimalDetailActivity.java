@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.jhalloran.zoo.R;
@@ -72,6 +73,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
 
     TextView animalName = findViewById(R.id.animal_detail_name);
     TextView penTypes = findViewById(R.id.animal_detail_pen_types_value);
+    CheckBox dangerous = findViewById(R.id.animal_detail_dangerous_value);
     TextView landAreaRequired = findViewById(R.id.animal_detail_land_area_value);
     TextView waterVolumeRequired = findViewById(R.id.animal_detail_water_volume_value);
     TextView airVolumeRequired = findViewById(R.id.animal_detail_air_volume_value);
@@ -82,6 +84,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
 
     animalName.setText(animal.getName());
     penTypes.setText(getPenTypesText());
+    dangerous.setChecked(animal.isDangerous());
     landAreaRequired.setText(String.valueOf(animal.getLandAreaRequired()));
     waterVolumeRequired.setText(String.valueOf(animal.getWaterVolumeRequired()));
     airVolumeRequired.setText(String.valueOf(animal.getAirVolumeRequired()));

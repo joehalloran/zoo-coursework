@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.example.jhalloran.zoo.R;
 import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
@@ -23,13 +24,10 @@ import java.util.concurrent.Executor;
 import org.openweathermap.api.model.currentweather.CurrentWeather;
 
 public class MainActivity extends AppCompatActivity {
-
   private static final String TAG = "ZooMainActivity";
-  private static final String FILE_NAME = "zoo.tmp";
   private final WeatherUpdate weatherUpdate = new WeatherUpdate();
   private final ZooFileManager zooFileManager = new ZooFileManager(this);
   private Zoo zoo;
-
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    final Button refreshWeatherButton = findViewById(R.id.refreshWeather);
+    final ImageButton refreshWeatherButton = findViewById(R.id.refreshWeather);
     refreshWeatherButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -169,8 +167,7 @@ public class MainActivity extends AppCompatActivity {
             weatherTitle.setText(getResources().getString(R.string.weather_title, weather.getCityName()));
 
             TextView weatherTemperature = findViewById(R.id.weatherTemperature);
-            weatherTemperature
-                .setText(String.format("%s \u2103", weather.getMainParameters().getTemperature()));
+            weatherTemperature.setText(getResources().getString(R.string.temperature, weather.getMainParameters().getTemperature()));
 
             TextView weatherRain = findViewById(R.id.weatherPrecipitation);
             weatherRain.setText(getResources().getString(R.string.wind_speed, weather.getWind().getSpeed()));

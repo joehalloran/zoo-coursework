@@ -55,7 +55,7 @@
         android:layout_marginStart="16dp" />
   </LinearLayout>
   <LinearLayout
-      android:id="@+id/animal_detail_land_area"
+      android:id="@+id/animal_detail_dangerous"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
@@ -63,6 +63,31 @@
       android:layout_marginBottom="16dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/animal_detail_pen_types"
+      >
+    <TextView
+        android:id="@+id/animal_detail_dangerous_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/animal_dangerous_detail"/>
+    <CheckBox
+        android:id="@+id/animal_detail_dangerous_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:clickable="false"/>
+  </LinearLayout>
+  <LinearLayout
+      android:id="@+id/animal_detail_land_area"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginTop="16dp"
+      android:layout_marginBottom="16dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/animal_detail_dangerous"
       >
     <TextView
         android:id="@+id/animal_detail_land_area_title"
