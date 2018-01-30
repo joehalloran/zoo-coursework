@@ -3,9 +3,9 @@ package com.example.jhalloran.zoo.ui.detail;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +31,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+/**
+ * Controller for Animal detail view. Displays details of a single {@link Animal}
+ */
 public class AnimalDetailActivity extends AppCompatActivity {
+
   private static final String TAG = "AnimalDetail";
   private final Zoo zoo = Zoo.getInstance();
   private Animal animal;
@@ -58,21 +62,22 @@ public class AnimalDetailActivity extends AppCompatActivity {
   @Override
   public void onResume() {
     super.onResume();
-    // Only refresh content if new required
-    if (!uuid.toString().equals(getIntent().getStringExtra(ZooConstants.ITEM_ID))) {
+    // Only refresh content if new content required
+    if (!uuid.toString().equals(getIntent().getStringExtra(ZooConstants.ITEM_ID.getValue()))) {
       setViewContent();
     }
   }
 
+  // Get animal from model and update view.
   private void setViewContent() {
     Intent intent = getIntent();
-    uuid = UUID.fromString(intent.getStringExtra(ZooConstants.ITEM_ID));
+    uuid = UUID.fromString(intent.getStringExtra(ZooConstants.ITEM_ID.getValue()));
     animal = zoo.getAnimalById(uuid);
 
+    // Initialize UI items
     waterVolumeRequiredGroup = findViewById(R.id.animal_detail_water_volume);
     airVolumeRequiredGroup = findViewById(R.id.animal_detail_air_volume);
     waterTypesGroup = findViewById(R.id.animal_detail_water_types);
-
     TextView animalName = findViewById(R.id.animal_detail_name);
     TextView penTypes = findViewById(R.id.animal_detail_pen_types_value);
     CheckBox dangerous = findViewById(R.id.animal_detail_dangerous_value);
@@ -81,9 +86,9 @@ public class AnimalDetailActivity extends AppCompatActivity {
     TextView airVolumeRequired = findViewById(R.id.animal_detail_air_volume_value);
     TextView waterTypes = findViewById(R.id.animal_detail_water_types_value);
 
-
     configureViewForAnimalType();
 
+    // Update UI items with animal details
     animalName.setText(animal.getName());
     penTypes.setText(getPenTypesText());
     dangerous.setChecked(animal.isDangerous());
@@ -98,18 +103,18 @@ public class AnimalDetailActivity extends AppCompatActivity {
       airVolumeRequired.setText(String.valueOf(flyingAnimal.getAirVolumeRequired()));
     }
 
-
     setAssignedToTextField();
 
+    // Initialize assignment button with onClick listener
     final Button assignButton = findViewById(R.id.animal_detail_assign_button);
-    assignButton.setOnClickListener(new View.OnClickListener(){
+    assignButton.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View v){
+      public void onClick(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         final List<UUID> penIds = getSuitablePenIds();
         if (penIds.size() > 0) {
           CharSequence[] penNames = new CharSequence[penIds.size()];
-          for (int i = 0; i < penIds.size(); i++ ) {
+          for (int i = 0; i < penIds.size(); i++) {
             penNames[i] = zoo.getPenById(penIds.get(i)).toString();
           }
           builder
@@ -132,6 +137,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
 
   }
 
+  // Hide / show relevant fields for different animals
   private void configureViewForAnimalType() {
     if (animal instanceof SwimmingAnimal) {
       waterVolumeRequiredGroup.setVisibility(View.VISIBLE);
@@ -145,14 +151,15 @@ public class AnimalDetailActivity extends AppCompatActivity {
       waterVolumeRequiredGroup.setVisibility(View.GONE);
       waterTypesGroup.setVisibility(View.GONE);
       airVolumeRequiredGroup.setVisibility(View.GONE);
-    } else  {
+    } else {
       Log.e(TAG, String.format("Animal %s is not of valid type", animal.getName()));
     }
   }
 
+  // Build string for PenType field
   private String getPenTypesText() {
     StringBuilder stringBuilder = new StringBuilder();
-    for (Iterator<PenType> it = animal.getPenTypes().iterator(); it.hasNext();) {
+    for (Iterator<PenType> it = animal.getPenTypes().iterator(); it.hasNext(); ) {
       stringBuilder.append(it.next());
       if (it.hasNext()) {
         stringBuilder.append(", ");
@@ -161,9 +168,10 @@ public class AnimalDetailActivity extends AppCompatActivity {
     return stringBuilder.toString();
   }
 
+  // Build string for WaterType field
   private String getWaterTypesText(Swimmer swimmer) {
     StringBuilder stringBuilder = new StringBuilder();
-    for (Iterator<WaterType> it = swimmer.getWaterTypes().iterator(); it.hasNext();) {
+    for (Iterator<WaterType> it = swimmer.getWaterTypes().iterator(); it.hasNext(); ) {
       stringBuilder.append(it.next());
       if (it.hasNext()) {
         stringBuilder.append(", ");
@@ -172,6 +180,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
     return stringBuilder.toString();
   }
 
+  // Display name of pen assigned to
   private void setAssignedToTextField() {
     Enclosable pen = animal.getAssignedToPen();
     TextView assigned = findViewById(R.id.animal_detail_assigned_value);
@@ -182,6 +191,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
     }
   }
 
+  // Filter suitable pens when attempting assignment
   private List<UUID> getSuitablePenIds() {
     final List<UUID> penIds = new ArrayList<>(zoo.getPenIds());
     Predicate<UUID> uuidPredicate = new Predicate<UUID>() {

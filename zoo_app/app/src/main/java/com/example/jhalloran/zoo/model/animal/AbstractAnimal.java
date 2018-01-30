@@ -7,10 +7,10 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/26/18.
+ * Superclass to be extended to create new types of Zoo Animal
  */
-
 public abstract class AbstractAnimal implements Animal, Serializable {
+
   private final String name;
   private final Set<PenType> penTypes;
   private final boolean dangerous;
@@ -24,36 +24,57 @@ public abstract class AbstractAnimal implements Animal, Serializable {
     this.landAreaRequired = landAreaRequired;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public String getName() {
     return name;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public Set<PenType> getPenTypes() {
     return penTypes;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean isDangerous() {
     return dangerous;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public int getLandAreaRequired() {
     return landAreaRequired;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean isAssigned() {
     return (penAssignedTo != null);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public Enclosable getAssignedToPen() {
     return penAssignedTo;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean assignToPen(Enclosable pen) {
     if (pen.addAnimal(this)) {

@@ -8,9 +8,10 @@ import com.example.jhalloran.zoo.model.pen.Enclosable;
 import java.util.List;
 
 /**
- * Created by jhalloran on 1/25/18.
+ * Auto allocates animal to pens and pens to zookeepers
  */
 public class AutoAllocatorHelper {
+
   private static final String TAG = "AutoAllocatorHelper";
   private final Zoo zoo;
 
@@ -18,6 +19,11 @@ public class AutoAllocatorHelper {
     zoo = Zoo.getInstance();
   }
 
+  /**
+   * Auto allocates animals to pens and generates a report for display to user.
+   *
+   * @return allocation report, includes newline escape chars.
+   */
   public String autoAllocateAnimalsAndGetReport() {
     StringBuilder stringBuilder = new StringBuilder();
     List<Animal> animals = zoo.getAnimals();
@@ -27,9 +33,10 @@ public class AutoAllocatorHelper {
         for (Enclosable pen : pens) {
           if (pen.canLiveHere(animal)) {
             animal.assignToPen(pen);
-            stringBuilder.append(String.format("%s assigned to %s \n", animal.getName(), pen.getName()));
-            Log.i(TAG ,String.format("Allocating %s into %s", animal.getName(), pen.getName()));
-            break; // TODO does this break both for loops??
+            stringBuilder
+                .append(String.format("%s assigned to %s \n", animal.getName(), pen.getName()));
+            Log.i(TAG, String.format("Allocating %s into %s", animal.getName(), pen.getName()));
+            break;
           }
         }
         if (!animal.isAssigned()) {
@@ -42,6 +49,10 @@ public class AutoAllocatorHelper {
     return stringBuilder.toString();
   }
 
+  /**
+   *
+   * @return
+   */
   public String autoAllocatePensAndGetReport() {
     StringBuilder stringBuilder = new StringBuilder();
     List<Enclosable> pens = zoo.getPens();
@@ -51,9 +62,10 @@ public class AutoAllocatorHelper {
         for (Zookeeper zookeeper : zookeepers) {
           if (zookeeper.canManagerPen(pen)) {
             pen.assignToZookeeper(zookeeper);
-            stringBuilder.append(String.format("%s assigned to %s\n", pen.getName(), zookeeper.getName()));
-            Log.i(TAG ,String.format("Allocating %s into %s", pen.getName(), zookeeper.getName()));
-            break; // TODO does this break both for loops??
+            stringBuilder
+                .append(String.format("%s assigned to %s\n", pen.getName(), zookeeper.getName()));
+            Log.i(TAG, String.format("Allocating %s into %s", pen.getName(), zookeeper.getName()));
+            break;
           }
         }
         if (!pen.isAssigned()) {

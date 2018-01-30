@@ -3,9 +3,9 @@ package com.example.jhalloran.zoo.ui.detail;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+/**
+ * Controller for pen detail view. Displays details of a single {@link Enclosable}
+ */
 public class PenDetailActivity extends AppCompatActivity {
   private static final String TAG = "PenDetail";
   private final Zoo zoo = Zoo.getInstance();
@@ -51,21 +54,22 @@ public class PenDetailActivity extends AppCompatActivity {
   @Override
   public void onResume() {
     super.onResume();
-    // Only refresh content if new required
-    if (!uuid.toString().equals(getIntent().getStringExtra(ZooConstants.ITEM_ID))) {
+    // Only refresh content if new content required
+    if (!uuid.toString().equals(getIntent().getStringExtra(ZooConstants.ITEM_ID.getValue()))) {
       setViewContent();
     }
   }
 
+  // Get pen from model and update view.
   private void setViewContent() {
     Intent intent = getIntent();
-    uuid = UUID.fromString(intent.getStringExtra(ZooConstants.ITEM_ID));
+    uuid = UUID.fromString(intent.getStringExtra(ZooConstants.ITEM_ID.getValue()));
     pen = zoo.getPenById(uuid);
 
+    // Initialize UI items
     waterVolumeGroup = findViewById(R.id.pen_detail_water_volume);
     airVolumeGroup = findViewById(R.id.pen_detail_air_volume);
     waterTypeGroup = findViewById(R.id.pen_detail_water_type);
-
     TextView penName = findViewById(R.id.pen_detail_name);
     TextView penType = findViewById(R.id.pen_detail_type_value);
     TextView penTemperature = findViewById(R.id.pen_detail_temperature_value);
@@ -76,6 +80,7 @@ public class PenDetailActivity extends AppCompatActivity {
 
     configureViewForAnimalType();
 
+    // Update UI items with pen details
     penName.setText(pen.toString());
     penType.setText(pen.getType().toString());
     penTemperature.setText(String.valueOf(pen.getTemperature()));
@@ -91,6 +96,7 @@ public class PenDetailActivity extends AppCompatActivity {
       airVolume.setText(String.valueOf(flyingPen.getAirVolume()));
     }
 
+    // Initialize assignment button with onClick listener
     final Button assignButton = findViewById(R.id.pen_detail_assign_button);
     assignButton.setOnClickListener(new View.OnClickListener(){
       @Override
@@ -121,6 +127,7 @@ public class PenDetailActivity extends AppCompatActivity {
     });
   }
 
+  // Hide / show relevant fields for different pens
   private void configureViewForAnimalType() {
     if (pen instanceof Swimmable) {
       waterVolumeGroup.setVisibility(View.VISIBLE);
@@ -137,6 +144,7 @@ public class PenDetailActivity extends AppCompatActivity {
     }
   }
 
+  // Display name of Zookeeper assigned to
   private void setAssignedToTextField() {
     Zookeeper zookeeper = pen.getAssignedToZookeeper();
     TextView assigned = findViewById(R.id.pen_detail_assigned_value);
@@ -147,6 +155,7 @@ public class PenDetailActivity extends AppCompatActivity {
     }
   }
 
+  // Filter suitable Zookeepers when attempting assignment
   private List<UUID> getSuitableZookeeperIds() {
     final List<UUID> zookeeperIds = new ArrayList<>(zoo.getZookeeperIds());
     Predicate<UUID> uuidPredicate = new Predicate<UUID>() {

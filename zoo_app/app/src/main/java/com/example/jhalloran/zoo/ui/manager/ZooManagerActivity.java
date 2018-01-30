@@ -3,6 +3,7 @@ package com.example.jhalloran.zoo.ui.manager;
 import static com.example.jhalloran.zoo.ZooConstants.ARG_PAGE_NUMBER;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -27,8 +27,11 @@ import com.example.jhalloran.zoo.ui.create.CreatePenActivity;
 import com.example.jhalloran.zoo.ui.create.CreateZookeeperActivity;
 import java.util.concurrent.Executor;
 
-
+/**
+ * Controller for auto-allocation layout. Tabbed view.
+ */
 public class ZooManagerActivity extends AppCompatActivity {
+
   private static final String TAG = "ZooManagerActivity";
   private final ZooFileManager zooFileManager = new ZooFileManager(this);
   private ViewPager viewPager;
@@ -46,11 +49,12 @@ public class ZooManagerActivity extends AppCompatActivity {
     ActionBar ab = getSupportActionBar();
     ab.setDisplayHomeAsUpEnabled(true);
 
-
+    // Initialize button and declare onClick listener
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+        // Outcome is dependant on current active tab.
         startActivity(getCreateItemIntent(viewPager.getCurrentItem()));
       }
     });
@@ -76,15 +80,11 @@ public class ZooManagerActivity extends AppCompatActivity {
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_zoo_manager, menu);
-    return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override
-  protected void onResume(){
+  protected void onResume() {
     super.onResume();
+    //  Update UI
     populatePagerView();
+    // Write zoo to file, incase previous action changed state.
     Executor executor = ZooThreadPoolManager.getBackgroundThreadExecutor();
     executor.execute(new Runnable() {
       @Override
@@ -92,6 +92,12 @@ public class ZooManagerActivity extends AppCompatActivity {
         zooFileManager.writeZooToFile();
       }
     });
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_zoo_manager, menu);
+    return super.onCreateOptionsMenu(menu);
   }
 
   @Override
@@ -105,9 +111,10 @@ public class ZooManagerActivity extends AppCompatActivity {
     }
   }
 
-  private void  populatePagerView() {
+  private void populatePagerView() {
     // Set up swipe tabs
-    ZooContentPagerAdapter zooContentPagerAdapter = new ZooContentPagerAdapter(getSupportFragmentManager());
+    ZooContentPagerAdapter zooContentPagerAdapter = new ZooContentPagerAdapter(
+        getSupportFragmentManager());
     viewPager = findViewById(R.id.zoo_manager_pager);
     viewPager.setAdapter(zooContentPagerAdapter);
 
@@ -116,8 +123,10 @@ public class ZooManagerActivity extends AppCompatActivity {
     tabLayout.setupWithViewPager(viewPager);
   }
 
+  // Manages tabbed behaviour of layput. Keeps track of current tab.
   public class ZooContentPagerAdapter extends FragmentStatePagerAdapter {
-    ZooContentPagerAdapter(FragmentManager fm){
+
+    ZooContentPagerAdapter(FragmentManager fm) {
       super(fm);
     }
 
@@ -125,7 +134,7 @@ public class ZooManagerActivity extends AppCompatActivity {
     public Fragment getItem(int i) {
       Fragment fragment = new ZooContentFragment();
       Bundle args = new Bundle();
-      args.putInt(ARG_PAGE_NUMBER, i+1);
+      args.putInt(ARG_PAGE_NUMBER.getValue(), i + 1);
       fragment.setArguments(args);
       return fragment;
     }

@@ -10,9 +10,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * Created by jhalloran on 1/12/18.
+ * Handles IO for Zoo app persistence layer.
  */
 public class ZooFileManager {
+
   private static final String TAG = "ZooFileManager";
   private static final String FILE_NAME = "zoo.tmp";
   private final Context context;
@@ -21,6 +22,9 @@ public class ZooFileManager {
     this.context = context;
   }
 
+  /**
+   * Saves contents of Zoo.
+   */
   public synchronized void writeZooToFile() {
     Log.i(TAG, "Writing zoo to file");
     try {
@@ -35,6 +39,9 @@ public class ZooFileManager {
 
   }
 
+  /**
+   * Reads data from file and initializes saved Zoo.
+   */
   public synchronized void initializeZooFromFile() {
     try {
       FileInputStream fis = context.openFileInput(FILE_NAME);

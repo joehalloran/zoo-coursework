@@ -1,39 +1,42 @@
 package com.example.jhalloran.zoo.model.animal;
 
-/**
- * Created by jhalloran on 1/8/18.
- */
-
 import com.example.jhalloran.zoo.model.shared.PenType;
-import com.example.jhalloran.zoo.model.shared.WaterType;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-/** */
+/**
+ * An animal that can fly.
+ **/
 public class FlyingAnimal extends AbstractAnimal implements Flyer, Serializable {
+
   private final int airVolumeRequired;
 
   public FlyingAnimal(
-      String name, boolean dangerous, int landAreaRequired, int airVolumeRequired, Set<PenType> penTypes) {
+      String name, boolean dangerous, int landAreaRequired, int airVolumeRequired,
+      Set<PenType> penTypes) {
     super(name, penTypes, dangerous, landAreaRequired);
     this.airVolumeRequired = airVolumeRequired;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public int getAirVolumeRequired() {
     return airVolumeRequired;
   }
 
   public static class Builder {
+
     private String name;
     private boolean dangerous;
     private Set<PenType> penTypes;
     private int landAreaRequired;
     private int airVolumeRequired;
 
-    public Builder() {}
+    public Builder() {
+    }
 
     public FlyingAnimal.Builder setName(String name) {
       this.name = name;

@@ -19,12 +19,11 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Created by jhalloran on 1/8/18.
+ * A singleton that represents the current state of the Zoo. A god class.
  */
-
 public class Zoo implements Serializable {
 
-  public static final String ZOO_NAME = "Tottenham Hale retail park zoo";
+  private static final String ZOO_NAME = "Tottenham Hale retail park zoo";
   private static Zoo instance = null;
 
   private HashMap<UUID, Object> allItems = new HashMap<>();
@@ -32,8 +31,13 @@ public class Zoo implements Serializable {
   private HashMap<UUID, Zookeeper> idsToZookeepers = new HashMap<>();
   private HashMap<UUID, Enclosable> idsToPens = new HashMap<>();
 
-  Zoo() {}
+  // Private constructor to suppress multiple instantiation. Singleton.
+  private Zoo() {
+  }
 
+  /**
+   * @return Current Zoo instance
+   */
   public static Zoo getInstance() {
     if (instance == null) {
       instance = new Zoo();
@@ -42,54 +46,99 @@ public class Zoo implements Serializable {
     return instance;
   }
 
+  /**
+   * Initializes Zoo from a pre-existing instance, e.g. A zoo saved from file.
+   *
+   * @param zoo The pre-existing zoo to instantiate.
+   */
   public static void initializeZoo(Zoo zoo) {
     instance = zoo;
   }
 
+  /**
+   * @return The name of this Zoo.
+   */
   public String getName() {
     return ZOO_NAME;
   }
 
+  /**
+   * @return All {@link Animal} in the Zoo.
+   */
   public List<Animal> getAnimals() {
     return new ArrayList<>(idsToAnimals.values());
   }
 
+  /**
+   * @return All {@link Zookeeper} in the Zoo.
+   */
   public List<Zookeeper> getZookeepers() {
     return new ArrayList<>(idsToZookeepers.values());
   }
 
+  /**
+   * @return All {@link Enclosable} in the Zoo.
+   */
   public List<Enclosable> getPens() {
     return new ArrayList<>(idsToPens.values());
   }
 
+  /**
+   * @return {@link UUID} for all {@link Animal} in the Zoo.
+   */
   public Set<UUID> getAnimalIds() {
     return idsToAnimals.keySet();
   }
 
+  /**
+   * @return {@link UUID} for all {@link Zookeeper} in the Zoo.
+   */
   public Set<UUID> getZookeeperIds() {
     return idsToZookeepers.keySet();
   }
 
+  /**
+   * @return {@link UUID} for all {@link Enclosable} in the Zoo.
+   */
   public Set<UUID> getPenIds() {
     return idsToPens.keySet();
   }
 
+  /**
+   * @param uuid {@link UUID}
+   * @return The {@link Animal} associated with a specific {@link UUID}.
+   */
   public Animal getAnimalById(UUID uuid) {
     return idsToAnimals.get(uuid);
   }
 
+  /**
+   * @param uuid {@link UUID}
+   * @return The {@link Enclosable} associated with a specific {@link UUID}.
+   */
   public Enclosable getPenById(UUID uuid) {
     return idsToPens.get(uuid);
   }
 
+  /**
+   * @param uuid {@link UUID}
+   * @return The {@link Zookeeper} associated with a specific {@link UUID}.
+   */
   public Zookeeper getZookeeperById(UUID uuid) {
     return idsToZookeepers.get(uuid);
   }
 
+  /**
+   * @param uuid {@link UUID}
+   * @return The Zoo object associated with a specific {@link UUID}.
+   */
   public Object getAnyItemById(UUID uuid) {
     return allItems.get(uuid);
   }
 
+  /**
+   * @param animal {@link Animal} to add to the Zoo.
+   */
   public void addAnimal(Animal animal) {
     if (!getAnimals().contains(animal)) {
       UUID newUuid = UUID.randomUUID();
@@ -98,6 +147,9 @@ public class Zoo implements Serializable {
     }
   }
 
+  /**
+   * @param zookeeper {@link Zookeeper} to add to the Zoo.
+   */
   public void addZookeeper(Zookeeper zookeeper) {
     if (!getZookeepers().contains(zookeeper)) {
       UUID newUuid = UUID.randomUUID();
@@ -106,6 +158,9 @@ public class Zoo implements Serializable {
     }
   }
 
+  /**
+   * @param pen {@link Enclosable} to add to the Zoo.
+   */
   public void addPen(Enclosable pen) {
     if (!getPens().contains(pen)) {
       UUID newUuid = UUID.randomUUID();

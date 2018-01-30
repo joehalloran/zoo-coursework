@@ -9,9 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/9/18.
+ * A pen that can house land animals who cannot swim or fly
  */
 public class DryPen extends AbstractPen implements Serializable {
+
   private Set<Animal> animals = new HashSet<>();
 
   public DryPen(String name, int length, int width, int temperature) {
@@ -23,21 +24,33 @@ public class DryPen extends AbstractPen implements Serializable {
     super(name, type, temperature, (length * width));
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public Set<Animal> getAnimals() {
     return animals;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean addAnimal(Animal animal) {
     return canLiveHere(animal) && animals.add(animal);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean removeAnimal(Animal animal) {
     return animals.remove(animal);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean canLiveHere(Animal animal) {
     if (animal.getLandAreaRequired() > calculateRemainingSpace()) {

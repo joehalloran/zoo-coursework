@@ -1,9 +1,8 @@
 package com.example.jhalloran.zoo.model.shared;
 
 /**
- * Created by jhalloran on 1/8/18.
+ * Defines categories of Pen used in this Zoo.
  */
-
 public enum PenType {
   DRY,
   AQUARIUM,

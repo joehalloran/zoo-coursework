@@ -8,9 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/9/18.
+ * A pen that can house flying animals
  */
 public class AviaryPen extends AbstractPen implements Flyable, Serializable {
+
   private final int airVolume;
   private Set<Animal> animals = new HashSet<>();
 
@@ -19,26 +20,41 @@ public class AviaryPen extends AbstractPen implements Flyable, Serializable {
     this.airVolume = length * width * height;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public int getAirVolume() {
     return airVolume;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public Set<Animal> getAnimals() {
     return animals;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean addAnimal(Animal animal) {
     return canLiveHere(animal) && animals.add(animal);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean removeAnimal(Animal animal) {
     return animals.remove(animal);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean canLiveHere(Animal animal) {
     if (!(animal instanceof Flyer)) {

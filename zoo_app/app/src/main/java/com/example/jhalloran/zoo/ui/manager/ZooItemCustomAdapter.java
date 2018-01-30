@@ -20,10 +20,11 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by jhalloran on 1/11/18.
+ * Adapter to link Zoo data to view.
  */
+public class ZooItemCustomAdapter extends
+    RecyclerView.Adapter<ZooItemCustomAdapter.ZooItemViewHolder> {
 
-public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdapter.ZooItemViewHolder> {
   private static final String TAG = "ZooCustomAdapter";
   private final Zoo zoo = Zoo.getInstance();
   private List<UUID> dataSet;
@@ -41,11 +42,13 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
     return new ZooItemViewHolder(v, dataSet);
   }
 
+  // Binds model data to the zoo.
   @Override
   public void onBindViewHolder(ZooItemViewHolder viewHolder, final int position) {
     Object item = zoo.getAnyItemById(dataSet.get(position));
     viewHolder.getTextView().setText(item.toString());
     TextView hintView = viewHolder.getHintView();
+    // Adds "unassigned" warning for animals and pens.
     if (item instanceof Animal) {
       Animal animal = (Animal) item;
       if (!animal.isAssigned()) {
@@ -70,14 +73,16 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
     return dataSet.size();
   }
 
+  // View holder for each item in the dataset
   static class ZooItemViewHolder extends RecyclerView.ViewHolder {
+
     private final TextView textView;
     private final TextView hintView;
     private final Zoo zoo = Zoo.getInstance();
 
     ZooItemViewHolder(View v, final List<UUID> dataSet) {
       super(v);
-      // Define click listener for the ViewHolder's View.
+      // Define click listener for each item.
       v.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -86,19 +91,19 @@ public class ZooItemCustomAdapter extends RecyclerView.Adapter<ZooItemCustomAdap
           Object item = zoo.getAnyItemById(uuid);
           if (item instanceof Animal) {
             Intent animalDetailIntent = new Intent(context, AnimalDetailActivity.class);
-            animalDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
+            animalDetailIntent.putExtra(ZooConstants.ITEM_ID.getValue(), uuid.toString());
             context.startActivity(animalDetailIntent);
           } else if (item instanceof Enclosable) {
             Intent penDetailIntent = new Intent(context, PenDetailActivity.class);
-            penDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
+            penDetailIntent.putExtra(ZooConstants.ITEM_ID.getValue(), uuid.toString());
             context.startActivity(penDetailIntent);
           } else if (item instanceof Zookeeper) {
             Intent zookeeperDetailIntent = new Intent(context, ZookeeperDetailActivity.class);
-            zookeeperDetailIntent.putExtra(ZooConstants.ITEM_ID, uuid.toString());
+            zookeeperDetailIntent.putExtra(ZooConstants.ITEM_ID.getValue(), uuid.toString());
             context.startActivity(zookeeperDetailIntent);
           }
-          }
-        });
+        }
+      });
       hintView = v.findViewById(R.id.zooRowItemHint);
       textView = v.findViewById(R.id.zooRowItemText);
     }

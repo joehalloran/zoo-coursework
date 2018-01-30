@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import com.example.jhalloran.zoo.R;
 import com.example.jhalloran.zoo.model.Zoo;
+import com.example.jhalloran.zoo.model.animal.Animal;
 import com.example.jhalloran.zoo.model.animal.FlyingAnimal;
 import com.example.jhalloran.zoo.model.animal.LandAnimal;
 import com.example.jhalloran.zoo.model.animal.SwimmingAnimal;
@@ -23,6 +24,9 @@ import com.example.jhalloran.zoo.ui.manager.ZooManagerActivity;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Controller for Animal create view. Displays a form to create a new {@link Animal}
+ */
 public class CreateAnimalActivity extends AppCompatActivity implements OnItemSelectedListener {
 
   private final Zoo zoo = Zoo.getInstance();
@@ -48,6 +52,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_create_animal);
 
+    // Initialize buttons and add onClick listeners
     final Button cancelButton = findViewById(R.id.create_animal_cancel_button);
     manageZooIntent = new Intent(this, ZooManagerActivity.class);
     cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +67,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
       }
     });
 
+    // Initialize spinner to select Animal
     Spinner spinner = findViewById(R.id.create_animal_type_spinner);
     // Create an ArrayAdapter using the string array and a default spinner layout
     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -71,6 +77,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     spinner.setAdapter(adapter);
     spinner.setOnItemSelectedListener(this);
 
+    // Initialize UI items
     species = findViewById(R.id.create_animal_input_species);
     dangerous = findViewById(R.id.create_animal_dangerous_checkbox);
     landAreaRequired = findViewById(R.id.create_animal_land_area_required);
@@ -87,6 +94,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     saltWaterCheckbox = findViewById(R.id.salt_water_type_checkbox);
   }
 
+  // Create Animal of selected type and save to model
   private void saveAnimal() {
     switch (animalTypeSelected) {
       case "Land animal":
@@ -99,15 +107,18 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
         createSwimmingAnimal();
         break;
     }
+    // Return to ZooManagerActivity
     startActivity(manageZooIntent);
   }
 
+  // Utility method to create Animal
   private void createLandAnimal() {
     zoo.addAnimal(new LandAnimal(species.getText().toString(),
         Integer.parseInt(landAreaRequired.getText().toString()), getSelectedPenTypes(),
         dangerous.isChecked()));
   }
 
+  // Utility method to create Animal
   private void createFlyingAnimal() {
     zoo.addAnimal(
         new FlyingAnimal.Builder()
@@ -119,6 +130,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
             .build());
   }
 
+  // Utility method to create Animal
   private void createSwimmingAnimal() {
     zoo.addAnimal(
         new SwimmingAnimal.Builder()
@@ -131,6 +143,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
             .build());
   }
 
+  // Utility method to read from water type checkboxes
   private Set<PenType> getSelectedPenTypes() {
     Set<PenType> penTypes = new HashSet<>();
     if (dryPenCheckbox.isChecked()) {
@@ -151,6 +164,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     return penTypes;
   }
 
+  // Utility method to read from water type checkboxes. Note, accommodates euryhaline animals
   private Set<WaterType> getSelectedWaterTypes() {
     Set<WaterType> waterTypes = new HashSet<>();
     if (freshWaterCheckbox.isChecked()) {
@@ -162,6 +176,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     return waterTypes;
   }
 
+  // On select Animal type listener. Hide / show relevant fields for different pens
   @Override
   public void onItemSelected(AdapterView<?> parent, View view,
       int pos, long id) {
@@ -185,6 +200,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     // Do nothing
   }
 
+  // Utility method to update view
   private void configureActivityForLandAnimal() {
     hideAndUnCheckBox(aquariumCheckBox);
     hideAndUnCheckBox(aviaryCheckbox);
@@ -198,6 +214,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
 
   }
 
+  // Utility method to update view
   private void configureActivityForFlyingAnimal() {
     hideAndUnCheckBox(aquariumCheckBox);
     hideAndUnCheckBox(dryPenCheckbox);
@@ -210,6 +227,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     airVolumeInput.setVisibility(View.VISIBLE);
   }
 
+  // Utility method to update view
   private void configureActivityForSwimmingAnimal() {
     hideAndUnCheckBox(aviaryCheckbox);
     hideAndUnCheckBox(dryPenCheckbox);
@@ -222,6 +240,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements OnItemSel
     airVolumeInput.setVisibility(View.GONE);
   }
 
+  // Utility method to hide and de-selected redundant checkboxes
   private void hideAndUnCheckBox(CheckBox checkbox) {
     checkbox.setVisibility(View.GONE);
     checkbox.setChecked(false);

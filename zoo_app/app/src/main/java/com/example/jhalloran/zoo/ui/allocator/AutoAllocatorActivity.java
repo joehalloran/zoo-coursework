@@ -1,14 +1,13 @@
 package com.example.jhalloran.zoo.ui.allocator;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ThemedSpinnerAdapter;
 import com.example.jhalloran.zoo.R;
 import com.example.jhalloran.zoo.allocator.AutoAllocatorHelper;
 import com.example.jhalloran.zoo.concurrent.ZooThreadPoolManager;
@@ -17,9 +16,12 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import java.util.concurrent.Callable;
-import org.w3c.dom.Text;
 
+/**
+ * Controller for auto-allocation layout.
+ */
 public class AutoAllocatorActivity extends AppCompatActivity {
+
   private static final String TAG = "AutoAllocateActivity";
   AutoAllocatorHelper helper = new AutoAllocatorHelper();
   ZooFileManager zooFileManager = new ZooFileManager(this);
@@ -36,13 +38,13 @@ public class AutoAllocatorActivity extends AppCompatActivity {
     ActionBar ab = getSupportActionBar();
     ab.setDisplayHomeAsUpEnabled(true);
 
+    // Initialize buttons and declare onClick listeners
     final Button allocateAnimalsButton = findViewById(R.id.allocateAnimalsButton);
     allocateAnimalsButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         autoAllocateAnimals();
       }
     });
-
     final Button allocatePensButton = findViewById(R.id.allocatePensButton);
     allocatePensButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
@@ -55,16 +57,19 @@ public class AutoAllocatorActivity extends AppCompatActivity {
     final TextView animalReportView = findViewById(R.id.allocatorAnimalReport);
     animalReportView.setVisibility(View.INVISIBLE);
 
-    ListenableFuture<String> animalAllocationFuture = ZooThreadPoolManager.getBackgroundThreadExecutor().submit(
-        new Callable<String>() {
-          @Override
-          public String call() throws Exception {
-            String animalReport = helper.autoAllocateAnimalsAndGetReport();
-            zooFileManager.writeZooToFile();
-            return animalReport;
-          }
-        });
+    // Run allocation to a background thread to allow parallel processing
+    ListenableFuture<String> animalAllocationFuture = ZooThreadPoolManager
+        .getBackgroundThreadExecutor().submit(
+            new Callable<String>() {
+              @Override
+              public String call() throws Exception {
+                String animalReport = helper.autoAllocateAnimalsAndGetReport();
+                zooFileManager.writeZooToFile();
+                return animalReport;
+              }
+            });
 
+    // Update view with allocation report on UI Thread
     Futures.addCallback(animalAllocationFuture, new FutureCallback<String>() {
           @Override
           public void onSuccess(String report) {
@@ -84,16 +89,19 @@ public class AutoAllocatorActivity extends AppCompatActivity {
     final TextView penReportView = findViewById(R.id.allocatorPenReport);
     penReportView.setVisibility(View.INVISIBLE);
 
-    ListenableFuture<String> penAllocationFuture = ZooThreadPoolManager.getBackgroundThreadExecutor().submit(
-        new Callable<String>() {
-          @Override
-          public String call() throws Exception {
-            String penReport = helper.autoAllocatePensAndGetReport();
-            zooFileManager.writeZooToFile();
-            return penReport;
-          }
-        });
+    // Run allocation to a background thread to allow parallel processing
+    ListenableFuture<String> penAllocationFuture = ZooThreadPoolManager
+        .getBackgroundThreadExecutor().submit(
+            new Callable<String>() {
+              @Override
+              public String call() throws Exception {
+                String penReport = helper.autoAllocatePensAndGetReport();
+                zooFileManager.writeZooToFile();
+                return penReport;
+              }
+            });
 
+    // Update view with allocation report on UI Thread
     Futures.addCallback(penAllocationFuture, new FutureCallback<String>() {
           @Override
           public void onSuccess(String report) {

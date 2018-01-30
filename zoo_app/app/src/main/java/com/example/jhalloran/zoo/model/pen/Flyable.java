@@ -1,10 +1,15 @@
 package com.example.jhalloran.zoo.model.pen;
 
-/**
- * Created by jhalloran on 1/9/18.
- */
+import com.example.jhalloran.zoo.model.animal.Flyer;
 
+/**
+ * Defines mixin API for {@link Enclosable} than can host {@link Flyer} animals
+ */
 public interface Flyable {
+
+  /**
+   * @return Air volume of this pen, metre cubed
+   */
   int getAirVolume();
 }
 

@@ -9,45 +9,65 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/9/18.
+ * A pen that can house swimming animals who live exclusively in water
  */
 public class AquariumPen extends AbstractPen implements Swimmable, Serializable {
+
   private static final int LAND_AREA = 0;
   private final WaterType waterType;
   private final int waterVolume;
   private Set<Animal> animals = new HashSet<>();
 
-  public AquariumPen(String name, WaterType waterType, int depth, int length, int width, int temperature) {
+  public AquariumPen(String name, WaterType waterType, int depth, int length, int width,
+      int temperature) {
     super(name, PenType.AQUARIUM, temperature, LAND_AREA);
     this.waterType = waterType;
     waterVolume = depth * length * width;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public WaterType getWaterType() {
     return waterType;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public int getWaterVolume() {
     return waterVolume;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public Set<Animal> getAnimals() {
     return animals;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean addAnimal(Animal animal) {
     return canLiveHere(animal) && animals.add(animal);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean removeAnimal(Animal animal) {
     return animals.remove(animal);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean canLiveHere(Animal animal) {
     if (!(animal instanceof Swimmer)) {

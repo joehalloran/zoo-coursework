@@ -7,9 +7,10 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/26/18.
+ * Superclass to be extended to create new types of pens
  */
 public abstract class AbstractPen implements Enclosable, Serializable {
+
   private final PenType type;
   private final String name;
   private final int temperature;
@@ -23,38 +24,71 @@ public abstract class AbstractPen implements Enclosable, Serializable {
     this.landArea = landArea;
   }
 
+  /**
+   * @inheritDoc
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * @inheritDoc
+   */
   public int getTemperature() {
     return temperature;
   }
 
+  /**
+   * @inheritDoc
+   */
   public int getLandArea() {
     return landArea;
   }
 
+  /**
+   * @inheritDoc
+   */
   public PenType getType() {
     return type;
   }
 
+  /**
+   * @inheritDoc
+   */
   public abstract Set<Animal> getAnimals();
 
+  /**
+   * @inheritDoc
+   */
   public abstract boolean addAnimal(Animal animal);
 
+  /**
+   * @inheritDoc
+   */
   public abstract boolean removeAnimal(Animal animal);
 
+  /**
+   * @inheritDoc
+   */
   public abstract boolean canLiveHere(Animal animal);
 
+  /**
+   * @inheritDoc
+   */
   public boolean isAssigned() {
     return (zookeeperAssignedTo != null);
   }
 
+  /**
+   * @inheritDoc
+   */
   public Zookeeper getAssignedToZookeeper() {
     return zookeeperAssignedTo;
   }
 
+  /**
+   * @inheritDoc
+   */
   public boolean assignToZookeeper(Zookeeper zookeeper) {
     if (zookeeper.addPen(this)) {
       if (isAssigned()) {
@@ -67,7 +101,7 @@ public abstract class AbstractPen implements Enclosable, Serializable {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return name;
   }
 }

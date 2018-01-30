@@ -10,9 +10,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/26/18.
+ * A pen that can house amphibious and semiaquatic animals
  */
 public class PartWaterPartDryPen implements Enclosable, Swimmable, Serializable {
+
   private static final PenType TYPE = PenType.PART_WATER_PART_DRY;
   private final DryPen landSection;
   private final AquariumPen waterSection;
@@ -24,52 +25,82 @@ public class PartWaterPartDryPen implements Enclosable, Swimmable, Serializable 
     this.waterSection = waterSection;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public String getName() {
     return landSection.getName();
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public PenType getType() {
     return TYPE;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public int getLandArea() {
     return landSection.getLandArea();
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public int getTemperature() {
     // Mean temperature of two sections
     return (landSection.getTemperature() + waterSection.getTemperature()) / 2;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public WaterType getWaterType() {
     return waterSection.getWaterType();
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public int getWaterVolume() {
     return waterSection.getWaterVolume();
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public Set<Animal> getAnimals() {
     return animals;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean removeAnimal(Animal animal) {
     return animals.remove(animal);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean addAnimal(Animal animal) {
     return canLiveHere(animal) && animals.add(animal);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public boolean canLiveHere(Animal animal) {
     if (!(animal instanceof Swimmer)) {
@@ -118,14 +149,23 @@ public class PartWaterPartDryPen implements Enclosable, Swimmable, Serializable 
     return areaCache;
   }
 
+  /**
+   * @inheritDoc
+   */
   public boolean isAssigned() {
     return (zookeeperAssignedTo != null);
   }
 
+  /**
+   * @inheritDoc
+   */
   public Zookeeper getAssignedToZookeeper() {
     return zookeeperAssignedTo;
   }
 
+  /**
+   * @inheritDoc
+   */
   public boolean assignToZookeeper(Zookeeper zookeeper) {
     if (zookeeper.addPen(this)) {
       if (isAssigned()) {
@@ -138,7 +178,7 @@ public class PartWaterPartDryPen implements Enclosable, Swimmable, Serializable 
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return getName();
   }
 }

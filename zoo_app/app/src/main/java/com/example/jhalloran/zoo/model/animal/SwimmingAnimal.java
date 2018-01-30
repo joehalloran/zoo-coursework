@@ -7,10 +7,10 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * Created by jhalloran on 1/8/18.
+ * An animal that can swim.
  */
-
 public class SwimmingAnimal extends AbstractAnimal implements Swimmer, Serializable {
+
   private final int waterVolumeRequire;
   private final Set<WaterType> waterTypes;
 
@@ -21,22 +21,29 @@ public class SwimmingAnimal extends AbstractAnimal implements Swimmer, Serializa
       int waterVolumeRequired,
       Set<WaterType> waterTypes,
       Set<PenType> penTypes) {
-    super(name, penTypes ,dangerous, landAreaRequired);
+    super(name, penTypes, dangerous, landAreaRequired);
     this.waterTypes = EnumSet.copyOf(waterTypes);
     this.waterVolumeRequire = waterVolumeRequired;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public Set<WaterType> getWaterTypes() {
     return waterTypes;
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public int getWaterVolumeRequired() {
     return waterVolumeRequire;
   }
 
   public static class Builder {
+
     private String name;
     private boolean dangerous;
     private Set<PenType> penTypes;
@@ -44,7 +51,8 @@ public class SwimmingAnimal extends AbstractAnimal implements Swimmer, Serializa
     private int waterVolumeRequired;
     private Set<WaterType> waterTypes;
 
-    public Builder() {}
+    public Builder() {
+    }
 
     public SwimmingAnimal.Builder setName(String name) {
       this.name = name;
