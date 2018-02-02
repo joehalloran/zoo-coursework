@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,10 +27,10 @@ public class Zoo implements Serializable {
   private static final String ZOO_NAME = "Tottenham Hale retail park zoo";
   private static Zoo instance = null;
 
-  private HashMap<UUID, Object> allItems = new HashMap<>();
-  private HashMap<UUID, Animal> idsToAnimals = new HashMap<>();
-  private HashMap<UUID, Zookeeper> idsToZookeepers = new HashMap<>();
-  private HashMap<UUID, Enclosable> idsToPens = new HashMap<>();
+  private Map<UUID, Object> allItems = new HashMap<>();
+  private Map<UUID, Animal> idsToAnimals = new HashMap<>();
+  private Map<UUID, Zookeeper> idsToZookeepers = new HashMap<>();
+  private Map<UUID, Enclosable> idsToPens = new HashMap<>();
 
   // Private constructor to suppress multiple instantiation. Singleton.
   private Zoo() {
@@ -49,7 +50,7 @@ public class Zoo implements Serializable {
   /**
    * Initializes Zoo from a pre-existing instance, e.g. A zoo saved from file.
    *
-   * @param zoo The pre-existing zoo to instantiate.
+   * @param zoo The pre-existing zoo to initialize.
    */
   public static void initializeZoo(Zoo zoo) {
     instance = zoo;
@@ -175,36 +176,24 @@ public class Zoo implements Serializable {
   }
 
   private void setUpZoo() {
-    addAnimal(new LandAnimal("Rhino", 20, EnumSet.of(PenType.DRY), false));
-    addAnimal(new LandAnimal("Zebra", 40, EnumSet.of(PenType.DRY, PenType.PETTING), false));
-    addAnimal(new FlyingAnimal("Eagle", false, 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Cod", false, 0, 500, EnumSet.of(WaterType.SALT),
+    addAnimal(new LandAnimal("Sloth", 2, EnumSet.of(PenType.DRY), false));
+    addAnimal(new LandAnimal("Goat", 3, EnumSet.of(PenType.DRY, PenType.PETTING), false));
+    addAnimal(new LandAnimal("Dog", 4, EnumSet.of(PenType.DRY, PenType.PETTING), false));
+    addAnimal(new FlyingAnimal("Owl", false, 0, 20, EnumSet.of(PenType.AVIARY)));
+    addAnimal(new SwimmingAnimal("Dolphin", false, 0, 40, EnumSet.of(WaterType.SALT),
         EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Shark", true, 0, 1000, EnumSet.of(WaterType.SALT),
-        EnumSet.of(PenType.AQUARIUM)));
-
-    addAnimal(new LandAnimal("Cheetah", 20, EnumSet.of(PenType.DRY), true));
-    addAnimal(new LandAnimal("Springbok", 40, EnumSet.of(PenType.DRY, PenType.PETTING), false));
-    addAnimal(new FlyingAnimal("Hawk", false, 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Haddock", false, 0, 500, EnumSet.of(WaterType.SALT),
-        EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Tuna", false, 0, 1000, EnumSet.of(WaterType.SALT),
-        EnumSet.of(PenType.AQUARIUM)));
-
-    addAnimal(new LandAnimal("Lion", 20, EnumSet.of(PenType.DRY), true));
-    addAnimal(new LandAnimal("Moose", 40, EnumSet.of(PenType.DRY, PenType.PETTING), false));
-    addAnimal(new FlyingAnimal("Sparrow", false, 40, 400, EnumSet.of(PenType.AVIARY)));
-    addAnimal(new SwimmingAnimal("Hake", false, 0, 500, EnumSet.of(WaterType.SALT),
-        EnumSet.of(PenType.AQUARIUM)));
-    addAnimal(new SwimmingAnimal("Dolphin", false, 0, 1000, EnumSet.of(WaterType.SALT),
-        EnumSet.of(PenType.AQUARIUM)));
+    addAnimal(new SwimmingAnimal("Penguin", false, 2, 4, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.PART_WATER_PART_DRY)));
+    addAnimal(new SwimmingAnimal("Hippo", false, 10, 20, EnumSet.of(WaterType.SALT),
+        EnumSet.of(PenType.PART_WATER_PART_DRY)));
 
     addPen(new DryPen("Dry Pen", 10, 10, 21));
     addPen(new AviaryPen("Aviary", 50, 100, 30, 21));
     addPen(new AquariumPen("Aquarium", WaterType.SALT, 10, 10, 10, 17));
     addPen(new AquariumPen("Big Aquarium", WaterType.SALT, 30, 10, 10, 17));
 
-    addZookeeper(new Zookeeper("Joe", EnumSet.of(PenType.DRY, PenType.AQUARIUM)));
-    addZookeeper(new Zookeeper("James", EnumSet.of(PenType.DRY)));
+    addZookeeper(new Zookeeper("Alex", EnumSet.of(PenType.PART_WATER_PART_DRY, PenType.AQUARIUM)));
+    addZookeeper(new Zookeeper("Hardip", EnumSet.of(PenType.DRY)));
+    addZookeeper(new Zookeeper("Farhad", EnumSet.of(PenType.AVIARY)));
   }
 }
