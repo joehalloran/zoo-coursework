@@ -1,3 +1,4 @@
+**jhalloran.zoo.model.Zoo**
 
 ```java
 package com.example.jhalloran.zoo.model;
@@ -201,6 +202,7 @@ public class Zoo implements Serializable {
 }
 ```
 
+**jhalloran.zoo.model.ZooTest**
 
 ```java
 package com.example.jhalloran.zoo.model;
