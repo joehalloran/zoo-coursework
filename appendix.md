@@ -2215,7 +2215,7 @@ public class PettingPen extends DryPen implements Serializable {
 **jhalloran.zoo.model.pen.PettingPenTest**
 
 
-```
+```java
 package com.example.jhalloran.zoo.model.pen;
 
 import static junit.framework.Assert.assertEquals;
